@@ -41,7 +41,7 @@ public class Sintaxis {
 
 		char c = '\n'; // 'g'; \n, \t, \r...
 
-		boolean bl = true;
+		boolean bl = false;
 
 		b = 127;
 		System.out.println(b);
@@ -134,6 +134,10 @@ public class Sintaxis {
 			System.out.println(arr[indice]);
 		}
 
+		for (int dato : arr) {
+			System.out.println(dato);
+		}
+
 		char[][] tablero = new char[8][8];
 
 		tablero[0][0] = 't';
@@ -191,28 +195,92 @@ public class Sintaxis {
 		System.out.println(6 & 3); // 110 & 011 = 010
 		System.out.println(6 | 3); // 110 | 011 = 111
 		System.out.println(6 ^ 3); // 110 ^ 011 = 101
-		System.out.println(~6);    //~00000110 = 11111001
-		
+		System.out.println(~6); // ~00000110 = 11111001
+
 		System.out.println(-40 >>> 3); // 00101000 >> 3 = 00000101
-		System.out.println(-40 >> 3);  // 00101000 >> 3 = 00000101
-		System.out.println(-10 << 3);  // 00001010 << 3 = 01010000
-		
+		System.out.println(-40 >> 3); // 00101000 >> 3 = 00000101
+		System.out.println(-10 << 3); // 00001010 << 3 = 01010000
+
 		int y, z;
 		System.out.println(y = z = 3);
-		
+
 		System.out.println(y++);
 		System.out.println(++z);
-		
+
 		int a = 5, mayor;
 		b = 20;
-		
+
 		mayor = a > b ? a : b;
-		
+
 		System.out.println(mayor);
-		
-		boolean encendido = true;
-		
-		System.out.println(encendido ? "Encendido" : "Apagado");
+
+		boolean estaEncendido = true;
+
+		System.out.println(estaEncendido ? "Encendido" : "Apagado");
+
+		// Sentencias de control
+
+		if (estaEncendido) {
+			System.out.println("Encendido");
+		} else {
+			System.out.println("Apagado");
+		}
+
+		int opcion = 2;
+
+		switch (opcion) {
+		case 1:
+			System.out.println("Opción 1");
+			break;
+		case 2:
+			System.out.println("Opción 2");
+			break;
+		case 3:
+			System.out.println("Opción 3");
+			break;
+		default:
+			System.out.println("Opción desconocida");
+		}
+
+		int dias, mes = 2;
+
+		switch (mes) { // Se puede hacer con String en Java >= 7
+		case 2:
+			dias = 28;
+			break;
+		case 4:
+		case 6:
+		case 9:
+		case 11:
+			dias = 30;
+			break;
+		default:
+			dias = 31;
+		}
+
+		System.out.println("El mes " + mes + " tiene " + dias + " días");
+
+		int cont = 0;
+
+		while (cont < 10) {
+			System.out.println(++cont);
+		}
+
+		cont = 0;
+
+		do {
+			System.out.println(++cont);
+		} while (cont < 10);
+
+		for (int contador = 1; contador <= 10; contador++) {
+			System.out.println(contador);
+		}
+
+//		int contador = 1;
+//		while(contador <= 10) {
+//			System.out.println(contador);
+//			contador++;
+//		}
 	}
 
 }
