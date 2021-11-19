@@ -4,9 +4,11 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TreeMap;
 
 /**
  * Clase para demostrar la sintaxis básica de Java
@@ -40,6 +42,15 @@ public class Sintaxis {
 		char c = '\n'; // 'g'; \n, \t, \r...
 
 		boolean bl = true;
+		
+		b = 127;
+		System.out.println(b);
+		b++;
+		System.out.println(b);
+		
+//		for(b = 1; b < 300; b++) {
+//			System.out.println(b);
+//		}
 
 		// TIPOS REFERENCIA
 
@@ -105,7 +116,68 @@ public class Sintaxis {
 		ldt =  LocalDateTime.parse(fechaTexto, dtf);
 		System.out.println(ldt);
 		
+		// Arrays ó Arreglos
+		// Conjunto de elementos de tamaño predefinido
+		// El objeto de tipo array NUNCA cambia de tamaño una vez establecido
+		// Es INMUTABLE (el objeto de array en cuanto a tamaño, no su contenido)
+		// Todos los elementos son contiguos
+		int tam = 2;
+		int[] arr = new int[tam];
 		
+		arr[0] = 7;
+		arr[1] = 5;
+		// arr[2] = 8; //
+		
+		// arr.length = 6; //
+		
+		for(int indice = 0; indice < arr.length; indice++) {
+			System.out.println(arr[indice]);
+		}
+		
+		char[][] tablero = new char[8][8];
+		
+		tablero[0][0] = 't';
+		tablero[0][1] = 'c';
+		tablero[1][0] = 'p';
+		
+		tablero[6][0] = 'P';
+		tablero[6][1] = 'P';
+		tablero[7][0] = 'T';
+		
+		for(int x = 0; x < tablero.length; x++) {
+			for (int y = 0; y < tablero[x].length; y++) {
+				if(tablero[x][y] == '\0') {
+					System.out.print('.');
+				} else {
+					System.out.print(tablero[x][y]);
+				}
+			}
+			System.out.println();
+		}
+		
+		// Colecciones (mutables)
+		// Java 5 <Tipo>
+		// Java 8 <>
+		// Java 5 for
+		
+		ArrayList<Integer> al = new ArrayList<>();
+		
+		al.add(5);
+		al.add(7);
+		al.add(10);
+		
+		for(Integer dato: al) {
+			System.out.println(dato);
+		}
+		
+		System.out.println(al.get(1));
+		
+		TreeMap<String, String> diccionario = new TreeMap<>();
+		
+		diccionario.put("casa", "house");
+		diccionario.put("coche", "car");
+		
+		System.out.println(diccionario.get("coche"));
 	}
 
 }
