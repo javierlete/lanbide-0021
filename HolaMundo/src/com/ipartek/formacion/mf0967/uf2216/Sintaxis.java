@@ -1,5 +1,13 @@
 package com.ipartek.formacion.mf0967.uf2216;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+
 /**
  * Clase para demostrar la sintaxis básica de Java
  * 
@@ -12,7 +20,7 @@ public class Sintaxis {
 	 * 
 	 * @param args argumentos recibidos por consola
 	 */
-	@SuppressWarnings("unused")
+	@SuppressWarnings({ "unused", "deprecation" })
 	public static void main(String[] args) {
 		// Comentario de línea
 
@@ -76,8 +84,27 @@ public class Sintaxis {
 		texto = String.valueOf(enteroPrimitivo);
 		
 		Integer enteroEncapsulado = 5;
-		
 		texto = enteroEncapsulado.toString();
+		
+		// Fechas
+		// Java 1.0
+		Date fecha10 = new Date(); //new Date(2021 - 1900, 11 - 1, 19, 20, 29, 00);
+		System.out.println(fecha10.toLocaleString());
+		
+		// Java 1.1
+		Calendar cal = new GregorianCalendar();
+		DateFormat formato = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		System.out.println(formato.format(cal.getTime()));
+		
+		// Java 1.8 (java.time)
+		LocalDateTime ldt = LocalDateTime.now();
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+		System.out.println(ldt.format(dtf));
+		
+		String fechaTexto = "18-12-2020 17:18:19";
+		ldt =  LocalDateTime.parse(fechaTexto, dtf);
+		System.out.println(ldt);
+		
 		
 	}
 
