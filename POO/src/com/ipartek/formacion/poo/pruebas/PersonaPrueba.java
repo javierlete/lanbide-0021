@@ -2,6 +2,7 @@ package com.ipartek.formacion.poo.pruebas;
 
 import java.util.Scanner;
 
+import com.ipartek.formacion.poo.entidades.Dni;
 import com.ipartek.formacion.poo.entidades.Persona;
 
 public class PersonaPrueba {
@@ -42,6 +43,14 @@ public class PersonaPrueba {
 		System.out.println("ORIGINAL: " + p2.aTexto());
 		System.out.println("COPIA: " + copia.aTexto());
 
+		Persona personaConDni = new Persona(3L, "Dni Dniez", new Dni("12345678Z"));
+		
+		System.out.println(personaConDni.aTexto());
+		
+		System.out.println(personaConDni.getDni().getNumero());
+		System.out.println(personaConDni.getDni().getLetra());
+		System.out.println(personaConDni.getDni().getNumero().charAt(0));
+		
 		sc.close();
 	}
 
