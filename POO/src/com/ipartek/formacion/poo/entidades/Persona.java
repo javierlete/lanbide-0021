@@ -1,5 +1,7 @@
 package com.ipartek.formacion.poo.entidades;
 
+import java.util.Objects;
+
 public class Persona {
 	// Constantes
 	private static final Long ID_MINIMO = 0L;
@@ -78,4 +80,27 @@ public class Persona {
 		this.dni = dni;
 	}
 
+	@Override
+	public int hashCode() {
+		return Objects.hash(dni, id, nombre);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		return Objects.equals(dni, other.dni) && Objects.equals(id, other.id) && Objects.equals(nombre, other.nombre);
+	}
+
+	@Override
+	public String toString() {
+		return "Persona [id=" + id + ", nombre=" + nombre + ", dni=" + dni + "]";
+	}
+
+	
 }

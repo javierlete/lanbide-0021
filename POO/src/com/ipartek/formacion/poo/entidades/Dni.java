@@ -1,5 +1,7 @@
 package com.ipartek.formacion.poo.entidades;
 
+import java.util.Objects;
+
 public class Dni {
 	private static final String LETRAS = "TRWAGMYFPDXBNJZSQVHLCKE";
 	private static final String REGEX_NUMERO = "^[XYZ\\d]\\d{7}$";
@@ -50,5 +52,27 @@ public class Dni {
 		}
 		
 		setNumero(numero);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(numero);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Dni other = (Dni) obj;
+		return Objects.equals(numero, other.numero);
+	}
+
+	@Override
+	public String toString() {
+		return "Dni [numero=" + numero + "]";
 	}
 }
