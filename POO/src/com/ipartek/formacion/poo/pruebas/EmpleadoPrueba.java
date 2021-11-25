@@ -1,14 +1,18 @@
 package com.ipartek.formacion.poo.pruebas;
 
+import java.math.BigDecimal;
+
 import com.ipartek.formacion.poo.entidades.Dni;
 import com.ipartek.formacion.poo.entidades.Empleado;
+import com.ipartek.formacion.poo.entidades.EmpleadoIndefinido;
+import com.ipartek.formacion.poo.entidades.EmpleadoPorHoras;
 import com.ipartek.formacion.poo.entidades.Local;
 import com.ipartek.formacion.poo.entidades.Persona;
 
 public class EmpleadoPrueba {
 
 	public static void main(String[] args) {
-		Empleado empleado = new Empleado(2L, "Pepe", new Dni("12345678Z"), "192387469817235");
+		Empleado empleado = new EmpleadoIndefinido(2L, "Pepe", new Dni("12345678Z"), "192387469817235", new BigDecimal(20000), 14);
 		
 		System.out.println(empleado.aTexto());
 		
@@ -58,14 +62,32 @@ public class EmpleadoPrueba {
 		
 		System.out.println(o);
 		
-		Empleado e1 = new Empleado(1L, "Javier", new Dni("12345678Z"), "12345");
-		Empleado e2 = new Empleado(1L, "Javier", new Dni("12345678Z"), "12345");
+		Empleado e1 = new EmpleadoPorHoras(1L, "Javier", new Dni("12345678Z"), "12345", new BigDecimal(10), 40);
+		Empleado e2 = new EmpleadoPorHoras(1L, "Javier", new Dni("12345678Z"), "12345", new BigDecimal(10), 40);
 		
 		System.out.println(e1 == e2);
 		System.out.println(e1.equals(e2));
 		
 		System.out.println(e1);
 		System.out.println(e2);
+		
+		local = new Local("Ipartek", "Dirección");
+		
+		local.agregarPersona(empleado);
+		local.agregarPersona(e2);
+		
+		BigDecimal totalNominasMensuales = BigDecimal.ZERO; //.setScale(0, RoundingMode.HALF_EVEN);
+		
+		for(Persona p: local.getPersonas()) {
+			System.out.println(p);
+			
+			if(p instanceof Empleado) {
+				Empleado e = (Empleado)p;
+				totalNominasMensuales = totalNominasMensuales.add(e.getSueldoMensual());
+			}
+		}
+		
+		System.out.println(totalNominasMensuales);
 	}
 
 }

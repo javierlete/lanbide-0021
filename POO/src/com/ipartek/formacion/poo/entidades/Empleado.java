@@ -1,8 +1,9 @@
 package com.ipartek.formacion.poo.entidades;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Empleado extends Persona {
+public abstract class Empleado extends Persona {
 	private String numeroSeguridadSocial;
 
 	public Empleado(Long id, String nombre, Dni dni, String numeroSeguridadSocial) {
@@ -10,6 +11,8 @@ public class Empleado extends Persona {
 		setNumeroSeguridadSocial(numeroSeguridadSocial);
 	}
 
+	public abstract BigDecimal getSueldoMensual();
+	
 	@Override
 	public void setDni(Dni dni) {
 		if(dni == null) {
@@ -53,7 +56,8 @@ public class Empleado extends Persona {
 
 	@Override
 	public String toString() {
-		return "Empleado [numeroSeguridadSocial=" + numeroSeguridadSocial + ", toString()=" + super.toString() + "]";
+		return "Empleado [numeroSeguridadSocial=" + numeroSeguridadSocial + ", getSueldoMensual()=" + getSueldoMensual()
+				+ ", toString()=" + super.toString() + "]";
 	}
 	
 	
