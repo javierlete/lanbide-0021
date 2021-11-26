@@ -56,7 +56,7 @@ public class Persona {
 
 	public void setId(Long id) {
 		if (id < ID_MINIMO) {
-			throw new RuntimeException("No se admiten valores menores que 0");
+			throw new EntidadesException("No se admiten valores menores que 0");
 		}
 		this.id = id;
 	}
@@ -67,7 +67,7 @@ public class Persona {
 
 	public void setNombre(String nombre) {
 		if (nombre == null || nombre.trim().length() == 0) {
-			throw new RuntimeException("No se admiten nombres vacíos o nulos");
+			throw new EntidadesException("No se admiten nombres vacíos o nulos");
 		}
 		this.nombre = nombre;
 	}
