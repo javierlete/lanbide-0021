@@ -1,8 +1,12 @@
 package com.ipartek.formacion.poo.entidades;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Dni {
+public class Dni implements Serializable {
+	
+	private static final long serialVersionUID = -1881832278459821439L;
+	
 	private static final String LETRAS = "TRWAGMYFPDXBNJZSQVHLCKE";
 	private static final String REGEX_NUMERO = "^[XYZ\\d]\\d{7}$";
 	private static final String REGEX_DNI = "^[XYZ\\d]\\d{7}[TRWAGMYFPDXBNJZSQVHLCKE]$";

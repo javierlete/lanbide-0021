@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public class EmpleadoPorHoras extends Empleado {
+
+	private static final long serialVersionUID = 4874255501092760143L;
+
 	private BigDecimal precioHora;
 	private int numeroHorasMensuales;
 	

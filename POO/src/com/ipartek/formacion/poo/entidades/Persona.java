@@ -1,8 +1,11 @@
 package com.ipartek.formacion.poo.entidades;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Persona {
+public class Persona implements Serializable {
+
+	private static final long serialVersionUID = -3362289177824475180L;
 	// Constantes
 	private static final Long ID_MINIMO = 0L;
 	private static final Long ID_POR_DEFECTO = 0L;

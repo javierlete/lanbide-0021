@@ -1,10 +1,14 @@
 package com.ipartek.formacion.poo.entidades;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class Local {
+public class Local implements Serializable {
+
+	private static final long serialVersionUID = -4309803955819589903L;
+	
 	private Long id;
 	private String nombre;
 	private String direccion;

@@ -4,6 +4,9 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 public abstract class Empleado extends Persona {
+
+	private static final long serialVersionUID = -839819615556057077L;
+	
 	private String numeroSeguridadSocial;
 
 	public Empleado(Long id, String nombre, Dni dni, String numeroSeguridadSocial) {

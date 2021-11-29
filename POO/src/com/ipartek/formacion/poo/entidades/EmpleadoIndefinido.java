@@ -5,6 +5,9 @@ import java.math.RoundingMode;
 import java.util.Objects;
 
 public class EmpleadoIndefinido extends Empleado {
+
+	private static final long serialVersionUID = -8095317568106405813L;
+	
 	private BigDecimal sueldoAnual;
 	private int numeroPagas;
 
