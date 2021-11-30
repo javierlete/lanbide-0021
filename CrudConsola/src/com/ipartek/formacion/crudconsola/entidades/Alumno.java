@@ -35,7 +35,7 @@ public class Alumno {
 		
 		nombre = nombre.trim();
 		
-		if(!nombre.matches("\\p{L}{5,50}")) {
+		if(!nombre.matches("[\\p{L} ]{5,50}")) {
 			throw new EntidadesException("El nombre debe tener de 5 a 50 caracteres");
 		}
 		
