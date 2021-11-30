@@ -1,12 +1,6 @@
 package com.ipartek.formacion.crudconsola.presentacion;
 
-import static com.ipartek.formacion.crudconsola.bibliotecas.Consola.leerInt;
-import static com.ipartek.formacion.crudconsola.bibliotecas.Consola.leerLocalDate;
-import static com.ipartek.formacion.crudconsola.bibliotecas.Consola.leerLong;
-import static com.ipartek.formacion.crudconsola.bibliotecas.Consola.leerDouble;
-import static com.ipartek.formacion.crudconsola.bibliotecas.Consola.leerString;
-import static com.ipartek.formacion.crudconsola.bibliotecas.Consola.p;
-import static com.ipartek.formacion.crudconsola.bibliotecas.Consola.pl;
+import static com.ipartek.formacion.crudconsola.bibliotecas.Consola.*;
 
 import java.time.LocalDate;
 
