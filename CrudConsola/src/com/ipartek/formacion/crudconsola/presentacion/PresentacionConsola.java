@@ -34,6 +34,7 @@ public class PresentacionConsola {
 		pl("3. Insertar");
 		pl("4. Modificar");
 		pl("5. Borrar");
+		pl("6. Buscar por nombre");
 		pl("0. SALIR");
 	}
 
@@ -59,11 +60,22 @@ public class PresentacionConsola {
 		case 5:
 			borrar();
 			break;
+		case 6:
+			buscarPorNombre();
+			break;
 		case 0:
 			pl("Se ha seleccionado salir");
 			break;
 		default:
 			el("Opción no reconocida");
+		}
+	}
+
+	private static void buscarPorNombre() {
+		String nombre = leerString("Introduce el patrón de nombre a buscar");
+		
+		for (Alumno alumno : dao.buscarPorNombre(nombre)) {
+			mostrar(alumno);
 		}
 	}
 
