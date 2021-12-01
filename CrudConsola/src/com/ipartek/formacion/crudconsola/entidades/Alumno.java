@@ -8,12 +8,15 @@ public class Alumno {
 	private String nombre;
 	private LocalDate fechaNacimiento;
 	private Double notaMedia;
-	
+
 	public Alumno(Long id, String nombre, LocalDate fechaNacimiento, Double notaMedia) {
 		setId(id);
 		setNombre(nombre);
 		setFechaNacimiento(fechaNacimiento);
 		setNotaMedia(notaMedia);
+	}
+
+	public Alumno() {
 	}
 
 	public Long getId() {
@@ -29,16 +32,16 @@ public class Alumno {
 	}
 
 	public void setNombre(String nombre) {
-		if(nombre == null) {
+		if (nombre == null) {
 			throw new EntidadesException("No se admiten nombres nulos");
 		}
-		
+
 		nombre = nombre.trim();
-		
-		if(!nombre.matches("[\\p{L} ]{5,50}")) {
+
+		if (!nombre.matches("[\\p{L} ]{5,50}")) {
 			throw new EntidadesException("El nombre debe tener de 5 a 50 caracteres");
 		}
-		
+
 		this.nombre = nombre;
 	}
 
@@ -47,14 +50,14 @@ public class Alumno {
 	}
 
 	public void setFechaNacimiento(LocalDate fechaNacimiento) {
-		if(fechaNacimiento == null) {
+		if (fechaNacimiento == null) {
 			throw new EntidadesException("La fecha de nacimiento es obligatoria");
 		}
-		
-		if(fechaNacimiento.isAfter(LocalDate.now())) {
+
+		if (fechaNacimiento.isAfter(LocalDate.now())) {
 			throw new EntidadesException("No se aceptan viajeros del futuro");
 		}
-		
+
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
@@ -89,6 +92,5 @@ public class Alumno {
 		return "Alumno [id=" + id + ", nombre=" + nombre + ", fechaNacimiento=" + fechaNacimiento + ", notaMedia="
 				+ notaMedia + "]";
 	}
-	
-	
+
 }

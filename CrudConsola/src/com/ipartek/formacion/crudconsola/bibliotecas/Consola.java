@@ -15,24 +15,80 @@ public class Consola {
 		System.out.print(objeto);
 	}
 	
+	public static void el(Object objeto) {
+		System.out.println("* " + objeto + " *");
+	}
+	
 	public static String leerString(String mensaje) {
 		p(mensaje + ": ");
 		return sc.nextLine();
 	}
 	
 	public static Long leerLong(String mensaje) {
-		return Long.parseLong(leerString(mensaje));
+		Long entero = null;
+		
+		boolean esCorrecto = false;
+		
+		do {
+			try {
+				entero = Long.parseLong(leerString(mensaje));
+				esCorrecto = true;
+			} catch (NumberFormatException e) {
+				el("Introduce un número entero");
+			}
+		} while(!esCorrecto);
+		
+		return entero;
 	}
 	
 	public static Integer leerInt(String mensaje) {
-		return Integer.parseInt(leerString(mensaje));
+		Integer entero = null;
+		
+		boolean esCorrecto = false;
+		
+		do {
+			try {
+				entero = Integer.parseInt(leerString(mensaje));
+				esCorrecto = true;
+			} catch (NumberFormatException e) {
+				el("Introduce un número entero");
+			}
+		} while(!esCorrecto);
+		
+		return entero;
 	}
 	
 	public static Double leerDouble(String mensaje) {
-		return Double.parseDouble(leerString(mensaje));
+		Double doble = null;
+		
+		boolean esCorrecto = false;
+		
+		do {
+			try {
+				doble = Double.parseDouble(leerString(mensaje));
+				esCorrecto = true;
+			} catch (NumberFormatException e) {
+				el("Introduce un número decimal");
+			}
+		} while(!esCorrecto);
+		
+		return doble;
 	}
 	
 	public static LocalDate leerLocalDate(String mensaje) {
-		return LocalDate.parse(leerString(mensaje + " (aaaa-mm-dd)"), DateTimeFormatter.ISO_DATE);
+		LocalDate fecha = null;
+		
+		boolean esCorrecto = false;
+		
+		do {
+			try {
+				fecha = LocalDate.parse(leerString(mensaje + " (aaaa-mm-dd)"), DateTimeFormatter.ISO_DATE);
+				esCorrecto = true;
+			} catch (Exception e) {
+				el("El formato para la fecha debe ser aaaa-mm-dd");
+			}
+		} while(!esCorrecto);
+		
+		return fecha;
 	}
 }

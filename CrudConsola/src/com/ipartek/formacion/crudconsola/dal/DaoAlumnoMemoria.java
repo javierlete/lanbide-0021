@@ -44,12 +44,18 @@ public class DaoAlumnoMemoria implements DaoAlumno {
 
 	@Override
 	public Alumno modificar(Alumno alumno) {
+		if(!alumnos.containsKey(alumno.getId())) {
+			throw new DalException("No se ha encontrado ese id para modificar");
+		}
 		alumnos.put(alumno.getId(), alumno);
 		return alumno;
 	}
 
 	@Override
 	public void borrar(Long id) {
+		if(!alumnos.containsKey(id)) {
+			throw new DalException("No se ha encontrado ese id para borrar");
+		}
 		alumnos.remove(id);
 	}
 

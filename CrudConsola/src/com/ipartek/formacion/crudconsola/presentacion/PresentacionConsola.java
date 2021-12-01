@@ -2,16 +2,16 @@ package com.ipartek.formacion.crudconsola.presentacion;
 
 import static com.ipartek.formacion.crudconsola.bibliotecas.Consola.*;
 
-import java.time.LocalDate;
-
+import com.ipartek.formacion.crudconsola.dal.DalException;
 import com.ipartek.formacion.crudconsola.dal.DaoAlumno;
 import com.ipartek.formacion.crudconsola.dal.DaoAlumnoMemoria;
 import com.ipartek.formacion.crudconsola.entidades.Alumno;
+import com.ipartek.formacion.crudconsola.entidades.EntidadesException;
 
 public class PresentacionConsola {
 
 	private static final int SALIR = 0;
-	
+
 	private static final DaoAlumno dao = DaoAlumnoMemoria.obtenerInstancia();
 
 	public static void main(String[] args) {
@@ -38,6 +38,7 @@ public class PresentacionConsola {
 	}
 
 	private static int pedirOpcion() {
+		pl("");
 		return leerInt("Dime la opción deseada");
 	}
 
@@ -62,17 +63,22 @@ public class PresentacionConsola {
 			pl("Se ha seleccionado salir");
 			break;
 		default:
-			pl("Opción no reconocida");
+			el("Opción no reconocida");
 		}
 	}
 
 	private static void listarTodos() {
-		for(Alumno alumno: dao.obtenerTodos()) {
+		for (Alumno alumno : dao.obtenerTodos()) {
 			mostrar(alumno);
 		}
 	}
 
 	private static void mostrar(Alumno alumno) {
+		if (alumno == null) {
+			el("No se ha encontrado el alumno");
+			return;
+		}
+
 		p("Id: ");
 		pl(alumno.getId());
 		p("Nombre: ");
@@ -86,35 +92,71 @@ public class PresentacionConsola {
 
 	private static void obtenerPorId() {
 		Long id = leerLong("Dime el id que buscas");
-		
+
 		mostrar(dao.obtenerPorId(id));
 	}
 
 	private static void insertar() {
-		String nombre = leerString("Nombre");
-		LocalDate fechaNacimiento = leerLocalDate("Fecha de nacimiento");
-		Double notaMedia = leerDouble("Nota media");
-		
-		Alumno alumno = new Alumno(null, nombre, fechaNacimiento, notaMedia);
-		
+		Alumno alumno = new Alumno();
+
+		leerNombre(alumno);
+		leerFechaNacimiento(alumno);
+		alumno.setNotaMedia(leerDouble("Nota media"));
+
 		mostrar(dao.insertar(alumno));
 	}
 
 	private static void modificar() {
-		Long id = leerLong("Id");
-		String nombre = leerString("Nombre");
-		LocalDate fechaNacimiento = leerLocalDate("Fecha de nacimiento");
-		Double notaMedia = leerDouble("Nota media");
-		
-		Alumno alumno = new Alumno(id, nombre, fechaNacimiento, notaMedia);
-		
-		mostrar(dao.modificar(alumno));
+		try {
+			Alumno alumno = new Alumno();
+			
+			alumno.setId(leerLong("Id"));
+			leerNombre(alumno);
+			leerFechaNacimiento(alumno);
+			alumno.setNotaMedia(leerDouble("Nota media"));
+
+			mostrar(dao.modificar(alumno));
+		} catch (DalException e) {
+			el("No se ha podido hacer la operación: " + e.getMessage());
+		}
 	}
 
 	private static void borrar() {
-		Long id = leerLong("Dime el id que quieres borrar");
-		
-		dao.borrar(id);
+		try {
+			Long id = leerLong("Dime el id que quieres borrar");
+
+			dao.borrar(id);
+		} catch (DalException e) {
+			el("No se ha podido hacer la operación: " + e.getMessage());
+		}
 	}
 
+	private static void leerFechaNacimiento(Alumno alumno) {
+		boolean esCorrecto = false;
+
+		do {
+			try {
+				alumno.setFechaNacimiento(leerLocalDate("Fecha de nacimiento"));
+				esCorrecto = true;
+			} catch (EntidadesException e) {
+				el("La fecha de nacimiento no es correcta: " + e.getMessage());
+			}
+		} while (!esCorrecto);
+		
+	}
+
+	private static void leerNombre(Alumno alumno) {
+		boolean esCorrecto = false;
+
+		do {
+			try {
+				alumno.setNombre(leerString("Nombre"));
+				esCorrecto = true;
+			} catch (EntidadesException e) {
+				el("El nombre no es correcto: " + e.getMessage());
+			}
+		} while (!esCorrecto);
+	}
+
+	
 }
