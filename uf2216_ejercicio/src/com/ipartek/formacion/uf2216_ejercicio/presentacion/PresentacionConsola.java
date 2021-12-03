@@ -37,10 +37,11 @@ public class PresentacionConsola {
 	private static void nuevoLibro() {
 		Libro libro = new Libro();
 
-		leerTitulo(libro);
-		leerIsbn(libro);
-		leerNumeroPaginas(libro);
-		leerFormato(libro);
+		// leerTitulo(libro);
+		validarPropiedad(() -> libro.setTitulo(leerString("Título")));
+		validarPropiedad(() -> libro.setIsbn(leerString("ISBN")));
+		validarPropiedad(() -> libro.setNumeroPaginas(leerInt("Número de páginas")));
+		libro.setFormato(leerString("Formato (digital/PAPEL)").equalsIgnoreCase("digital"));
 
 		mostrarLibro(libro);
 
@@ -50,42 +51,12 @@ public class PresentacionConsola {
 
 	}
 
-	private static void leerFormato(Libro libro) {
-		libro.setFormato(leerString("Formato (digital/PAPEL)").equalsIgnoreCase("digital"));
-	}
-
-	private static void leerTitulo(Libro libro) {
+	private static void validarPropiedad(Runnable asignacion) {
 		boolean esCorrecto = false;
 
 		do {
 			try {
-				libro.setTitulo(leerString("Título"));
-				esCorrecto = true;
-			} catch (Exception e) {
-				el(e.getMessage());
-			}
-		} while (!esCorrecto);
-	}
-
-	private static void leerIsbn(Libro libro) {
-		boolean esCorrecto = false;
-
-		do {
-			try {
-				libro.setIsbn(leerString("ISBN"));
-				esCorrecto = true;
-			} catch (Exception e) {
-				el(e.getMessage());
-			}
-		} while (!esCorrecto);
-	}
-
-	private static void leerNumeroPaginas(Libro libro) {
-		boolean esCorrecto = false;
-
-		do {
-			try {
-				libro.setNumeroPaginas(leerInt("Número de páginas"));
+				asignacion.run();
 				esCorrecto = true;
 			} catch (Exception e) {
 				el(e.getMessage());
