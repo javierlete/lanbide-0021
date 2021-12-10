@@ -1,0 +1,193 @@
+:root {
+  --color-tinta: black;
+  --color-enlace: #0074d9;
+  --color-fondo-principal: white;
+  --color-tinta-titulo: white;
+  --color-fondo-titulo: black;
+  --color-fondo-menu: #eeeeee;
+  --color-borde-menu: #cccccc;
+
+  --margen-general: 1rem;
+  --margen-pequeno: 0.25rem;
+
+  --font-size: 1.25rem;
+  --interlineado: calc(var(--font-size) * 1.5);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: var(--font-size);
+  margin: 0;
+}
+
+h1,
+footer {
+  background-color: var(--color-fondo-titulo);
+  color: var(--color-tinta-titulo);
+  margin: 0;
+  padding: var(--margen-general);
+  text-align: center;
+}
+
+a {
+  color: var(--color-enlace);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+nav {
+  background-color: var(--color-fondo-menu); /* #012 -> #001122 */
+  border-bottom: 1px solid var(--color-borde-menu);
+  padding: var(--margen-general);
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+nav li {
+  padding: var(--margen-pequeno);
+  list-style: none;
+}
+
+body > nav li:hover {
+  background-color: var(--color-enlace);
+}
+
+body > nav li:hover a {
+  color: var(--color-fondo-menu);
+  text-decoration: none;
+}
+
+section {
+  background-color: var(--color-fondo-principal);
+  padding: var(--margen-general);
+}
+
+h2 {
+  text-align: center;
+}
+
+h3 {
+  background-color: var(--color-fondo-menu);
+  padding: var(--margen-general);
+  margin: var(--margen-general) calc(var(--margen-general) * -1);
+}
+
+p {
+  line-height: var(--interlineado);
+  text-align: justify;
+}
+
+pre,
+table {
+  overflow: auto;
+}
+
+table {
+  display: block;
+}
+
+kbd {
+  background-color: var(--color-fondo-titulo);
+  color: var(--color-tinta-titulo);
+  padding: var(--margen-pequeno);
+  border-radius: var(--margen-pequeno);
+  font-weight: bold;
+}
+
+figure {
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+}
+
+audio,
+video,
+table {
+  width: 100%;
+}
+
+.iframe {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+.relacion16x9 {
+    padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+}
+
+.relacion4x3 {
+    padding-top: 75%; /* 4:3 Aspect Ratio (divide 3 by 4 = 0.75) */
+}
+
+.relacion1x1 {
+    padding-top: 100%; /* 1:1 Aspect Ratio (divide 1 by 1 = 1) */
+}
+
+/* Then style the iframe to fit in the container div with full height and width */
+.iframe iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+
+fieldset {
+    border: 0;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+legend {
+    /* text-transform: uppercase; */
+    font-variant: small-caps;
+    padding: 0;
+}
+
+label {
+    display: block;
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+label, input, select, textarea, legend {
+    margin: 0;
+    width: 100%;
+}
+
+input, select, textarea, button {
+    border: 1px solid var(--color-borde-menu);
+    border-radius: var(--margen-pequeno);
+    padding: var(--margen-pequeno);
+}
+
+button:hover {
+    background-color: var(--color-fondo-titulo);
+    color: var(--color-tinta-titulo);
+}
+
+footer * {
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+footer a {
+    color: var(--color-tinta-titulo);
+    font-weight: bold;
+}
