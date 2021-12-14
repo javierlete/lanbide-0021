@@ -268,6 +268,23 @@ footer a {
   font-weight: bold;
 }
 
+#ir-arriba {
+  position: fixed;
+  bottom: var(--margen-general);
+  right: var(--margen-general);
+  
+  cursor: pointer;
+}
+
+#ir-arriba i {
+  font-size: 3rem;
+  padding: var(--margen-general);
+  background-color: var(--color-fondo-titulo);
+  color: var(--color-tinta-titulo);
+  border: var(--margen-pequeno) solid var(--color-fondo-menu);
+  border-radius: 100%;
+}
+
 @media (min-width: 501px) {
   #listas,
   #multimedia,
@@ -431,5 +448,4 @@ footer a {
   }
 }
 
-/* TODO: Falta poner el vínculo de arriba flotante */
 /* TODO: Falta poner el menú pegado */
