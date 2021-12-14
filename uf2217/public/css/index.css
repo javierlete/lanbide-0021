@@ -346,10 +346,72 @@ footer a {
   }
 }
 
-@media (min-width: 1900px) {
-  h1 {
-    background-color: red;
+@media (min-width: 1280px) {
+  body {
+    display: grid;
+    grid-template-columns: 1fr minmax(min-content, 9rem);
   }
 
+  header, body > nav, footer {
+    grid-column: 1 / 3;
+  }
+
+  aside nav {
+    height: 100%;
+  }
+
+  aside ul {
+    flex-direction: column;
+  }
+}
+
+@media (min-width: 1900px) {
+  /* h1 {
+    background-color: red;
+  } */
+
+  #html {
+    display: grid;
+    align-items: flex-start;
+    gap: var(--margen-general);
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+      "titulo titulo"
+      "parrafo parrafo"
+      "parrafos listas"
+      "externos multimedia"
+      "formularios tablas";
+  }
+
+  #html h2 {
+    grid-area: titulo;
+  }
+
+  #html p {
+    grid-area: parrafo;
+  }
+
+  #parrafos {
+    grid-area: parrafos;
+  }
+
+  #listas {
+    grid-area: listas;
+  }
+
+  #multimedia {
+    grid-area: multimedia;
+  }
+
+  #externos {
+    grid-area: externos;
+  }
   
+  #tablas {
+    grid-area: tablas;
+  }
+
+  #formularios {
+    grid-area: formularios;
+  }
 }
