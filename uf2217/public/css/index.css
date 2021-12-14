@@ -1,3 +1,10 @@
+@import url('/css/fonts.css');
+
+/*
+font-family: 'Open Sans', sans-serif;
+font-family: 'Press Start 2P', cursive;
+*/
+
 :root {
   --color-tinta: black;
   --color-enlace: #0074d9;
@@ -12,14 +19,21 @@
 
   --font-size: 1.25rem;
   --interlineado: calc(var(--font-size) * 1.5);
+
+  --font-titulo: 'Press Start 2P', cursive;
+  --font-texto: 'Open Sans', sans-serif;
 }
 
 * {
   box-sizing: border-box;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-titulo);
+}
+
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--font-texto); /* "Helvetica Neue", Helvetica, Arial, sans-serif; */
   font-size: var(--font-size);
   margin: 0;
 }
@@ -415,3 +429,6 @@ footer a {
     grid-area: formularios;
   }
 }
+
+/* TODO: Falta poner el vínculo de arriba flotante */
+/* TODO: Falta poner el menú pegado */
