@@ -272,7 +272,7 @@ footer a {
   position: fixed;
   bottom: var(--margen-general);
   right: var(--margen-general);
-  
+  z-index: 1;
   cursor: pointer;
 }
 
@@ -361,6 +361,20 @@ footer a {
 }
 
 @media (min-width: 768px) {
+  #ir-arriba {
+    display: none;
+  }
+  
+  body > nav {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  article {
+    padding-top: 3rem;
+  }
+
   body > nav ul, aside ul, footer {
     display: flex;
     flex-wrap: wrap;
@@ -447,5 +461,3 @@ footer a {
     grid-area: formularios;
   }
 }
-
-/* TODO: Falta poner el menú pegado */
