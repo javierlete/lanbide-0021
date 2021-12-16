@@ -185,22 +185,29 @@ public class HolaMundo {
                 </article>
                 <article class="col-12 col-sm-6 col-md-4" id="formularios">
                     <h3>Formularios</h3>
-                    <form class="form-floating">
+                    <form class="form-floating needs-validation" novalidate>
                         <fieldset>
                             <legend>Datos personales</legend>
                             <div>
-                                <div class="input-group">
+                                <div class="input-group has-validation">
                                     <span class="input-group-text">Nombre y apellidos</span>
                                     <input class="form-control" id="nombre" name="nombre" placeholder="Nombre" required
                                         minlength="3" pattern="^[a-zA-ZñÑ ]+$" aria-label="Nombre">
                                     <input class="form-control" type="text" id="apellidos" name="apellidos"
-                                        placeholder="Apellidos" aria-label="Apellidos">
+                                        placeholder="Apellidos" aria-label="Apellidos" minlength="3" pattern="^[a-zA-ZñÑ ]+$">
+                                    <div class="invalid-feedback">
+                                        Debes poner un nombre de 3 o más caracteres y opcionalmente apellidos.
+                                        Todos deben tener caracteres alfabéticos exclusivamente y espacios.
+                                    </div>
                                 </div>
                             </div>
                             <div class="form-floating">
                                 <input class="form-control" type="number" id="edad" name="edad" placeholder="Edad"
                                     min="18">
                                 <label for="edad">Edad:</label>
+                                <div class="invalid-feedback">
+                                    La edad debe ser mayor de 18 si se rellena
+                                </div>
                             </div>
                             <div>
                                 <label class="form-label" for="fecha-nacimiento">Fecha de nacimiento:</label>
@@ -298,6 +305,29 @@ public class HolaMundo {
         </footer>
     </div>
     <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 </body>
 
 </html>
