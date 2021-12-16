@@ -13,22 +13,261 @@
     <title>Hello, world!</title>
 </head>
 
-<body class="container">
+<body class="container-fluid">
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        Bienvenidos a esta aplicación de bootstrap
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="row">
         <header class="col-12">
             <h1>Página de ejemplo de HTML</h1>
         </header>
-        <nav class="col-12" aria-label="navigation">
-            <ul>
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="#parrafos">Párrafos</a></li>
-                <li><a href="#listas">Listas</a></li>
-                <li><a href="#multimedia">Multimedia</a></li>
-                <li><a href="#formularios">Formularios</a></li>
-                <li><a href="#tablas">Tablas</a></li>
-            </ul>
+        <nav class="col-12 navbar navbar-expand-lg navbar-dark bg-dark" aria-label="navigation">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Ejemplo de Bootstrap</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Principal</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#bootstrap">Bootstrap</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                HTML
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="index.html">Inicio</a></li>
+                                <li><a class="dropdown-item" href="#parrafos">Párrafos</a></li>
+                                <li><a class="dropdown-item" href="#listas">Listas</a></li>
+                                <li><a class="dropdown-item" href="#multimedia">Multimedia</a></li>
+                                <li><a class="dropdown-item" href="#externos">Externos</a></li>
+                                <li><a class="dropdown-item" href="#formularios">Formularios</a></li>
+                                <li><a class="dropdown-item" href="#tablas">Tablas</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Library</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Data</li>
+            </ol>
         </nav>
         <main class="col-12 col-sm-9 col-lg-10">
+            <section id="bootstrap">
+                <h2>Bootstrap</h2>
+                <article id="modales">
+                    <h3>Modales</h3>
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mi-modal">
+                        Lanzar modal
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="mi-modal" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="staticBackdropLabel">Título del modal</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Deserunt, unde minus libero
+                                    alias sunt ea dolorum itaque quis autem, sit obcaecati quidem quisquam. Temporibus
+                                    eius ut aliquid natus nemo dolores?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-primary">OK (No cierra)</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article id="cards">
+                    <h3>Cards</h3>
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-4">
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?1" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?2" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This card has supporting text below as a natural lead-in to
+                                        additional content.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?3" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to additional content. This card has even longer content than the first
+                                        to show that equal height action.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?4" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?5" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This card has supporting text below as a natural lead-in to
+                                        additional content.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?6" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to additional content. This card has even longer content than the first
+                                        to show that equal height action.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?7" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?8" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This card has supporting text below as a natural lead-in to
+                                        additional content.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?9" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to additional content. This card has even longer content than the first
+                                        to show that equal height action.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?10" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to additional content. This content is a little bit longer.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?11" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This card has supporting text below as a natural lead-in to
+                                        additional content.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card h-100">
+                                <img src="http://placeimg.com/200/200/tech?12" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">Card title</h5>
+                                    <p class="card-text">This is a wider card with supporting text below as a natural
+                                        lead-in to additional content. This card has even longer content than the first
+                                        to show that equal height action.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Last updated 3 mins ago</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </article>
+            </section>
             <section class="row" id="html">
                 <h2>Ejemplo de HTML</h2>
                 <p>
@@ -195,7 +434,8 @@ public class HolaMundo {
                                     <input class="form-control" id="nombre" name="nombre" placeholder="Nombre" required
                                         minlength="3" pattern="^[a-zA-ZñÑ ]+$" aria-label="Nombre">
                                     <input class="form-control" type="text" id="apellidos" name="apellidos"
-                                        placeholder="Apellidos" aria-label="Apellidos" minlength="3" pattern="^[a-zA-ZñÑ ]+$">
+                                        placeholder="Apellidos" aria-label="Apellidos" minlength="3"
+                                        pattern="^[a-zA-ZñÑ ]+$">
                                     <div class="invalid-feedback">
                                         Debes poner un nombre de 3 o más caracteres y opcionalmente apellidos.
                                         Todos deben tener caracteres alfabéticos exclusivamente y espacios.
@@ -275,11 +515,19 @@ public class HolaMundo {
         </main>
         <aside class="col-12 col-sm-3 col-lg-2">
             <nav aria-label="complementary">
-                <ul>
-                    <li><a href="http://www.google.es">Google</a></li>
-                    <li><a href="ejemplo1.html">Ejemplo 1</a></li>
-                    <li><a href="ejemplo2.html">Ejemplo 2</a></li>
-                    <li><a href="ejemplo3.html">Ejemplo 3</a></li>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a href="http://www.google.es">Google</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ejemplo1.html">Ejemplo 1</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ejemplo2.html">Ejemplo 2</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ejemplo3.html">Ejemplo 3</a>
+                    </li>
                 </ul>
             </nav>
         </aside>
