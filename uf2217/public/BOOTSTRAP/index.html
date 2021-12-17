@@ -13,16 +13,9 @@
     <title>Hello, world!</title>
 </head>
 
-<body class="container-fluid">
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-        Bienvenidos a esta aplicación de bootstrap
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+<body class="container-fluid fw-lighter">
     <div class="row">
-        <header class="col-12">
-            <h1>Página de ejemplo de HTML</h1>
-        </header>
-        <nav class="col-12 navbar navbar-expand-lg navbar-dark bg-dark" aria-label="navigation">
+        <nav class="col-12 navbar navbar-expand-lg navbar-dark bg-dark sticky-top" aria-label="navigation">
             <div class="container-fluid">
                 <a class="navbar-brand" href="#">Ejemplo de Bootstrap</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -51,15 +44,16 @@
                                 <li><a class="dropdown-item" href="#externos">Externos</a></li>
                                 <li><a class="dropdown-item" href="#formularios">Formularios</a></li>
                                 <li><a class="dropdown-item" href="#tablas">Tablas</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
                             </ul>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <div class="d-print-none col-12 alert alert-info alert-dismissible fade show" role="alert">
+            Bienvenidos a esta aplicación de bootstrap
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
@@ -70,7 +64,7 @@
         <main class="col-12 col-sm-9 col-lg-10">
             <section id="bootstrap">
                 <h2>Bootstrap</h2>
-                <article id="modales">
+                <article class="d-print-none" id="modales">
                     <h3>Modales</h3>
                     <!-- Button trigger modal -->
                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mi-modal">
@@ -106,7 +100,7 @@
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 row-cols-xxl-5 g-4">
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?1" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?1" class="card-img-top" alt="tech1">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This is a wider card with supporting text below as a natural
@@ -119,7 +113,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?2" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?2" class="card-img-top" alt="tech2">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This card has supporting text below as a natural lead-in to
@@ -132,7 +126,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?3" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?3" class="card-img-top" alt="tech3">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This is a wider card with supporting text below as a natural
@@ -146,7 +140,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?4" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?4" class="card-img-top" alt="tech4">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This is a wider card with supporting text below as a natural
@@ -159,7 +153,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?5" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?5" class="card-img-top" alt="tech5">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This card has supporting text below as a natural lead-in to
@@ -172,7 +166,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?6" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?6" class="card-img-top" alt="tech6">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This is a wider card with supporting text below as a natural
@@ -186,7 +180,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?7" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?7" class="card-img-top" alt="tech7">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This is a wider card with supporting text below as a natural
@@ -199,7 +193,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?8" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?8" class="card-img-top" alt="tech8">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This card has supporting text below as a natural lead-in to
@@ -212,7 +206,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?9" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?9" class="card-img-top" alt="tech9">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This is a wider card with supporting text below as a natural
@@ -226,7 +220,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?10" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?10" class="card-img-top" alt="tech10">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This is a wider card with supporting text below as a natural
@@ -239,7 +233,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?11" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?11" class="card-img-top" alt="tech11">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This card has supporting text below as a natural lead-in to
@@ -252,7 +246,7 @@
                         </div>
                         <div class="col">
                             <div class="card h-100">
-                                <img src="http://placeimg.com/200/200/tech?12" class="card-img-top" alt="...">
+                                <img src="http://placeimg.com/200/200/tech?12" class="card-img-top" alt="tech12">
                                 <div class="card-body">
                                     <h5 class="card-title">Card title</h5>
                                     <p class="card-text">This is a wider card with supporting text below as a natural
@@ -295,7 +289,7 @@
                     <p>El atajo <kbd>CTRL+MAY+P</kbd> permite mostrar el menú comando en<br>
                         <code>Visual Studio Code</code>
                     </p>
-                    <pre>
+                    <pre class="user-select-all">
 public class HolaMundo {
     public static void main(String[] args) {
         System.out.println("Hola Mundo");
@@ -351,9 +345,9 @@ public class HolaMundo {
                         <figcaption>CSS</figcaption>
                     </figure>
 
-                    <audio class="w-100" src="../audio/audio.mp3" controls></audio>
+                    <audio class="d-print-none w-100" src="../audio/audio.mp3" controls></audio>
 
-                    <video class="w-100" src="../video/video.mp4" controls></video>
+                    <video class="d-print-none w-100" src="../video/video.mp4" controls></video>
                 </article>
                 <article class="col-12 col-md-4" id="externos">
                     <h3>Externos</h3>
@@ -362,13 +356,13 @@ public class HolaMundo {
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2905.762268197824!2d-2.915780684191511!3d43.2564039791369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4e4fb46238d865%3A0xb671edfb1120ab06!2sIpartek%20Servicios%20Inform%C3%A1ticos!5e0!3m2!1ses!2ses!4v1639039374700!5m2!1ses!2ses"
                             width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
-                    <div class="ratio ratio-16x9">
+                    <div class="d-print-none ratio ratio-16x9">
                         <iframe title="Canción Hyperventilate"
                             src="https://open.spotify.com/embed/track/3FheBJqDVdDCGW6h1llQNh?utm_source=generator&theme=0"
                             allowfullscreen=""
                             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
                     </div>
-                    <div class="ratio ratio-4x3">
+                    <div class="d-print-none ratio ratio-4x3">
                         <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/SVGjOUnQZ58"
                             title="YouTube video player"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -506,14 +500,14 @@ public class HolaMundo {
                             </div>
 
                             <div>
-                                <button class="btn btn-primary">Enviar</button>
+                                <button class="d-print-none btn btn-primary">Enviar</button>
                             </div>
                         </fieldset>
                     </form>
                 </article>
             </section>
         </main>
-        <aside class="col-12 col-sm-3 col-lg-2">
+        <aside class="d-print-none my-3 col-12 col-sm-3 col-lg-2">
             <nav aria-label="complementary">
                 <ul class="nav flex-column">
                     <li class="nav-item">
@@ -531,23 +525,26 @@ public class HolaMundo {
                 </ul>
             </nav>
         </aside>
-        <footer class="col-12">
+        <footer class="d-sm-flex justify-content-between bg-dark text-white p-3 col-12">
             <p>&copy;2021 Javier Lete</p>
             <p><a href="mailto:javier@email.net">javier@email.net</a></p>
             <p><a href="tel:941231234">941231234</a></p>
             <address>
                 Mi dirección...
             </address>
-            <p id="ir-arriba">
-                <a href="#">
-                    <i class="bi bi-arrow-up"></i>
+            <p style="right: 1rem;" class="bottom-0 position-fixed badge bg-dark rounded-circle border" id="ir-arriba">
+                <a class="text-white" href="#">
+                    <span class="visually-hidden">Arriba</span>
+                    <i class="h1 bi bi-arrow-up"></i>
                 </a>
             </p>
             <p>
                 <a href="#">
+                    <span class="visually-hidden">Facebook</span>
                     <i class="bi bi-facebook"></i>
                 </a>
                 <a href="#">
+                    <span class="visually-hidden">Twitter</span>
                     <i class="bi bi-twitter"></i>
                 </a>
             </p>
