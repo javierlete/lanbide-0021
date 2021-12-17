@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración</title>
+
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap-icons.css">
+</head>
+
+<body class="container">
+    <!-- table.table.table-hovered.table-bordered.table-striped>caption{Personas}+thead>tr>th[scope="col"]*3 -->
+    <div class="table-responsive">
+        <table class="table table-hovered table-bordered table-striped">
+            <caption>Personas</caption>
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Javier</td>
+                    <td>Lete</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" href="formulario.html">Editar</a>
+                        <a class="btn btn-sm btn-danger" href="#">Eliminar</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Pepe</td>
+                    <td>Pérez</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" href="formulario.html">Editar</a>
+                        <a class="btn btn-sm btn-danger" href="#">Eliminar</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Juan</td>
+                    <td>García</td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" href="formulario.html">Editar</a>
+                        <a class="btn btn-sm btn-danger" href="#">Eliminar</a>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="table-dark">
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <a href="formulario.html" class="btn btn-sm btn-primary">Añadir</a>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <script src="../js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
