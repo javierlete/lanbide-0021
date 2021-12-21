@@ -43,6 +43,8 @@ function objetos() {
 
     const javier = new Persona(2, 'Javier', 'Lete');
 
+    console.log(javier);
+
     console.log(javier.nombreCompleto());
 
     console.log('Hola'.toUpperCase());
