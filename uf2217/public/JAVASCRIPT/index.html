@@ -1,13 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript</title>
-    <script src="js/sintaxis.js"></script>
+    <!-- <script src="js/sintaxis.js"></script> -->
+    <script src="js/ejemplodom.js"></script>
+
+    <style>
+        input.error {
+            border: 1px solid red;
+        }
+
+        span.error {
+            color: red;
+            font-style: italic;
+        }
+    </style>
 </head>
 <body>
-    <h1>Inicio</h1>
+    <h1>Título</h1>
+
+    <input id="nombre" placeholder="Nombre" aria-label="Nombre">
+    <button id="btn-aceptar">Aceptar</button>
+    <span id="resultado">Dime tu nombre</span>
+
+    <form id="formulario">
+        <div>
+            <label for="dni">DNI</label>
+            <input type="text" id="dni" name="dni" placeholder="DNI">
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="Email">
+        </div>
+        <div>
+            <label for="password">Contraseña</label>
+            <input type="password" id="password" placeholder="Contraseña">
+        </div>
+        <div>
+            <label for="password2">Repetir contraseña</label>
+            <input type="password" id="password2" placeholder="Repetir contraseña">
+        </div>
+        <div>
+            <button>Aceptar</button>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Email</th>
+                <th>Contraseña</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
 </body>
 </html>
