@@ -20,9 +20,9 @@
     },
     {
       "dni": "12345678Z",
-      "email": "uno@uno",
-      "password": "pepe",
-      "id": 5
+      "email": "nuevo@nuevo",
+      "password": "1234",
+      "id": 6
     }
   ]
 }
