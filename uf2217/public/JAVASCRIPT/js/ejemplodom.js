@@ -120,6 +120,8 @@ async function cargarTabla() {
     const personas = await respuesta.json();
     console.log(personas);
 
+    $('table').DataTable().destroy();
+
     const tbody = document.getElementsByTagName('tbody')[0];
 
     tbody.innerHTML = '';
@@ -127,6 +129,8 @@ async function cargarTabla() {
     personas.forEach(persona => {
         insertarLineaTabla(persona, tbody);
     });
+
+    $('table').DataTable().draw();
 }
 
 function insertarLineaTabla(persona, tbody) {

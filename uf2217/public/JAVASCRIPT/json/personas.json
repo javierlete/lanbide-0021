@@ -11,6 +11,18 @@
       "email": "modificado@asdf",
       "password": "1234",
       "id": 2
+    },
+    {
+      "dni": "12345678Z",
+      "email": "prueba@prueba",
+      "password": "prueba",
+      "id": 4
+    },
+    {
+      "dni": "12345678Z",
+      "email": "uno@uno",
+      "password": "pepe",
+      "id": 5
     }
   ]
 }
