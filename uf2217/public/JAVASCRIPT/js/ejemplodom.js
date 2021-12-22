@@ -1,4 +1,20 @@
+const URL = 'http://localhost:3000/personas/';
+
+let id;
+let dni;
+let email;
+let password;
+let password2;
+
 window.onload = function () {
+    id = document.getElementById('id');
+    dni = document.getElementById('dni');
+    email = document.getElementById('email');
+    password = document.getElementById('password');
+    password2 = document.getElementById('password2');
+
+    cargarTabla();
+
     const h1 = document.getElementsByTagName('h1')[0];
 
     h1.innerHTML = 'Hola mundo';
@@ -13,65 +29,69 @@ window.onload = function () {
 
     const formulario = document.getElementById('formulario');
 
-    formulario.onsubmit = function (e) {
-        e.preventDefault();
+    formulario.onsubmit = enviarFormulario;
+}
 
-        let valido = true;
+function enviarFormulario(e) {
+    e.preventDefault();
 
-        const dni = document.getElementById('dni');
-        const email = document.getElementById('email');
-        const password = document.getElementById('password');
-        const password2 = document.getElementById('password2');
+    let valido = true;
 
-        if (validarDni(dni.value)) {
-            if (dni.classList.contains('error')) {
-                dni.classList.remove('error');
+    if (validarDni(dni.value)) {
+        if (dni.classList.contains('error')) {
+            dni.classList.remove('error');
 
-                dni.nextElementSibling.remove();
-            }
+            dni.nextElementSibling.remove();
+        }
+    } else {
+        if (!dni.classList.contains('error')) {
+            dni.classList.add('error');
+
+            const error = document.createElement('span');
+            error.className = 'error';
+            error.innerHTML = 'El DNI no es válido';
+
+            dni.parentNode.appendChild(error);
+
+        }
+        valido = false;
+    }
+
+    if (password.value === password2.value) {
+        if (password.classList.contains('error')) {
+            password.classList.remove('error');
+
+            password.nextElementSibling.remove();
+        }
+    } else {
+        if (!password.classList.contains('error')) {
+            password.classList.add('error');
+
+            const error = document.createElement('span');
+            error.className = 'error';
+            error.innerHTML = 'Las contraseñas no coinciden';
+
+            password.parentNode.appendChild(error);
+
+        }
+        valido = false;
+    }
+
+    if (valido) {
+        const tbody = document.getElementsByTagName('tbody')[0];
+
+        const persona = { dni: dni.value, email: email.value, password: password.value };
+
+        if (id.value === '0') {
+            insertar(persona);
         } else {
-            if (!dni.classList.contains('error')) {
-                dni.classList.add('error');
-
-                const error = document.createElement('span');
-                error.className = 'error';
-                error.innerHTML = 'El DNI no es válido';
-
-                dni.parentNode.appendChild(error);
-
-            }
-            valido = false;
+            persona.id = +id.value;
+            actualizar(persona);
         }
 
-        if(password.value === password2.value) {
-            if (password.classList.contains('error')) {
-                password.classList.remove('error');
+        cargarTabla();
 
-                password.nextElementSibling.remove();
-            }
-        } else {
-            if (!password.classList.contains('error')) {
-                password.classList.add('error');
-
-                const error = document.createElement('span');
-                error.className = 'error';
-                error.innerHTML = 'Las contraseñas no coinciden';
-
-                password.parentNode.appendChild(error);
-
-            }
-            valido = false;
-        }
-
-        if(valido) {
-            const tbody = document.getElementsByTagName('tbody')[0];
-
-            const tr = document.createElement('tr');
-
-            tr.innerHTML = `<td>${dni.value}</td><td>${email.value}</td><td>${password.value}</td>`;
-
-            tbody.appendChild(tr);
-        }
+        vaciarFormulario();
     }
 }
 
@@ -92,4 +112,99 @@ function validarDni(dni) {
     const letraCorrecta = LETRAS[resto];
 
     return letra === letraCorrecta;
+}
+
+async function cargarTabla() {
+    // fetch(URL).then(respuesta => respuesta.json()).then(personas => console.log(personas));
+    const respuesta = await fetch(URL);
+    const personas = await respuesta.json();
+    console.log(personas);
+
+    const tbody = document.getElementsByTagName('tbody')[0];
+
+    tbody.innerHTML = '';
+
+    personas.forEach(persona => {
+        insertarLineaTabla(persona, tbody);
+    });
+}
+
+function insertarLineaTabla(persona, tbody) {
+    const tr = document.createElement('tr');
+
+    tr.innerHTML = `
+        <td>${persona.dni}</td>
+        <td>${persona.email}</td>
+        <td>${persona.password}</td>
+        <td>
+            <a href="javascript:modificar(${persona.id})">Editar</a>
+            <a href="javascript:borrar(${persona.id})">Borrar</a>
+        </td>`;
+
+    tbody.appendChild(tr);
+}
+
+async function insertar(persona) {
+    const respuesta = await fetch(URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(persona)
+    });
+
+    const resultado = await respuesta.json();
+
+    console.log(resultado);
+}
+
+async function modificar(idABuscar) {
+    console.log('MODIFICAR', idABuscar);
+
+    const respuesta = await fetch(URL + idABuscar);
+    const persona = await respuesta.json();
+
+    id.value = persona.id;
+    dni.value = persona.dni;
+    email.value = persona.email;
+    password.value = persona.password;
+    password2.value = persona.password;
+}
+
+async function actualizar(persona) {
+    const respuesta = await fetch(URL + persona.id, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(persona)
+    });
+
+    const resultado = await respuesta.json();
+
+    console.log(resultado);
+}
+
+function vaciarFormulario() {
+    id.value = '0';
+    dni.value = '';
+    email.value = '';
+    password.value = '';
+    password2.value = '';
+}
+
+async function borrar(id) {
+    console.log('BORRAR', id);
+
+    if (!confirm('¿Estás seguro de que quieres borrar la persona?')) {
+        return;
+    }
+
+    const respuesta = await fetch(URL + id, {
+        method: 'DELETE'
+    });
+
+    console.log(respuesta);
+
+    cargarTabla();
 }
