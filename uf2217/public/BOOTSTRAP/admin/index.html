@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/bootstrap-icons.css">
+    <link rel="stylesheet" href="../css/dataTables.bootstrap5.min.css">
 </head>
 
 <body class="container">
@@ -66,6 +67,20 @@
         </table>
     </div>
     <script src="../js/bootstrap.bundle.min.js"></script>
+
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script src="../js/jquery.dataTables.min.js"></script>
+    <script src="../js/dataTables.bootstrap5.min.js"></script>
+
+    <script>
+        $(function () {
+            $('table').DataTable({
+                language: {
+                    url: '../json/dataTables_es_ES.json'
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
