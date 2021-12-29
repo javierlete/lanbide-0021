@@ -1,0 +1,11 @@
+@charset "ISO-8859-1";
+
+.claro {
+	color: darkgray;
+	background-color: lightgray;
+}
+
+.oscuro {
+	color: white;
+	background-color: black;
+}
