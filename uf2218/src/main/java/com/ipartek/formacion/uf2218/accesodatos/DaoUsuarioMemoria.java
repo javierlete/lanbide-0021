@@ -27,6 +27,11 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 	}
 
 	@Override
+	public Usuario obtenerPorId(long id) {
+		return usuarios.get(id);
+	}
+
+	@Override
 	public void borrar(long id) {
 		usuarios.remove(id);
 	}
