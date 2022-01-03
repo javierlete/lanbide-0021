@@ -20,4 +20,9 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 	public Usuario obtenerPorEmail(String email) {
 		return usuarios.values().stream().filter(usuario -> usuario.getEmail().equals(email)).findFirst().orElse(null);
 	}
+
+	@Override
+	public Iterable<Usuario> obtenerTodos() {
+		return usuarios.values();
+	}
 }

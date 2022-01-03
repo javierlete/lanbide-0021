@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"
+	import="com.ipartek.formacion.uf2218.modelos.Usuario"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,18 +18,18 @@
 			</tr>
 		</thead>
 		<tbody>
+			<%
+			for (Usuario usuario : (Iterable<Usuario>) request.getAttribute("usuarios")) {
+			%>
 			<tr>
-				<th>1</th>
-				<td>Juan González</td>
-				<td>juan@gonzalez.net</td>
-				<td>juanes</td>
+				<th><%=usuario.getId()%></th>
+				<td><%=usuario.getNombre()%></td>
+				<td><%=usuario.getEmail()%></td>
+				<td><%=usuario.getPassword()%></td>
 			</tr>
-			<tr>
-				<th>2</th>
-				<td>Pedro Gómez</td>
-				<td>pedro@gomez.net</td>
-				<td>pedro</td>
-			</tr>
+			<%
+			}
+			%>
 		</tbody>
 	</table>
 </body>
