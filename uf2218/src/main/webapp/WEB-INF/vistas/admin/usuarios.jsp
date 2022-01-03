@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"
-	import="com.ipartek.formacion.uf2218.modelos.Usuario"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,18 +18,14 @@
 			</tr>
 		</thead>
 		<tbody>
-			<%
-			for (Usuario usuario : (Iterable<Usuario>) request.getAttribute("usuarios")) {
-			%>
-			<tr>
-				<th><%=usuario.getId()%></th>
-				<td><%=usuario.getNombre()%></td>
-				<td><%=usuario.getEmail()%></td>
-				<td><%=usuario.getPassword()%></td>
-			</tr>
-			<%
-			}
-			%>
+			<c:forEach items="${usuarios}" var="usuario">
+				<tr>
+					<th>${usuario.id}</th>
+					<td>${usuario.nombre}</td>
+					<td>${usuario.email}</td>
+					<td>${usuario.password}</td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </body>
