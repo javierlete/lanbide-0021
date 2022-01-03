@@ -25,4 +25,11 @@ public class DaoUsuarioMemoria implements DaoUsuario {
 	public Iterable<Usuario> obtenerTodos() {
 		return usuarios.values();
 	}
+
+	@Override
+	public void borrar(long id) {
+		usuarios.remove(id);
+	}
+	
+	
 }
