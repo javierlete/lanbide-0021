@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.uf2218.accesodatos.DaoUsuario;
+import com.ipartek.formacion.uf2218.accesodatos.DaoUsuarioMemoria;
 import com.ipartek.formacion.uf2218.modelos.Usuario;
 
 @WebServlet("/login")
@@ -47,9 +49,11 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private Usuario validarUsuario(Usuario usuario) {
-		if(usuario.getEmail().equals("javier@lete.com") && usuario.getPassword().equals("contra")) {
-			usuario = new Usuario(1L, "javier@lete.com", "contra", "Javier");
-			return usuario;
+		DaoUsuario dao = DaoUsuarioMemoria.getInstancia();
+		Usuario usuarioCompleto = dao.obtenerPorEmail(usuario.getEmail());
+		
+		if(usuarioCompleto != null && usuario.getPassword().equals(usuario.getPassword())) {
+			return usuarioCompleto;
 		}
 		return null; 
 	}
