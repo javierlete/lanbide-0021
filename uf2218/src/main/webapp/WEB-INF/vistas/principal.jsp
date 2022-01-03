@@ -12,5 +12,8 @@
 	
 	<h2>Bienvenido ${usuario.nombre}</h2>
 
+	<p>
+		<a href="logout">Desconectarse</a>
+	</p>
 </body>
 </html>
