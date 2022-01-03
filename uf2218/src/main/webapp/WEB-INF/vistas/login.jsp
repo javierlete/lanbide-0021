@@ -4,6 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<base href="${pageContext.request.contextPath}/"/>
 <title>Iniciar sesión</title>
 </head>
 <body>
