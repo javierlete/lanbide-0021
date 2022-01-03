@@ -37,7 +37,8 @@ public class LoginServlet extends HttpServlet {
 			request.getSession().setAttribute("usuario", usuarioValido);
 			
 			// 6. Saltar a la siguiente vista
-			request.getRequestDispatcher("/WEB-INF/vistas/principal.jsp").forward(request, response);
+			// request.getRequestDispatcher("/WEB-INF/vistas/principal.jsp").forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/principal");
 		} else {
 			// 5. Empaquetar datos para enviar a la siguiente vista
 			request.setAttribute("usuario", usuarioIntroducido);

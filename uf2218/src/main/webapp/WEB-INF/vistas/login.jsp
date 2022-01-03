@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<form method="post">
+	<form action="login" method="post">
 		<input type="email" name="email" placeholder="Email" value="${usuario.email}" />
 		<input type="password" name="password" placeholder="Contraseña" />
 		<button>Iniciar sesión</button>
