@@ -15,6 +15,7 @@
 				<th>Nombre</th>
 				<th>Email</th>
 				<th>Contraseña</th>
+				<th>Opciones</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,9 +25,24 @@
 					<td>${usuario.nombre}</td>
 					<td>${usuario.email}</td>
 					<td>${usuario.password}</td>
+					<td>
+						<a href="usuario?id=${usuario.id}">Editar</a>
+						<a href="borrar?id=${usuario.id}">Borrar</a>
+					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<a href="usuario">Añadir</a>
+				</td>
+			</tr>
+		</tfoot>
 	</table>
 </body>
 </html>
