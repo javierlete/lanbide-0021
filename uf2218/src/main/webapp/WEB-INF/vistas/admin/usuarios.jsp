@@ -1,13 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Mantenimiento de usuarios</title>
-</head>
-<body>
+    pageEncoding="UTF-8"%>
+<%@ include file="/WEB-INF/vistas/includes/cabecera.jsp" %>
 	<table>
 		<thead>
 			<tr>
@@ -26,8 +19,8 @@
 					<td>${usuario.email}</td>
 					<td>${usuario.password}</td>
 					<td>
-						<a href="usuario?id=${usuario.id}">Editar</a>
-						<a href="borrar?id=${usuario.id}">Borrar</a>
+						<a href="admin/usuario?id=${usuario.id}">Editar</a>
+						<a href="admin/borrar?id=${usuario.id}">Borrar</a>
 					</td>
 				</tr>
 			</c:forEach>
@@ -39,10 +32,10 @@
 				<td></td>
 				<td></td>
 				<td>
-					<a href="usuario">Añadir</a>
+					<a href="admin/usuario">Añadir</a>
 				</td>
 			</tr>
 		</tfoot>
 	</table>
-</body>
-</html>
+
+<%@ include file="/WEB-INF/vistas/includes/pie.jsp" %>

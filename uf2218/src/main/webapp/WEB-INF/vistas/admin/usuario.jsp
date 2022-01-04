@@ -1,14 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Formulario Usuario</title>
-</head>
-<body>
+<%@ include file="/WEB-INF/vistas/includes/cabecera.jsp" %>
 
-<form action="usuario" method="post">
+<form action="admin/usuario" method="post">
 	<input type="hidden" name="id" value="${requestScope.usuario.id}" />
 	<div>
 		<label for="nombre">Nombre</label>
@@ -27,5 +21,4 @@
 	</div>
 </form>
 
-</body>
-</html>
+<%@ include file="/WEB-INF/vistas/includes/pie.jsp" %>
