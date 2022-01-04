@@ -33,7 +33,9 @@ public class UsuarioAdminServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		// Recibir datos de formulario con caracteres internacionales
+		request.setCharacterEncoding("UTF-8");
+		
 		// 1. Recibir información de la petición
 		String id = request.getParameter("id");
 		String nombre = request.getParameter("nombre");
