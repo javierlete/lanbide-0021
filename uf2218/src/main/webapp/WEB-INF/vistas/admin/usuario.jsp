@@ -9,14 +9,14 @@
 <body>
 
 <form action="usuario" method="post">
-	<input readonly type="text" name="id" value="${usuario.id}" />
+	<input type="hidden" name="id" value="${requestScope.usuario.id}" />
 	<div>
 		<label for="nombre">Nombre</label>
-		<input type="text" id="nombre" name="nombre" value="${usuario.nombre}" />
+		<input type="text" id="nombre" name="nombre" value="${requestScope.usuario.nombre}" />
 	</div>
 	<div>
 		<label for="email">Email</label>
-		<input type="email" id="email" name="email" value="${usuario.email}" />
+		<input type="email" id="email" name="email" value="${requestScope.usuario.email}" />
 	</div>
 	<div>
 		<label for="password">Contraseña</label>
