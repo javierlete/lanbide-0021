@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp" %>
-	<table>
-		<thead>
+	<table class="table table-striped table-hover table-bordered">
+		<thead class="table-dark">
 			<tr>
 				<th>Id</th>
 				<th>Nombre</th>
@@ -19,20 +19,20 @@
 					<td>${usuario.email}</td>
 					<td>${usuario.password}</td>
 					<td>
-						<a href="admin/usuario?id=${usuario.id}">Editar</a>
-						<a href="admin/borrar?id=${usuario.id}">Borrar</a>
+						<a class="btn btn-primary" href="admin/usuario?id=${usuario.id}">Editar</a>
+						<a class="btn btn-danger" href="admin/borrar?id=${usuario.id}">Borrar</a>
 					</td>
 				</tr>
 			</c:forEach>
 		</tbody>
-		<tfoot>
+		<tfoot class="table-dark">
 			<tr>
 				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>
 				<td>
-					<a href="admin/usuario">Añadir</a>
+					<a class="btn btn-primary" href="admin/usuario">Añadir</a>
 				</td>
 			</tr>
 		</tfoot>
