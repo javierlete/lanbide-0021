@@ -1,18 +1,20 @@
 package com.ipartek.formacion.uf2218.modelos;
 
 import java.util.Objects;
+import java.util.TreeMap;
 
 public class Usuario {
 	private Long id;
 	private String email, password;
 	private String nombre;
 	
+	private TreeMap<String, String> errores = new TreeMap<>();
+	
 	public Usuario(Long id, String email, String password, String nombre) {
-		super();
-		this.id = id;
-		this.email = email;
-		this.password = password;
-		this.nombre = nombre;
+		setId(id);
+		setEmail(email);
+		setPassword(password);
+		setNombre(nombre);
 	}
 
 	public Long getId() {
@@ -28,6 +30,9 @@ public class Usuario {
 	}
 
 	public void setEmail(String email) {
+		if(email == null || email.trim().length() == 0) {
+			errores.put("email", "El email debe estar rellenado");
+		}
 		this.email = email;
 	}
 
@@ -36,6 +41,9 @@ public class Usuario {
 	}
 
 	public void setPassword(String password) {
+		if(password == null || password.trim().length() == 0) {
+			errores.put("password", "La contraseña debe estar rellenada");
+		}
 		this.password = password;
 	}
 
@@ -44,7 +52,14 @@ public class Usuario {
 	}
 
 	public void setNombre(String nombre) {
+		if(nombre == null || nombre.trim().length() < 3) {
+			errores.put("nombre", "El nombre debe tener al menos 3 caracteres y es obligatorio");
+		}
 		this.nombre = nombre;
+	}
+
+	public TreeMap<String, String> getErrores() {
+		return errores;
 	}
 
 	@Override

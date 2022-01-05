@@ -35,7 +35,7 @@ public class UsuarioAdminServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// Recibir datos de formulario con caracteres internacionales
 		request.setCharacterEncoding("UTF-8");
-		
+
 		// 1. Recibir información de la petición
 		String id = request.getParameter("id");
 		String nombre = request.getParameter("nombre");
@@ -48,17 +48,27 @@ public class UsuarioAdminServlet extends HttpServlet {
 		Usuario usuarioIntroducido = new Usuario(idLong, email, password, nombre);
 
 		// 3. Llamar a la lógica de negocio
-		guardarOModificar(usuarioIntroducido);
+		boolean usuarioCorrecto = guardarOModificar(usuarioIntroducido);
 
 		// 4. Dependiendo del resultado...
+		if (usuarioCorrecto) {
+			// 5. Empaquetar datos para enviar a la siguiente vista
 
-		// 5. Empaquetar datos para enviar a la siguiente vista
-
-		// 6. Saltar a la siguiente vista
-		response.sendRedirect(request.getContextPath() + "/admin/usuarios");
+			// 6. Saltar a la siguiente vista
+			response.sendRedirect(request.getContextPath() + "/admin/usuarios");
+		} else {
+			// 5. Empaquetar datos para enviar a la siguiente vista
+			request.setAttribute("usuario", usuarioIntroducido);
+			// 6. Saltar a la siguiente vista
+			request.getRequestDispatcher("/WEB-INF/vistas/admin/usuario.jsp").forward(request, response);
+		}
 	}
 
-	private void guardarOModificar(Usuario usuario) {
+	private boolean guardarOModificar(Usuario usuario) {
+		if (usuario.getErrores().size() > 0) {
+			return false;
+		}
+
 		DaoUsuario dao = DaoUsuarioMemoria.getInstancia();
 
 		if (usuario.getId() == null) {
@@ -66,6 +76,8 @@ public class UsuarioAdminServlet extends HttpServlet {
 		} else {
 			dao.modificar(usuario);
 		}
+
+		return true;
 	}
 
 }
