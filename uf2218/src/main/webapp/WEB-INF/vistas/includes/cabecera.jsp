@@ -36,7 +36,7 @@
 						</c:if>
 					</ul>
 					<span class="navbar-text">
-						${usuario.nombre}
+						${sessionScope.usuario.nombre}
 					</span>
 					<ul class="navbar-nav mb-2 mb-lg-0">
 						<li class="nav-item"><c:if
