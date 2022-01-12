@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.mf0966.modelos.Usuario;
@@ -82,17 +83,24 @@ public class DaoUsuarioMySql implements DaoUsuario {
 
 	@Override
 	public Usuario insertar(Usuario usuario) {
-		try (Connection con = obtenerConexion(); PreparedStatement pst = con.prepareStatement(SQL_INSERT);) {
+		try (Connection con = obtenerConexion();
+				PreparedStatement pst = con.prepareStatement(SQL_INSERT, Statement.RETURN_GENERATED_KEYS);) {
 			pst.setString(1, usuario.getEmail());
 			pst.setString(2, usuario.getPassword());
 			pst.setString(3, usuario.getNombre());
 
 			int numeroRegistrosModificados = pst.executeUpdate();
-			
-			if(numeroRegistrosModificados != 1) {
+
+			try (ResultSet rs = pst.getGeneratedKeys()) {
+				if (rs.next()) {
+					usuario.setId(rs.getLong(1));
+				}
+			}
+
+			if (numeroRegistrosModificados != 1) {
 				throw new AccesoDatosException("No se ha insertado ningún registro");
 			}
-			
+
 			return usuario;
 		} catch (SQLException e) {
 			throw new AccesoDatosException("No se ha podido insertar el registro " + usuario);
@@ -108,11 +116,11 @@ public class DaoUsuarioMySql implements DaoUsuario {
 			pst.setLong(4, usuario.getId());
 
 			int numeroRegistrosModificados = pst.executeUpdate();
-			
-			if(numeroRegistrosModificados != 1) {
+
+			if (numeroRegistrosModificados != 1) {
 				throw new AccesoDatosException("No se ha modificado ningún registro");
 			}
-			
+
 			return usuario;
 		} catch (SQLException e) {
 			throw new AccesoDatosException("No se ha podido modificar el registro " + usuario);
@@ -125,8 +133,8 @@ public class DaoUsuarioMySql implements DaoUsuario {
 			pst.setLong(1, id);
 
 			int numeroRegistrosModificados = pst.executeUpdate();
-			
-			if(numeroRegistrosModificados != 1) {
+
+			if (numeroRegistrosModificados != 1) {
 				throw new AccesoDatosException("No se ha borrado ningún registro");
 			}
 		} catch (SQLException e) {
