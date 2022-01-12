@@ -37,7 +37,7 @@ public class DaoUsuarioMySql implements DaoUsuario {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
-			throw new AccesoDatosException("No se ha podido cargar el driver: " + e.getMessage());
+			throw new AccesoDatosException("No se ha podido cargar el driver: " + e.getMessage(), e);
 		}
 	}
 	
@@ -45,7 +45,7 @@ public class DaoUsuarioMySql implements DaoUsuario {
 		try {
 			return DriverManager.getConnection(URL, USUARIO, PASSWORD);
 		} catch (SQLException e) {
-			throw new AccesoDatosException("Error al conectar con la base de datos: " + e.getMessage());
+			throw new AccesoDatosException("Error al conectar con la base de datos: " + e.getMessage(), e);
 		}
 	}
 
@@ -65,7 +65,7 @@ public class DaoUsuarioMySql implements DaoUsuario {
 
 			return usuarios;
 		} catch (SQLException e) {
-			throw new AccesoDatosException("No se han podido obtener todos los registros");
+			throw new AccesoDatosException("No se han podido obtener todos los registros", e);
 		}
 	}
 
@@ -85,7 +85,7 @@ public class DaoUsuarioMySql implements DaoUsuario {
 				return usuario;
 			}
 		} catch (SQLException e) {
-			throw new AccesoDatosException("No se ha podido obtener el registro id: " + id);
+			throw new AccesoDatosException("No se ha podido obtener el registro id: " + id, e);
 		}
 	}
 
@@ -111,7 +111,7 @@ public class DaoUsuarioMySql implements DaoUsuario {
 
 			return usuario;
 		} catch (SQLException e) {
-			throw new AccesoDatosException("No se ha podido insertar el registro " + usuario);
+			throw new AccesoDatosException("No se ha podido insertar el registro " + usuario, e);
 		}
 	}
 
@@ -131,7 +131,7 @@ public class DaoUsuarioMySql implements DaoUsuario {
 
 			return usuario;
 		} catch (SQLException e) {
-			throw new AccesoDatosException("No se ha podido modificar el registro " + usuario);
+			throw new AccesoDatosException("No se ha podido modificar el registro " + usuario, e);
 		}
 	}
 
@@ -146,7 +146,7 @@ public class DaoUsuarioMySql implements DaoUsuario {
 				throw new AccesoDatosException("No se ha borrado ningún registro");
 			}
 		} catch (SQLException e) {
-			throw new AccesoDatosException("No se ha podido obtener el registro id: " + id);
+			throw new AccesoDatosException("No se ha podido obtener el registro id: " + id, e);
 		}
 	}
 
@@ -166,7 +166,7 @@ public class DaoUsuarioMySql implements DaoUsuario {
 				return usuario;
 			}
 		} catch (SQLException e) {
-			throw new AccesoDatosException("No se ha podido obtener el registro email: " + email);
+			throw new AccesoDatosException("No se ha podido obtener el registro email: " + email, e);
 		}
 	}
 
