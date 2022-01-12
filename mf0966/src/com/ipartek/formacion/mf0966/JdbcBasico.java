@@ -30,6 +30,8 @@ public class JdbcBasico {
 					rs.getString("nombre"));
 		}
 
+		st.close();
+		
 		// Obtener por id
 		id = 1;
 		final String SQL_SELECT_ID = "SELECT * FROM usuarios WHERE id = ?";
@@ -47,6 +49,8 @@ public class JdbcBasico {
 			System.out.println("No se ha encontrado ese ID");
 		}
 
+		rs.close();
+		
 		// Insertar
 		email = "nuevo@nuevez.net";
 		password = "nueva";
@@ -68,7 +72,7 @@ public class JdbcBasico {
 		email = "modificado@modificadez.net";
 		password = "modificada";
 		nombre = "Modificado Modificadez";
-		id = 3;
+		id = 4;
 
 		final String SQL_UPDATE = "UPDATE usuarios SET email=?, password=?, nombre=? WHERE id=?";
 
@@ -84,7 +88,7 @@ public class JdbcBasico {
 		System.out.println(numeroRegistrosModificados);
 
 		// Borrar
-		id = 3;
+		id = 4;
 		final String SQL_DELETE = "DELETE FROM usuarios WHERE id=?";
 
 		pst = con.prepareStatement(SQL_DELETE);
@@ -93,6 +97,9 @@ public class JdbcBasico {
 
 		numeroRegistrosModificados = pst.executeUpdate();
 
+		pst.close();
+		con.close();
+		
 		System.out.println(numeroRegistrosModificados);
 
 		System.out.println("HECHO");
