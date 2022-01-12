@@ -33,6 +33,14 @@ public class DaoUsuarioMySql implements DaoUsuario {
 	}
 	// FIN SINGLETON
 
+	static {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			throw new AccesoDatosException("No se ha podido cargar el driver: " + e.getMessage());
+		}
+	}
+	
 	private Connection obtenerConexion() {
 		try {
 			return DriverManager.getConnection(URL, USUARIO, PASSWORD);
