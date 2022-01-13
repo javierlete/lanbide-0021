@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.uf2218.accesodatos.DaoUsuario;
-import com.ipartek.formacion.uf2218.accesodatos.DaoUsuarioMySql;
 import com.ipartek.formacion.uf2218.modelos.Usuario;
 
 @WebServlet("/login")
@@ -50,8 +48,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private Usuario validarUsuario(Usuario usuario) {
-		DaoUsuario dao = DaoUsuarioMySql.getInstancia();
-		Usuario usuarioCompleto = dao.obtenerPorEmail(usuario.getEmail());
+		Usuario usuarioCompleto = Globales.DAO.obtenerPorEmail(usuario.getEmail());
 		
 		if(usuarioCompleto != null && usuario.getPassword().equals(usuario.getPassword())) {
 			return usuarioCompleto;

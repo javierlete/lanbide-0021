@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.uf2218.accesodatos.DaoUsuario;
-import com.ipartek.formacion.uf2218.accesodatos.DaoUsuarioMySql;
+import com.ipartek.formacion.uf2218.controladores.Globales;
 import com.ipartek.formacion.uf2218.modelos.Usuario;
 
 @WebServlet("/admin/usuario")
@@ -21,9 +21,7 @@ public class UsuarioAdminServlet extends HttpServlet {
 		String id = request.getParameter("id");
 
 		if (id != null) {
-			DaoUsuario dao = DaoUsuarioMySql.getInstancia();
-
-			Usuario usuario = dao.obtenerPorId(Long.parseLong(id));
+			Usuario usuario = Globales.DAO.obtenerPorId(Long.parseLong(id));
 
 			request.setAttribute("usuario", usuario);
 		}
@@ -69,7 +67,7 @@ public class UsuarioAdminServlet extends HttpServlet {
 			return false;
 		}
 
-		DaoUsuario dao = DaoUsuarioMySql.getInstancia();
+		DaoUsuario dao = Globales.DAO;
 
 		if (usuario.getId() == null) {
 			dao.insertar(usuario);

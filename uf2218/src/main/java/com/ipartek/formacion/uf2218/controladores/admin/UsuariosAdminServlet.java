@@ -8,17 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.uf2218.accesodatos.DaoUsuario;
-import com.ipartek.formacion.uf2218.accesodatos.DaoUsuarioMySql;
+import com.ipartek.formacion.uf2218.controladores.Globales;
 
 @WebServlet("/admin/usuarios")
 public class UsuariosAdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DaoUsuario dao = DaoUsuarioMySql.getInstancia();
-		
-		request.setAttribute("usuarios", dao.obtenerTodos());
+		request.setAttribute("usuarios", Globales.DAO.obtenerTodos());
 		request.getRequestDispatcher("/WEB-INF/vistas/admin/usuarios.jsp").forward(request, response);
 	}
 

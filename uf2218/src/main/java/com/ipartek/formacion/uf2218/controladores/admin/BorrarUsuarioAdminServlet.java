@@ -8,8 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.ipartek.formacion.uf2218.accesodatos.DaoUsuario;
-import com.ipartek.formacion.uf2218.accesodatos.DaoUsuarioMySql;
+import com.ipartek.formacion.uf2218.controladores.Globales;
 
 @WebServlet("/admin/borrar")
 public class BorrarUsuarioAdminServlet extends HttpServlet {
@@ -19,9 +18,7 @@ public class BorrarUsuarioAdminServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		if(id != null) {
-			DaoUsuario dao = DaoUsuarioMySql.getInstancia();
-
-			dao.borrar(Long.parseLong(id));
+			Globales.DAO.borrar(Long.parseLong(id));
 		}
 		
 		response.sendRedirect(request.getContextPath() + "/admin/usuarios");
