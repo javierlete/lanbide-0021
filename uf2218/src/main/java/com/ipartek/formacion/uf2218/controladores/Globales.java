@@ -2,13 +2,15 @@ package com.ipartek.formacion.uf2218.controladores;
 
 import java.util.Properties;
 
+import com.ipartek.formacion.uf2218.accesodatos.DaoRol;
 import com.ipartek.formacion.uf2218.accesodatos.DaoUsuario;
 import com.ipartek.formacion.uf2218.accesodatos.FabricaDao;
 import com.ipartek.formacion.uf2218.accesodatos.FabricaDaoImpl;
 
 public class Globales {
 	public static final FabricaDao FABRICA;
-	public static final DaoUsuario DAO;
+	public static final DaoUsuario DAO_USUARIO;
+	public static final DaoRol DAO_ROL;
 
 	static {
 		String tipo;
@@ -23,6 +25,7 @@ public class Globales {
 		}
 		
 		FABRICA = new FabricaDaoImpl(tipo);
-		DAO = FABRICA.getUsuario();
+		DAO_USUARIO = FABRICA.getUsuario();
+		DAO_ROL = FABRICA.getRol();
 	}
 }

@@ -8,13 +8,16 @@ public class Usuario {
 	private String email, password;
 	private String nombre;
 	
+	private Rol rol;
+	
 	private TreeMap<String, String> errores = new TreeMap<>();
 	
-	public Usuario(Long id, String email, String password, String nombre) {
+	public Usuario(Long id, String email, String password, String nombre, Rol rol) {
 		setId(id);
 		setEmail(email);
 		setPassword(password);
 		setNombre(nombre);
+		setRol(rol);
 	}
 
 	public Long getId() {
@@ -56,6 +59,17 @@ public class Usuario {
 			errores.put("nombre", "El nombre debe tener al menos 3 caracteres y es obligatorio");
 		}
 		this.nombre = nombre;
+	}
+
+	public Rol getRol() {
+		return rol;
+	}
+
+	public void setRol(Rol rol) {
+		if(rol == null) {
+			errores.put("rol", "Es obligatorio rellenar el Rol");
+		}
+		this.rol = rol;
 	}
 
 	public TreeMap<String, String> getErrores() {

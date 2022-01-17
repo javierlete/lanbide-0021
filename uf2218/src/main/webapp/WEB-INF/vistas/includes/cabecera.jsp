@@ -30,7 +30,7 @@
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 						<li class="nav-item"><a class="nav-link active"
 							aria-current="page" href="principal">Principal</a></li>
-						<c:if test="${sessionScope.usuario.id == 1}">
+						<c:if test="${sessionScope.usuario.rol.nombre == 'ADMIN'}">
 							<li class="nav-item"><a class="nav-link"
 								href="admin/usuarios">Administración de usuarios</a></li>
 						</c:if>

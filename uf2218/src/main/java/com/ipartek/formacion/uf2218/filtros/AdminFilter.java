@@ -24,7 +24,7 @@ public class AdminFilter implements Filter {
 		
 		Usuario usuario = (Usuario) session.getAttribute("usuario");
 
-		if (usuario != null && usuario.getId() == 1L) {
+		if (usuario != null && usuario.getRol().getNombre().equals("ADMIN")) {
 			chain.doFilter(request, response);
 		} else {
 			// httpResponse.sendRedirect(httpRequest.getContextPath() + "/login");

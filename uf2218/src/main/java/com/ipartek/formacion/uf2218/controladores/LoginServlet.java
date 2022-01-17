@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 		String password = request.getParameter("password");
 		
 		// 2. Empaquetar la información en objetos del modelo
-		Usuario usuarioIntroducido = new Usuario(null, email, password, null);
+		Usuario usuarioIntroducido = new Usuario(null, email, password, null, null);
 		
 		// 3. Llamar a la lógica de negocio
 		Usuario usuarioValido = validarUsuario(usuarioIntroducido);
@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 	}
 
 	private Usuario validarUsuario(Usuario usuario) {
-		Usuario usuarioCompleto = Globales.DAO.obtenerPorEmail(usuario.getEmail());
+		Usuario usuarioCompleto = Globales.DAO_USUARIO.obtenerPorEmail(usuario.getEmail());
 		
 		if(usuarioCompleto != null && usuario.getPassword().equals(usuario.getPassword())) {
 			return usuarioCompleto;

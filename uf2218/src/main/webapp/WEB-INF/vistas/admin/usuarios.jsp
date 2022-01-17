@@ -8,6 +8,7 @@
 				<th>Nombre</th>
 				<th>Email</th>
 				<th>Contraseña</th>
+				<th>Rol</th>
 				<th>Opciones</th>
 			</tr>
 		</thead>
@@ -18,6 +19,7 @@
 					<td>${usuario.nombre}</td>
 					<td>${usuario.email}</td>
 					<td>${usuario.password}</td>
+					<td>${usuario.rol.nombre}</td>
 					<td>
 						<a class="btn btn-primary" href="admin/usuario?id=${usuario.id}">Editar</a>
 						<a class="btn btn-danger" href="admin/borrar?id=${usuario.id}">Borrar</a>
@@ -27,6 +29,7 @@
 		</tbody>
 		<tfoot class="table-dark">
 			<tr>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td></td>

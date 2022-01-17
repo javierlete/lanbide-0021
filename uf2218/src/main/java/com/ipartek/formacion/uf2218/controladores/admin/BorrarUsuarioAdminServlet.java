@@ -18,7 +18,7 @@ public class BorrarUsuarioAdminServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		if(id != null) {
-			Globales.DAO.borrar(Long.parseLong(id));
+			Globales.DAO_USUARIO.borrar(Long.parseLong(id));
 		}
 		
 		response.sendRedirect(request.getContextPath() + "/admin/usuarios");

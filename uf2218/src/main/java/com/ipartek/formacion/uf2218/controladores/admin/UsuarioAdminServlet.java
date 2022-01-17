@@ -21,11 +21,12 @@ public class UsuarioAdminServlet extends HttpServlet {
 		String id = request.getParameter("id");
 
 		if (id != null) {
-			Usuario usuario = Globales.DAO.obtenerPorId(Long.parseLong(id));
+			Usuario usuario = Globales.DAO_USUARIO.obtenerPorId(Long.parseLong(id));
 
 			request.setAttribute("usuario", usuario);
 		}
 
+		request.setAttribute("roles", Globales.DAO_ROL.obtenerTodos());
 		request.getRequestDispatcher("/WEB-INF/vistas/admin/usuario.jsp").forward(request, response);
 	}
 
@@ -43,7 +44,8 @@ public class UsuarioAdminServlet extends HttpServlet {
 		// 2. Empaquetar la información en objetos del modelo
 		Long idLong = id.length() == 0 ? null : Long.parseLong(id);
 
-		Usuario usuarioIntroducido = new Usuario(idLong, email, password, nombre);
+		// TODO Añadir Rol
+		Usuario usuarioIntroducido = new Usuario(idLong, email, password, nombre, null);
 
 		// 3. Llamar a la lógica de negocio
 		boolean usuarioCorrecto = guardarOModificar(usuarioIntroducido);
@@ -67,7 +69,7 @@ public class UsuarioAdminServlet extends HttpServlet {
 			return false;
 		}
 
-		DaoUsuario dao = Globales.DAO;
+		DaoUsuario dao = Globales.DAO_USUARIO;
 
 		if (usuario.getId() == null) {
 			dao.insertar(usuario);

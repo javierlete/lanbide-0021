@@ -35,6 +35,19 @@
 		</div>
 	</div>
 	<div class="row mb-3">
+		<label class="col-sm-2 col-form-label text-sm-end" for="rol">Rol</label>
+		<div class="col-sm-10">
+			<select class="form-select" id="rol" name="rol">
+				<c:forEach items="${roles}" var="rol">
+					<option value="${rol.id}">${rol.nombre} | ${rol.descripcion}</option>
+				</c:forEach>
+			</select>
+			<div class="invalid-feedback">
+				${requestScope.usuario.errores.password}
+			</div>
+		</div>
+	</div>
+	<div class="row mb-3">
 		<div class="offset-sm-2 col-sm-10">
 			<button class="btn btn-primary">Aceptar</button>
 		</div>
