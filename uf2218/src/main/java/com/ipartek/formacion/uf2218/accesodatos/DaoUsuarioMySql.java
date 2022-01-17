@@ -14,8 +14,8 @@ public class DaoUsuarioMySql implements DaoUsuario {
 	private static final String SQL_SELECT = "SELECT * FROM usuarios u JOIN roles r ON u.roles_id = r.id";
 	private static final String SQL_SELECT_ID = SQL_SELECT + " WHERE u.id = ?";
 	private static final String SQL_SELECT_EMAIL = SQL_SELECT + " WHERE u.email = ?";
-	private static final String SQL_INSERT = "INSERT INTO usuarios (email, password, nombre) VALUES (?,?,?)";
-	private static final String SQL_UPDATE = "UPDATE usuarios SET email=?, password=?, nombre=? WHERE id=?";
+	private static final String SQL_INSERT = "INSERT INTO usuarios (email, password, nombre, roles_id) VALUES (?,?,?,?)";
+	private static final String SQL_UPDATE = "UPDATE usuarios SET email=?, password=?, nombre=?, roles_id=? WHERE id=?";
 	private static final String SQL_DELETE = "DELETE FROM usuarios WHERE id=?";
 
 	// SINGLETON
@@ -74,7 +74,6 @@ public class DaoUsuarioMySql implements DaoUsuario {
 		}
 	}
 
-	// TODO Añadir Rol
 	@Override
 	public Usuario insertar(Usuario usuario) {
 		try (Connection con = Globales.obtenerConexion();
@@ -82,6 +81,7 @@ public class DaoUsuarioMySql implements DaoUsuario {
 			pst.setString(1, usuario.getEmail());
 			pst.setString(2, usuario.getPassword());
 			pst.setString(3, usuario.getNombre());
+			pst.setLong(4, usuario.getRol().getId());
 
 			int numeroRegistrosModificados = pst.executeUpdate();
 
@@ -101,14 +101,14 @@ public class DaoUsuarioMySql implements DaoUsuario {
 		}
 	}
 
-	// TODO Añadir Rol
 	@Override
 	public Usuario modificar(Usuario usuario) {
 		try (Connection con = Globales.obtenerConexion(); PreparedStatement pst = con.prepareStatement(SQL_UPDATE);) {
 			pst.setString(1, usuario.getEmail());
 			pst.setString(2, usuario.getPassword());
 			pst.setString(3, usuario.getNombre());
-			pst.setLong(4, usuario.getId());
+			pst.setLong(4, usuario.getRol().getId());
+			pst.setLong(5, usuario.getId());
 
 			int numeroRegistrosModificados = pst.executeUpdate();
 

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.uf2218.accesodatos.DaoUsuario;
 import com.ipartek.formacion.uf2218.controladores.Globales;
+import com.ipartek.formacion.uf2218.modelos.Rol;
 import com.ipartek.formacion.uf2218.modelos.Usuario;
 
 @WebServlet("/admin/usuario")
@@ -40,12 +41,14 @@ public class UsuarioAdminServlet extends HttpServlet {
 		String nombre = request.getParameter("nombre");
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		
+		String rol = request.getParameter("rol");
 
 		// 2. Empaquetar la información en objetos del modelo
 		Long idLong = id.length() == 0 ? null : Long.parseLong(id);
+		Long idRol = rol.length() == 0 ? null : Long.parseLong(rol);
 
-		// TODO Añadir Rol
-		Usuario usuarioIntroducido = new Usuario(idLong, email, password, nombre, null);
+		Usuario usuarioIntroducido = new Usuario(idLong, email, password, nombre, new Rol(idRol, null, null));
 
 		// 3. Llamar a la lógica de negocio
 		boolean usuarioCorrecto = guardarOModificar(usuarioIntroducido);
@@ -59,6 +62,7 @@ public class UsuarioAdminServlet extends HttpServlet {
 		} else {
 			// 5. Empaquetar datos para enviar a la siguiente vista
 			request.setAttribute("usuario", usuarioIntroducido);
+			request.setAttribute("roles", Globales.DAO_ROL.obtenerTodos());
 			// 6. Saltar a la siguiente vista
 			request.getRequestDispatcher("/WEB-INF/vistas/admin/usuario.jsp").forward(request, response);
 		}
