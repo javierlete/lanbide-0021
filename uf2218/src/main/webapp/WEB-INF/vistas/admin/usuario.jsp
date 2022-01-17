@@ -39,7 +39,7 @@
 		<div class="col-sm-10">
 			<select class="form-select" id="rol" name="rol">
 				<c:forEach items="${roles}" var="rol">
-					<option value="${rol.id}">${rol.nombre} | ${rol.descripcion}</option>
+					<option ${rol.id == requestScope.usuario.rol.id ? 'selected' : '' } value="${rol.id}">${rol.nombre} | ${rol.descripcion}</option>
 				</c:forEach>
 			</select>
 			<div class="invalid-feedback">
