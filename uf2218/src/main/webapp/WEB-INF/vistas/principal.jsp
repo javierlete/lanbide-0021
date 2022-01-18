@@ -15,6 +15,7 @@
 				<div class="card-body">
 					<h5 class="card-title">${u.nombre}</h5>
 					<p class="card-text">${u.email}</p>
+					<a href="ficha?id=${u.id}" class="btn btn-primary stretched-link">Ver en detalle</a>
 				</div>
  				<div class="card-footer">
 					<small class="text-muted">${u.rol.nombre}: ${u.rol.descripcion}</small>
