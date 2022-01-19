@@ -21,7 +21,7 @@ Maecenas tempus lacinia risus non convallis. Aliquam lacinia aliquam aliquet. Pr
 Cras nec commodo tortor. Vestibulum in ornare tellus. Nulla mattis dictum mauris vel eleifend. Curabitur id pharetra enim. Duis facilisis posuere odio, non ullamcorper tellus aliquet sed. In pellentesque justo at euismod tincidunt. In nec venenatis odio. Phasellus vel sollicitudin leo, ut mollis metus. In hac habitasse platea dictumst. Etiam elit enim, congue id sapien ut, dapibus rutrum risus. Fusce quis lacinia eros. Proin tincidunt laoreet massa, vitae scelerisque dui feugiat et. Sed malesuada ullamcorper ante, aliquam facilisis orci tempus at. Quisque luctus tellus et sem rutrum, ut euismod dolor elementum. Ut at feugiat eros, eget sollicitudin ante. Aliquam erat volutpat.</p>
 				<p class="card-text"><small class="text-muted">${seleccionado.rol.nombre}:
 					${seleccionado.rol.descripcion}</small></p>
-				<a href="agregar-equipo?id=${seleccionado.id}" class="btn btn-primary">Añadir al equipo</a>
+				<a href="equipo?op=agregar&id=${seleccionado.id}" class="btn btn-primary">Añadir al equipo</a>
 			</div>
 		</div>
 	</div>
