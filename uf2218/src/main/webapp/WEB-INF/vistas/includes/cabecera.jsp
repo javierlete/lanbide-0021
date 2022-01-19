@@ -28,16 +28,16 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
-						<li class="nav-item"><a class="nav-link active"
+						<li class="nav-item"><a class="nav-link"
 							aria-current="page" href="principal">Principal</a></li>
+						<li class="nav-item"><a class="nav-link"
+							aria-current="page" href="equipo">Ver equipo</a></li>
 						<c:if test="${sessionScope.usuario.rol.nombre == 'ADMIN'}">
 							<li class="nav-item"><a class="nav-link"
 								href="admin/usuarios">Administración de usuarios</a></li>
 						</c:if>
 					</ul>
-					<span class="navbar-text">
-						${sessionScope.usuario.nombre}
-					</span>
+					<span class="navbar-text"> ${sessionScope.usuario.nombre} </span>
 					<ul class="navbar-nav mb-2 mb-lg-0">
 						<li class="nav-item"><c:if
 								test="${sessionScope.usuario == null}">
