@@ -21,7 +21,7 @@
 					<td>${usuario.password}</td>
 					<td>${usuario.rol.nombre}</td>
 					<td>
-						<a class="btn btn-danger" href="#">Quitar del equipo</a>
+						<a class="btn btn-danger" href="quitar-equipo?id=${usuario.id}">Quitar del equipo</a>
 					</td>
 				</tr>
 			</c:forEach>
