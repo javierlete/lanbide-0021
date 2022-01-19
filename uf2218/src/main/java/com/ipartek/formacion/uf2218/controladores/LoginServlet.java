@@ -31,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 		
 		// 4. Dependiendo del resultado...
 		if(usuarioValido != null) {
+			request.getSession().invalidate();
 			// 5. Empaquetar datos para enviar a la siguiente vista
 			request.getSession().setAttribute("usuario", usuarioValido);
 			

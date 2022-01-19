@@ -1,6 +1,9 @@
 package com.ipartek.formacion.uf2218.modelos;
 
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
 import java.util.TreeMap;
 
 public class Usuario {
@@ -10,7 +13,9 @@ public class Usuario {
 	
 	private Rol rol;
 	
-	private TreeMap<String, String> errores = new TreeMap<>();
+	private Set<Evento> eventos = new HashSet<>();
+	
+	private Map<String, String> errores = new TreeMap<>();
 	
 	public Usuario(Long id, String email, String password, String nombre, Rol rol) {
 		setId(id);
@@ -72,7 +77,15 @@ public class Usuario {
 		this.rol = rol;
 	}
 
-	public TreeMap<String, String> getErrores() {
+	public Set<Evento> getEventos() {
+		return eventos;
+	}
+
+	public void setEventos(Set<Evento> eventos) {
+		this.eventos = eventos;
+	}
+
+	public Map<String, String> getErrores() {
 		return errores;
 	}
 

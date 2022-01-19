@@ -34,7 +34,7 @@
 				<td></td>
 				<td></td>
 				<td>
-					<a class="btn btn-primary" href="admin/usuario">Añadir</a>
+					<a class="btn btn-primary" href="guardar-evento">Guardar evento</a>
 				</td>
 			</tr>
 		</tfoot>

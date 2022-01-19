@@ -4,4 +4,6 @@ public interface FabricaDao {
 	DaoUsuario getUsuario();
 
 	DaoRol getRol();
+
+	DaoEvento getEvento();
 }

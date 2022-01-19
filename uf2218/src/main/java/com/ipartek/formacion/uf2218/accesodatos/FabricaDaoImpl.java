@@ -24,4 +24,12 @@ public class FabricaDaoImpl implements FabricaDao {
 		default: throw new AccesoDatosException("NO ESTÁ IMPLEMENTADO");
 		}
 	}
+
+	@Override
+	public DaoEvento getEvento() {
+		switch(tipo) {
+		case "mysql": return DaoEventoMySql.getInstancia();
+		default: throw new AccesoDatosException("NO ESTÁ IMPLEMENTADO");
+		}
+	}
 }
