@@ -50,4 +50,4 @@
 			</div>
 		</nav>
 	</header>
-	<main class="container-fluid mt-5 pt-3">
+	<main class="container-fluid my-5 py-3">
