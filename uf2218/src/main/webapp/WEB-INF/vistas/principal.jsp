@@ -7,7 +7,7 @@
 <h2 class="lead">Bienvenido ${usuario.nombre}</h2>
 
 <div
-	class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
+	class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5 g-4">
 	<c:forEach items="${usuarios}" var="u">
 		<div class="col">
 			<div class="card h-100">
