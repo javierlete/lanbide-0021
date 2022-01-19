@@ -14,12 +14,20 @@
 			<div class="card-body">
 				<h5 class="card-title">${seleccionado.nombre}</h5>
 				<p class="card-text">${seleccionado.email}</p>
-				<p class="card-text" style="white-space: break-spaces">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-
-Maecenas tempus lacinia risus non convallis. </p>
-				<p class="card-text"><small class="text-muted">${seleccionado.rol.nombre}:
-					${seleccionado.rol.descripcion}</small></p>
-				<a href="equipo?op=agregar&id=${seleccionado.id}" class="btn btn-primary">Añadir al equipo</a>
+				<p class="card-text">
+					<small class="text-muted">${seleccionado.rol.nombre}:
+						${seleccionado.rol.descripcion}</small>
+				</p>
+				<c:choose>
+					<c:when test="${equipo.containsKey(seleccionado.id)}">
+						<a href="equipo?op=quitar&id=${seleccionado.id}"
+							class="btn btn-danger">Quitar del equipo</a>
+					</c:when>
+					<c:otherwise>
+						<a href="equipo?op=agregar&id=${seleccionado.id}"
+							class="btn btn-primary">Añadir al equipo</a>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>
