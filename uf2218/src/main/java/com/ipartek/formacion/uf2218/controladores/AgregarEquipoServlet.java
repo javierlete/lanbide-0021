@@ -1,7 +1,7 @@
 package com.ipartek.formacion.uf2218.controladores;
 
 import java.io.IOException;
-import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
@@ -22,11 +22,12 @@ public class AgregarEquipoServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		
 		@SuppressWarnings("unchecked")
-		List<Usuario> equipo = (List<Usuario>) request.getSession().getAttribute("equipo");
+		Map<Long, Usuario> equipo = (Map<Long, Usuario>) request.getSession().getAttribute("equipo");
 		
 		LOGGER.info(String.valueOf(equipo));
 		
-		equipo.add(Globales.DAO_USUARIO.obtenerPorId(Long.parseLong(id)));
+		long longId = Long.parseLong(id);
+		equipo.put(longId, Globales.DAO_USUARIO.obtenerPorId(longId));
 		
 		request.getRequestDispatcher("/equipo").forward(request, response);
 	}

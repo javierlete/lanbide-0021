@@ -1,6 +1,6 @@
 package com.ipartek.formacion.uf2218.listeners;
 
-import java.util.ArrayList;
+import java.util.TreeMap;
 import java.util.logging.Logger;
 
 import javax.servlet.annotation.WebListener;
@@ -15,6 +15,6 @@ public class SesionListener implements HttpSessionListener {
 
 	public void sessionCreated(HttpSessionEvent se) {
 		LOGGER.info("Creando el equipo inicial");
-		se.getSession().setAttribute("equipo", new ArrayList<Usuario>());
+		se.getSession().setAttribute("equipo", new TreeMap<Long, Usuario>());
 	}
 }
