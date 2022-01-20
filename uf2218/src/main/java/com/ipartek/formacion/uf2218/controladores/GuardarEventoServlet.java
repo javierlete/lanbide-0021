@@ -39,5 +39,7 @@ public class GuardarEventoServlet extends HttpServlet {
 		}
 		
 		Globales.DAO_EVENTO.insertar(evento);
+		
+		response.sendRedirect(request.getContextPath() + "/evento?id=" + evento.getId());
 	}
 }
