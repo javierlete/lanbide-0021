@@ -4,7 +4,11 @@
 
 <h2>${evento.nombre}</h2>
 
-<h3>${evento.fecha}</h3>
+<h3>
+	<fmt:parseDate value="${evento.fecha}"
+		pattern="yyyy-MM-dd'T'HH:mm" var="fecha" type="both" />
+	<fmt:formatDate pattern="dd/MM/yyyy HH:mm" value="${fecha}" />
+</h3>
 
 <p class="lead">${evento.responsable.nombre}</p>
 
@@ -21,7 +25,7 @@
 		<tbody>
 			<c:forEach items="${evento.participantes}" var="usuario">
 				<tr>
-					<th>${usuario.id}</th>
+					<th><fmt:formatNumber value="${usuario.id}" pattern="000" /></th>
 					<td>${usuario.nombre}</td>
 					<td>${usuario.email}</td>
 					<td>${usuario.password}</td>
