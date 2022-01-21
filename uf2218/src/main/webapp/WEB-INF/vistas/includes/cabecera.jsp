@@ -33,7 +33,7 @@
 						<li class="nav-item"><a class="nav-link"
 							aria-current="page" href="principal">Principal</a></li>
 						<li class="nav-item"><a class="nav-link"
-							aria-current="page" href="equipo">Ver equipo</a></li>
+							aria-current="page" href="eventos">Ver eventos</a></li>
 						<c:if test="${sessionScope.usuario.rol.nombre == 'ADMIN'}">
 							<li class="nav-item"><a class="nav-link"
 								href="admin/usuarios">Administración de usuarios</a></li>
@@ -41,6 +41,8 @@
 					</ul>
 					<span class="navbar-text"> ${sessionScope.usuario.nombre} </span>
 					<ul class="navbar-nav mb-2 mb-lg-0">
+						<li class="nav-item"><a class="nav-link"
+							aria-current="page" href="equipo">Ver equipo</a></li>
 						<li class="nav-item"><c:if
 								test="${sessionScope.usuario == null}">
 								<a class="nav-link" href="login"> Iniciar sesión</a>

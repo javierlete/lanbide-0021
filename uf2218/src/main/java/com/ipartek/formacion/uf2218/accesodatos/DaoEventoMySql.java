@@ -6,17 +6,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import com.ipartek.formacion.uf2218.modelos.Evento;
 import com.ipartek.formacion.uf2218.modelos.Rol;
 import com.ipartek.formacion.uf2218.modelos.Usuario;
 
 public class DaoEventoMySql implements DaoEvento {
-	private static final String SQL_SELECT_ID = "SELECT *\r\n" + "FROM eventos e\r\n"
-			+ "JOIN usuarios u ON u.id = e.responsable_id\r\n" + "JOIN roles r ON u.roles_id = r.id\r\n"
-			+ "WHERE e.id = ?";
-	private static final String SQL_SELECT_PARTICIPANTES = "SELECT *\r\n" + "FROM participantes p\r\n"
-			+ "JOIN usuarios u ON u.id = p.usuarios_id\r\n" + "JOIN roles r ON u.roles_id = r.id\r\n"
+	private static final String SQL_SELECT = "SELECT * FROM eventos e\r\n"
+			+ "JOIN usuarios u ON u.id = e.responsable_id JOIN roles r ON u.roles_id = r.id\r\n";
+	private static final String SQL_SELECT_ID = SQL_SELECT + "WHERE e.id = ?";
+	private static final String SQL_SELECT_PARTICIPANTES = "SELECT * FROM participantes p\r\n"
+			+ "JOIN usuarios u ON u.id = p.usuarios_id JOIN roles r ON u.roles_id = r.id\r\n"
 			+ "WHERE p.eventos_id = ?";
 	private static final String SQL_INSERT = "INSERT INTO eventos (nombre, fecha, responsable_id) VALUES (?, ?, ?)";
 	private static final String SQL_INSERT_PARTICIPANTE = "INSERT INTO participantes (eventos_id, usuarios_id) VALUES (?,?)";
@@ -31,6 +32,34 @@ public class DaoEventoMySql implements DaoEvento {
 		return INSTANCIA;
 	}
 	// FIN SINGLETON
+
+	@Override
+	public Iterable<Evento> obtenerTodos() {
+		try (Connection con = Globales.obtenerConexion();
+				PreparedStatement pst = con.prepareStatement(SQL_SELECT);
+				ResultSet rs = pst.executeQuery();) {
+			Evento evento = null;
+			Usuario responsable = null;
+			Rol rol = null;
+
+			ArrayList<Evento> eventos = new ArrayList<>();
+			
+			while (rs.next()) {
+				rol = new Rol(rs.getLong("r.id"), rs.getString("r.nombre"), rs.getString("r.descripcion"));
+				responsable = new Usuario(rs.getLong("u.id"), rs.getString("u.email"), rs.getString("u.password"),
+						rs.getString("u.nombre"), rol);
+				evento = new Evento(rs.getLong("e.id"), rs.getString("e.nombre"),
+						(LocalDateTime) rs.getObject("e.fecha"), responsable);
+				
+				eventos.add(evento);
+			}
+
+			return eventos;
+		} catch (SQLException e) {
+			throw new AccesoDatosException("No se ha podido obtener los registros", e);
+		}
+
+	}
 
 	@Override
 	public Evento obtenerPorId(long id) {
