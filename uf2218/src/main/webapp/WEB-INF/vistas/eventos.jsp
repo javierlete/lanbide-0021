@@ -10,8 +10,10 @@
 			<th>Id</th>
 			<th>Nombre</th>
 			<th>Fecha</th>
-			<th>Responsable</th>
-			<th>Rol</th>
+			<c:if test="${usuario.rol.nombre == 'ADMIN'}">
+				<th>Responsable</th>
+				<th>Rol</th>
+			</c:if>
 		</tr>
 	</thead>
 	<tbody>
@@ -20,20 +22,13 @@
 				<th>${e.id}</th>
 				<td>${e.nombre}</td>
 				<td>${e.fechaFormatoCompleto}</td>
-				<td>${e.responsable.nombre}</td>
-				<td>${e.responsable.rol.nombre}</td>
+				<c:if test="${usuario.rol.nombre == 'ADMIN'}">
+					<td>${e.responsable.nombre}</td>
+					<td>${e.responsable.rol.nombre}</td>
+				</c:if>
 			</tr>
 		</c:forEach>
 	</tbody>
-	<tfoot class="table-dark">
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-		</tr>
-	</tfoot>
 </table>
 
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
