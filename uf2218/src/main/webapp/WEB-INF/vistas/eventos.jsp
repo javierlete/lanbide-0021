@@ -14,6 +14,7 @@
 				<th>Responsable</th>
 				<th>Rol</th>
 			</c:if>
+			<th>Opciones</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -26,6 +27,9 @@
 					<td>${e.responsable.nombre}</td>
 					<td>${e.responsable.rol.nombre}</td>
 				</c:if>
+				<td>
+					<a class="btn btn-primary" href="evento?id=${e.id}">Detalles</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</tbody>
