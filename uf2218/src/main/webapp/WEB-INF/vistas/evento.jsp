@@ -6,6 +6,7 @@
 
 <h3>
 	<javatime:format value="${evento.fecha}" pattern="dd/MM/yyyy HH:mm" />
+	${evento.fechaFormatoCompleto}
 </h3>
 
 <p class="lead">${evento.responsable.nombre}</p>

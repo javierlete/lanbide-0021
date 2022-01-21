@@ -1,6 +1,7 @@
 package com.ipartek.formacion.uf2218.modelos;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -44,6 +45,10 @@ public class Evento {
 
 	public LocalDateTime getFecha() {
 		return fecha;
+	}
+	
+	public String getFechaFormatoCompleto() {
+		return fecha.format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm"));
 	}
 
 	public void setFecha(LocalDateTime fecha) {
