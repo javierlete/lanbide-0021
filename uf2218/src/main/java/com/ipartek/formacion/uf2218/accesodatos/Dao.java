@@ -5,6 +5,14 @@ public interface Dao<T> {
 		throw new AccesoDatosException("NO IMPLEMENTADO");
 	}
 
+	default Iterable<T> obtenerTodos(int pagina) {
+		throw new AccesoDatosException("NO IMPLEMENTADO");
+	}
+	
+	default Iterable<T> obtenerTodos(int pagina, String orden) {
+		throw new AccesoDatosException("NO IMPLEMENTADO");
+	}
+
 	default T obtenerPorId(long id) {
 		throw new AccesoDatosException("NO IMPLEMENTADO");
 	}

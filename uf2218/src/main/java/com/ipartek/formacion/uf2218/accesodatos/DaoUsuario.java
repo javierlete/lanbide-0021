@@ -6,4 +6,16 @@ public interface DaoUsuario extends Dao<Usuario> {
 	default Usuario obtenerPorEmail(String email) {
 		throw new AccesoDatosException("NO IMPLEMENTADO");
 	}
+	
+	default Iterable<Usuario> buscar(String termino) {
+		throw new AccesoDatosException("NO IMPLEMENTADO");
+	}
+	
+	default Iterable<Usuario> buscar(String termino, int pagina) {
+		throw new AccesoDatosException("NO IMPLEMENTADO");
+	}
+	
+	default Iterable<Usuario> buscar(String termino, int pagina, String orden) {
+		throw new AccesoDatosException("NO IMPLEMENTADO");
+	}
 }
