@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.ipartek.formacion.ipartekify.dal.DaoArtista;
 import com.ipartek.formacion.ipartekify.dal.FabricaDao;
 import com.ipartek.formacion.ipartekify.dal.FabricaDaoImpl;
+import com.ipartek.formacion.ipartekify.modelos.Album;
 import com.ipartek.formacion.ipartekify.modelos.Artista;
 
 @WebServlet("/index")
@@ -25,9 +26,14 @@ public class IndexServlet extends HttpServlet {
 		String id = request.getParameter("artista");
 		
 		if(id != null && id.trim().length() > 0) {
-			Artista artista = dao.obtenerPorId(Long.parseLong(id));
+			long idArtista = Long.parseLong(id);
+			Artista artista = dao.obtenerPorId(idArtista);
 			
 			request.setAttribute("artista", artista);
+			
+			Iterable<Album> albumes = fabrica.getAlbum().obtenerTodos(idArtista);
+			
+			request.setAttribute("albumes", albumes);
 		}
 		
 		Iterable<Artista> artistas = dao.obtenerTodos();

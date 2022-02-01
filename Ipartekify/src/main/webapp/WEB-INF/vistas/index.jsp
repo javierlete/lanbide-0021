@@ -42,18 +42,14 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td><img src="#" alt="Álbum1"></td>
-						<td>Nombre1</td>
-						<td>Año</td>
-					</tr>
-					<tr>
-						<td>1</td>
-						<td><img src="#" alt="Álbum1"></td>
-						<td>Nombre1</td>
-						<td>Año</td>
-					</tr>
+					<c:forEach items="${albumes}" var="a">
+						<tr>
+							<td>${a.id}</td>
+							<td><img src="${a.foto}" alt=""></td>
+							<td>${a.nombre}</td>
+							<td>${a.anno}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</c:if>

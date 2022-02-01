@@ -15,6 +15,6 @@ public class Album {
 	private Year anno;
 	private String foto;
 	
-	private Set<Cancion> canciones = new LinkedHashSet<>();
+	private final Set<Cancion> canciones = new LinkedHashSet<>();
 	private Artista artista;
 }
