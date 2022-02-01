@@ -13,7 +13,7 @@ public class Artista {
 	private String nombre;
 	private String informacion;
 	
-	private Set<Album> albumes = new LinkedHashSet<>();
+	private final Set<Album> albumes = new LinkedHashSet<>();
 	
 	public void setNombre(String nombre) {
 		if(nombre == null || nombre.trim().length() == 0) {
