@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ipartek.formacion.ipartekify.dal.DaoAlbum;
 import com.ipartek.formacion.ipartekify.dal.DaoArtista;
+import com.ipartek.formacion.ipartekify.dal.DaoCancion;
 import com.ipartek.formacion.ipartekify.dal.FabricaDao;
 import com.ipartek.formacion.ipartekify.dal.FabricaDaoImpl;
 import com.ipartek.formacion.ipartekify.modelos.Album;
 import com.ipartek.formacion.ipartekify.modelos.Artista;
+import com.ipartek.formacion.ipartekify.modelos.Cancion;
 
 @WebServlet("/index")
 public class IndexServlet extends HttpServlet {
@@ -24,9 +26,11 @@ public class IndexServlet extends HttpServlet {
 		FabricaDao fabrica = new FabricaDaoImpl();
 		DaoArtista daoArtista = fabrica.getArtista();
 		DaoAlbum daoAlbum = fabrica.getAlbum();
+		DaoCancion daoCancion = fabrica.getCancion();
 		
 		String strIdArtista = request.getParameter("artista");
 		String strIdAlbum = request.getParameter("album");
+		String strIdCancion = request.getParameter("cancion");
 		
 		if(strIdArtista != null && strIdArtista.trim().length() > 0) {
 			long idArtista = Long.parseLong(strIdArtista);
@@ -37,6 +41,15 @@ public class IndexServlet extends HttpServlet {
 			Iterable<Album> albumes = daoAlbum.obtenerTodos(idArtista);
 			
 			request.setAttribute("albumes", albumes);
+		}
+		
+		if(strIdCancion != null && strIdCancion.trim().length() > 0) {
+			long idCancion = Long.parseLong(strIdCancion);
+			Cancion cancion = daoCancion.obtenerPorId(idCancion);
+			
+			request.setAttribute("cancion", cancion);
+			
+			strIdAlbum = cancion.getAlbum().getId().toString();
 		}
 		
 		if(strIdAlbum != null && strIdAlbum.trim().length() > 0) {

@@ -22,7 +22,13 @@
 			</ul>
 		</nav>
 		<div id="caratula" class="flex-shrink-1">
-			<img src="#" alt="Carátula">
+			<div class="card bg-dark text-white">
+				<img src="${album.foto}" class="card-img" alt="">
+				<div class="card-img-overlay">
+					<h5 class="card-title">${cancion.nombre}</h5>
+					<p class="card-text">${cancion.tiempo}</p>
+				</div>
+			</div>
 		</div>
 	</div>
 	<div id="central" class="h-100 col pt-3">
@@ -96,7 +102,11 @@
 			</table>
 		</c:if>
 	</div>
-	<div id="reproductor" class="col-12 fixed-bottom">Reproductor</div>
+	<div id="reproductor" class="col-12 fixed-bottom">
+		<c:if test="${cancion.mp3 != null}">
+			<iframe class="w-100" src="https://www.youtube-nocookie.com/embed/${cancion.mp3}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+		</c:if>
+	</div>
 </div>
 
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>

@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.time.Duration;
 import java.time.Year;
 import java.util.ArrayList;
@@ -65,7 +66,8 @@ public class DaoAlbumMySql implements DaoAlbum {
 				Cancion cancion;
 				
 				while(rsCanciones.next()) {
-					Duration tiempo = Duration.ofMillis(rsCanciones.getTime("tiempo").getTime());
+					Time rsTiempo = rsCanciones.getTime("tiempo");
+					Duration tiempo = Globales.timeADuration(rsTiempo);
 					cancion = new Cancion(rsCanciones.getLong("id"), rsCanciones.getString("nombre"), tiempo, rsCanciones.getString("mp3"), album);
 					
 					album.getCanciones().add(cancion);
