@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Time;
 import java.time.Duration;
-import java.time.temporal.ChronoUnit;
 
 public class Globales {
 	private static final String URL = "jdbc:mysql://localhost:3306/ipartekify";
@@ -30,6 +29,6 @@ public class Globales {
 	
 	static Duration timeADuration(Time rsTiempo) {
 		// FIXME Conversión CHAPUCERA sin tener en cuenta el cambio horario
-		return Duration.of(rsTiempo.getTime() + 1000 * 60 * 60, ChronoUnit.MILLIS);
+		return Duration.ofMillis(rsTiempo.getTime() + 1000 * 60 * 60);
 	}
 }
