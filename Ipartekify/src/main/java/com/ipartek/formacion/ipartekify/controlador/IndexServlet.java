@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.ipartekify.dal.DaoAlbum;
 import com.ipartek.formacion.ipartekify.dal.DaoArtista;
 import com.ipartek.formacion.ipartekify.dal.FabricaDao;
 import com.ipartek.formacion.ipartekify.dal.FabricaDaoImpl;
@@ -21,22 +22,31 @@ public class IndexServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		FabricaDao fabrica = new FabricaDaoImpl();
-		DaoArtista dao = fabrica.getArtista();
+		DaoArtista daoArtista = fabrica.getArtista();
+		DaoAlbum daoAlbum = fabrica.getAlbum();
 		
-		String id = request.getParameter("artista");
+		String strIdArtista = request.getParameter("artista");
+		String strIdAlbum = request.getParameter("album");
 		
-		if(id != null && id.trim().length() > 0) {
-			long idArtista = Long.parseLong(id);
-			Artista artista = dao.obtenerPorId(idArtista);
+		if(strIdArtista != null && strIdArtista.trim().length() > 0) {
+			long idArtista = Long.parseLong(strIdArtista);
+			Artista artista = daoArtista.obtenerPorId(idArtista);
 			
 			request.setAttribute("artista", artista);
 			
-			Iterable<Album> albumes = fabrica.getAlbum().obtenerTodos(idArtista);
+			Iterable<Album> albumes = daoAlbum.obtenerTodos(idArtista);
 			
 			request.setAttribute("albumes", albumes);
 		}
 		
-		Iterable<Artista> artistas = dao.obtenerTodos();
+		if(strIdAlbum != null && strIdAlbum.trim().length() > 0) {
+			long idAlbum = Long.parseLong(strIdAlbum);
+			Album album = daoAlbum.obtenerPorId(idAlbum);
+			
+			request.setAttribute("album", album);
+		}
+		
+		Iterable<Artista> artistas = daoArtista.obtenerTodos();
 
 		request.setAttribute("artistas", artistas);
 

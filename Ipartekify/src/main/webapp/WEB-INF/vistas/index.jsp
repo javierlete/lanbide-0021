@@ -31,7 +31,7 @@
 
 			<p class="pb-3 border-bottom">${artista.informacion}</p>
 
-			<table class="table table-borderless table-hover text-light">
+			<table class="table table-borderless table-hover table-dark">
 				<caption>Álbumes</caption>
 				<thead>
 					<tr>
@@ -43,11 +43,53 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${albumes}" var="a">
-						<tr>
+						<tr class="position-relative">
 							<td>${a.id}</td>
 							<td><img src="${a.foto}" alt=""></td>
-							<td>${a.nombre}</td>
+							<td><a
+								class="text-light stretched-link text-decoration-none"
+								href="?album=${a.id}">${a.nombre}</a></td>
 							<td>${a.anno}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:if>
+		<c:if test="${album != null}">
+			<div class="card mb-3 text-white bg-dark">
+				<div class="row g-0">
+					<div class="col-md-4">
+						<img src="${album.foto}" class="img-fluid rounded-start" alt="">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">${album.nombre}</h5>
+							<p class="card-text">${album.anno}</p>
+							<p class="card-text">
+								<small class="text-muted">${album.artista.nombre}</small>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<table class="table table-borderless table-hover table-dark">
+				<caption>Canciones</caption>
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Nombre</th>
+						<th>Tiempo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach items="${album.canciones}" var="c">
+						<tr class="position-relative">
+							<td>${c.id}</td>
+							<td><a
+								class="text-light stretched-link text-decoration-none"
+								href="?cancion=${c.id}">${c.nombre}</a></td>
+							<td>${c.tiempo}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
