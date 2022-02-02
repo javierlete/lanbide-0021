@@ -28,7 +28,7 @@ CREATE TABLE `albumes` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `anno` year NOT NULL,
-  `foto` varchar(45) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
   `artistas_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_albumes_artistas1_idx` (`artistas_id`),
@@ -42,7 +42,7 @@ CREATE TABLE `albumes` (
 
 LOCK TABLES `albumes` WRITE;
 /*!40000 ALTER TABLE `albumes` DISABLE KEYS */;
-INSERT INTO `albumes` VALUES (1,'Sweet Movimiento',2013,NULL,1),(2,'Relayer',1974,NULL,3),(3,'Milliontown',2006,NULL,2);
+INSERT INTO `albumes` VALUES (1,'Sweet Movimiento',2013,'https://i.ytimg.com/vi/1NRQD9ds7ZQ/maxresdefault.jpg',1),(2,'Relayer',1974,'https://revistaladosis.com/wp-content/uploads/2019/11/Yes-Relayer-1.jpg',3),(3,'Milliontown',2006,'https://m.media-amazon.com/images/I/61YEkcgK8nL._SY355_.jpg',2);
 /*!40000 ALTER TABLE `albumes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +152,7 @@ CREATE TABLE `canciones` (
 
 LOCK TABLES `canciones` WRITE;
 /*!40000 ALTER TABLE `canciones` DISABLE KEYS */;
-INSERT INTO `canciones` VALUES (1,'Fonky Macarrón','03:03:00',NULL,1),(2,'The Gates of Delirium','21:16:00',NULL,2),(3,'Hyperventilate','07:31:00',NULL,3);
+INSERT INTO `canciones` VALUES (1,'Fonky Macarrón','00:03:03','K53xne6iK4s',1),(2,'The Gates of Delirium','00:21:16','EdmUAsU2eXI',2),(3,'Hyperventilate','00:07:31','Ol592sakmZU',3);
 /*!40000 ALTER TABLE `canciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -292,6 +292,25 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `albumes_select_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `albumes_select_id`(_id BIGINT)
+BEGIN
+SELECT id, nombre, anno, foto FROM albumes WHERE id = _id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `artistas_select` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -330,6 +349,50 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `canciones_select_album` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `canciones_select_album`(_id_album BIGINT)
+BEGIN
+SELECT id, nombre, tiempo, mp3 FROM canciones WHERE albumes_id = _id_album;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `canciones_select_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `canciones_select_id`(_id BIGINT)
+BEGIN
+SELECT `canciones`.`id`,
+    `canciones`.`nombre`,
+    `canciones`.`tiempo`,
+    `canciones`.`mp3`,
+    `canciones`.`albumes_id`
+FROM `ipartekify`.`canciones`
+WHERE id = _id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -340,4 +403,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-01 10:44:06
+-- Dump completed on 2022-02-02 10:08:18
