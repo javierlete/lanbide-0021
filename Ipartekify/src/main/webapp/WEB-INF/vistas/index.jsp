@@ -95,7 +95,12 @@
 							<td><a
 								class="text-light stretched-link text-decoration-none"
 								href="?cancion=${c.id}">${c.nombre}</a></td>
-							<td>${c.tiempoFormateado}</td>
+							<td>
+								${c.tiempoFormateado}
+								<a class="text-success elevado" href="?cancion=${c.id}&favorito">
+									<i class="bi bi-heart${c.favorito ? '-fill': ''}"></i>
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>

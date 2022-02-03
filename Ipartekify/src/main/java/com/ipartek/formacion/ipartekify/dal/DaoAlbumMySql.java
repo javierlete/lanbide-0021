@@ -42,7 +42,7 @@ public class DaoAlbumMySql implements DaoAlbum {
 	}
 
 	@Override
-	public Album obtenerPorId(long id) {
+	public Album obtenerPorId(long idUsuario, long id) {
 		try (Connection con = Globales.obtenerConexion();
 				CallableStatement cs = con.prepareCall("{call albumes_select_id(?)}");
 				) {
@@ -58,8 +58,9 @@ public class DaoAlbumMySql implements DaoAlbum {
 				album = new Album(rs.getLong("id"), rs.getString("nombre"), anno, rs.getString("foto"), null);				
 			}
 			
-			try(CallableStatement csCanciones = con.prepareCall("{call canciones_select_album(?)}")) {
-				csCanciones.setLong(1, id);
+			try(CallableStatement csCanciones = con.prepareCall("{call canciones_select_album(?,?)}")) {
+				csCanciones.setLong(1, idUsuario);
+				csCanciones.setLong(2, id);
 				
 				ResultSet rsCanciones = csCanciones.executeQuery();
 				
@@ -68,7 +69,7 @@ public class DaoAlbumMySql implements DaoAlbum {
 				while(rsCanciones.next()) {
 					Time rsTiempo = rsCanciones.getTime("tiempo");
 					Duration tiempo = Globales.timeADuration(rsTiempo);
-					cancion = new Cancion(rsCanciones.getLong("id"), rsCanciones.getString("nombre"), tiempo, rsCanciones.getString("mp3"), album);
+					cancion = new Cancion(rsCanciones.getLong("id"), rsCanciones.getString("nombre"), tiempo, rsCanciones.getString("mp3"), rsCanciones.getBoolean("favorito"), album);
 					
 					album.getCanciones().add(cancion);
 				}

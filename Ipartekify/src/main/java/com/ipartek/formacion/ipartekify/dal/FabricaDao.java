@@ -6,4 +6,6 @@ public interface FabricaDao {
 	DaoAlbum getAlbum();
 	
 	DaoCancion getCancion();
+	
+	DaoUsuario getUsuario();
 }

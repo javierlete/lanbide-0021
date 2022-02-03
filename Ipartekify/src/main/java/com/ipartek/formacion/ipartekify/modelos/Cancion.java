@@ -12,6 +12,7 @@ public class Cancion {
 	private String nombre;
 	private Duration tiempo;
 	private String mp3;
+	private Boolean favorito;
 	
 	private Album album;
 	

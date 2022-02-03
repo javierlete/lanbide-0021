@@ -3,3 +3,8 @@
 .espacio-reproductor {
 	padding-bottom: 156px !important;
 }
+
+.elevado {
+	z-index: 5000;
+	position: relative;
+}

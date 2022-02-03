@@ -28,7 +28,8 @@ public class DaoCancionMySql implements DaoCancion {
 				album.setId(rs.getLong("albumes_id"));
 				Time rsTiempo = rs.getTime("tiempo");
 				Duration tiempo = Globales.timeADuration(rsTiempo);
-				cancion = new Cancion(rs.getLong("id"), rs.getString("nombre"), tiempo, rs.getString("mp3"), album);
+				// FIXME Añadir favorito
+				cancion = new Cancion(rs.getLong("id"), rs.getString("nombre"), tiempo, rs.getString("mp3"), false, album);
 			}
 			
 			return cancion;

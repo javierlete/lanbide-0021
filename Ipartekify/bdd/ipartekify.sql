@@ -180,7 +180,7 @@ CREATE TABLE `canciones_favoritas` (
 
 LOCK TABLES `canciones_favoritas` WRITE;
 /*!40000 ALTER TABLE `canciones_favoritas` DISABLE KEYS */;
-INSERT INTO `canciones_favoritas` VALUES (2,2),(1,3);
+INSERT INTO `canciones_favoritas` VALUES (1,1),(1,2),(2,2),(3,2);
 /*!40000 ALTER TABLE `canciones_favoritas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +253,7 @@ CREATE TABLE `usuarios` (
   `password` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `rol` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='	';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -262,7 +262,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'javier@lete.net','contra','ADMIN'),(2,'pepe@perez.net','pepe','USER');
+INSERT INTO `usuarios` VALUES (1,'javier@lete.net','contra','ADMIN'),(2,'pepe@perez.net','pepe','USER'),(3,'juan@gonzalez.net','juan','USER');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,9 +359,11 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `canciones_select_album`(_id_album BIGINT)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `canciones_select_album`(_id_usuario BIGINT, _id_album BIGINT)
 BEGIN
-SELECT id, nombre, tiempo, mp3 FROM canciones WHERE albumes_id = _id_album;
+SELECT id, nombre, tiempo, mp3, IFNULL((SELECT TRUE FROM canciones_favoritas WHERE usuarios_id = _id_usuario AND canciones_id = c.id), FALSE) AS favorito
+FROM canciones c
+WHERE albumes_id = _id_album;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -393,6 +395,31 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `usuarios_favorito_cancion` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuarios_favorito_cancion`(_id_usuario BIGINT, _id_cancion BIGINT)
+BEGIN
+IF (SELECT 1 FROM canciones_favoritas WHERE usuarios_id = _id_usuario AND canciones_id = _id_cancion) THEN
+	DELETE FROM canciones_favoritas WHERE usuarios_id = _id_usuario AND canciones_id = _id_cancion;
+    -- SELECT 'BORRAR';
+ELSE
+	INSERT canciones_favoritas (usuarios_id, canciones_id) VALUES (_id_usuario, _id_cancion);
+    -- SELECT 'AÑADIR';
+END IF;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -403,4 +430,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-02 10:08:18
+-- Dump completed on 2022-02-03 10:29:36
