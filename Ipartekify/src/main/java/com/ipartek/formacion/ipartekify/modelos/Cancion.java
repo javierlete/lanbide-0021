@@ -14,4 +14,16 @@ public class Cancion {
 	private String mp3;
 	
 	private Album album;
+	
+	public long getMinutos() {
+		return tiempo.toMinutes();
+	}
+	
+	public long getSegundos() {
+		return tiempo.getSeconds() % 60;
+	}
+	
+	public String getTiempoFormateado() {
+		return String.format("%d:%02d", getMinutos(), getSegundos());
+	}
 }

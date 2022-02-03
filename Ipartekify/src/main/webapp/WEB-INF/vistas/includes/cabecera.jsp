@@ -13,6 +13,7 @@
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/bootstrap-icons.css">
 <link rel="stylesheet" href="css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="css/ipartekify.css">
 
 <link rel="shortcut icon" href="favicon.ico" type="image/png" />
 

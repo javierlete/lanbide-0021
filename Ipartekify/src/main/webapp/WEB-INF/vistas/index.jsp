@@ -4,7 +4,7 @@
 
 <div class="row h-100 bg-dark text-light">
 	<div id="lateral-izquierdo"
-		class="h-100 col-2 d-flex flex-column align-items-stretch pt-3 pb-5 mb-5">
+		class="h-100 col-2 d-flex flex-column align-items-stretch pt-3 ${cancion != null ? 'espacio-reproductor': ''}">
 		<nav id="menu" class="flex-shrink-1 pb-3 border-bottom">
 			<ul class="nav flex-column">
 				<c:forEach items="${artistas}" var="a">
@@ -51,7 +51,7 @@
 					<c:forEach items="${albumes}" var="a">
 						<tr class="position-relative">
 							<td>${a.id}</td>
-							<td><img src="${a.foto}" alt=""></td>
+							<td><img class="img-thumbnail" width="100" src="${a.foto}" alt=""></td>
 							<td><a
 								class="text-light stretched-link text-decoration-none"
 								href="?album=${a.id}">${a.nombre}</a></td>
@@ -95,7 +95,7 @@
 							<td><a
 								class="text-light stretched-link text-decoration-none"
 								href="?cancion=${c.id}">${c.nombre}</a></td>
-							<td>${c.tiempo}</td>
+							<td>${c.tiempoFormateado}</td>
 						</tr>
 					</c:forEach>
 				</tbody>
