@@ -33,7 +33,7 @@ CREATE TABLE `albumes` (
   PRIMARY KEY (`id`),
   KEY `fk_albumes_artistas1_idx` (`artistas_id`),
   CONSTRAINT `fk_albumes_artistas1` FOREIGN KEY (`artistas_id`) REFERENCES `artistas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,7 @@ CREATE TABLE `albumes` (
 
 LOCK TABLES `albumes` WRITE;
 /*!40000 ALTER TABLE `albumes` DISABLE KEYS */;
-INSERT INTO `albumes` VALUES (1,'Sweet Movimiento',2013,'https://i.ytimg.com/vi/1NRQD9ds7ZQ/maxresdefault.jpg',1),(2,'Relayer',1974,'https://revistaladosis.com/wp-content/uploads/2019/11/Yes-Relayer-1.jpg',3),(3,'Milliontown',2006,'https://m.media-amazon.com/images/I/61YEkcgK8nL._SY355_.jpg',2);
+INSERT INTO `albumes` VALUES (1,'Sweet Movimiento',2013,'https://i.ytimg.com/vi/1NRQD9ds7ZQ/maxresdefault.jpg',1),(2,'Relayer',1974,'https://i.ytimg.com/vi/YXnj64o198A/mqdefault.jpg',3),(3,'Milliontown',2006,'https://m.media-amazon.com/images/I/61YEkcgK8nL._SY355_.jpg',2),(4,'Looking For La Fiesta',2013,'https://img.discogs.com/E20VSDgPrIJN-XCOQNSKILCcawY=/fit-in/300x300/filters:strip_icc():format(jpeg):mode_rgb():quality(40)/discogs-images/R-5752937-1401702925-7304.jpeg.jpg',1);
 /*!40000 ALTER TABLE `albumes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,7 +143,7 @@ CREATE TABLE `canciones` (
   PRIMARY KEY (`id`),
   KEY `fk_canciones_albumes1_idx` (`albumes_id`),
   CONSTRAINT `fk_canciones_albumes1` FOREIGN KEY (`albumes_id`) REFERENCES `albumes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +152,7 @@ CREATE TABLE `canciones` (
 
 LOCK TABLES `canciones` WRITE;
 /*!40000 ALTER TABLE `canciones` DISABLE KEYS */;
-INSERT INTO `canciones` VALUES (1,'Fonky Macarrón','00:03:03','K53xne6iK4s',1),(2,'The Gates of Delirium','00:21:16','EdmUAsU2eXI',2),(3,'Hyperventilate','00:07:31','Ol592sakmZU',3);
+INSERT INTO `canciones` VALUES (1,'Fonky Macarrón','00:03:03','K53xne6iK4s',1),(2,'The Gates of Delirium','00:21:16','EdmUAsU2eXI',2),(3,'Hyperventilate','00:07:31','Ol592sakmZU',3),(4,'Soon','00:04:06','QukX9I6ZLsM',2),(5,'Supersexy Girl','00:03:52','PS5zshNRvLo',4);
 /*!40000 ALTER TABLE `canciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -180,7 +180,7 @@ CREATE TABLE `canciones_favoritas` (
 
 LOCK TABLES `canciones_favoritas` WRITE;
 /*!40000 ALTER TABLE `canciones_favoritas` DISABLE KEYS */;
-INSERT INTO `canciones_favoritas` VALUES (1,1),(1,2),(2,2),(3,2);
+INSERT INTO `canciones_favoritas` VALUES (1,1),(1,2),(3,2),(2,3),(1,4);
 /*!40000 ALTER TABLE `canciones_favoritas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -252,7 +252,8 @@ CREATE TABLE `usuarios` (
   `email` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `password` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
   `rol` varchar(45) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email_UNIQUE` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci COMMENT='	';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -395,6 +396,53 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `canciones_select_usuario` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `canciones_select_usuario`(_id_usuario BIGINT)
+BEGIN
+SELECT id, nombre, tiempo, mp3, albumes_id
+FROM canciones c
+JOIN canciones_favoritas cf ON c.id = cf.canciones_id
+WHERE usuarios_id = _id_usuario;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `usuarios_buscar_email` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuarios_buscar_email`(_email VARCHAR(45))
+BEGIN
+SELECT `usuarios`.`id`,
+    `usuarios`.`email`,
+    `usuarios`.`password`,
+    `usuarios`.`rol`
+FROM `ipartekify`.`usuarios`
+WHERE email = _email;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `usuarios_favorito_cancion` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -430,4 +478,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-03 10:29:36
+-- Dump completed on 2022-02-04 11:10:23
