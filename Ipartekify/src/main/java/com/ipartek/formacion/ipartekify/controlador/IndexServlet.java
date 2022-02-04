@@ -39,6 +39,7 @@ public class IndexServlet extends HttpServlet {
 		String strIdAlbum = request.getParameter("album");
 		String strIdCancion = request.getParameter("cancion");
 		
+		String favoritas = request.getParameter("favoritas");
 		String favorito = request.getParameter("favorito");
 		
 		this.usuario = (Usuario)request.getSession().getAttribute("usuario");
@@ -57,11 +58,27 @@ public class IndexServlet extends HttpServlet {
 			album(strIdAlbum);
 		}
 		
+		if(favoritas != null) {
+			favoritas();
+		}
+		
 		Iterable<Artista> artistas = daoArtista.obtenerTodos();
 
 		request.setAttribute("artistas", artistas);
 
 		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+	}
+
+	private void favoritas() {
+		Iterable<Cancion> canciones = daoCancion.buscarFavoritas(usuario.getId());
+		
+		Album album = new Album(0L, "Canciones favoritas", null, null, null);
+		
+		for(Cancion cancion: canciones) {
+			album.getCanciones().add(cancion);
+		}
+		
+		request.setAttribute("album", album);
 	}
 
 	private void album(String strIdAlbum) {
