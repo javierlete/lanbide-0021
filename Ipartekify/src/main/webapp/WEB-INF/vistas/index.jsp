@@ -15,7 +15,7 @@
 		</nav>
 		<nav id="listas" class="nav flex-grow-1 pt-3">
 			<ul class="nav flex-column">
-				<li class="nav-item"><a class="nav-link link-light" href="#">Lista1</a></li>
+				<li class="nav-item"><a class="nav-link link-light" href="index?favoritas">Canciones favoritas</a></li>
 				<li class="nav-item"><a class="nav-link link-light" href="#">Lista1</a></li>
 				<li class="nav-item"><a class="nav-link link-light" href="#">Lista1</a></li>
 				<li class="nav-item"><a class="nav-link link-light" href="#">Lista1</a></li>

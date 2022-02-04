@@ -18,8 +18,8 @@
 <link rel="shortcut icon" href="favicon.ico" type="image/png" />
 
 </head>
-<body class="h-100 bg-dark text-light">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<body class="h-100 bg-dark text-light pt-5">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container-fluid">
 			<a class="navbar-brand" href="#">Ipartekify</a>
 			<button class="navbar-toggler" type="button"
