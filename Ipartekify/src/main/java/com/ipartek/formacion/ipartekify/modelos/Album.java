@@ -6,7 +6,9 @@ import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Album {
@@ -15,6 +17,8 @@ public class Album {
 	private Year anno;
 	private String foto;
 	
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
 	private final Set<Cancion> canciones = new LinkedHashSet<>();
 	private Artista artista;
 }
