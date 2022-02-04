@@ -17,6 +17,7 @@ import com.ipartek.formacion.ipartekify.dal.FabricaDaoImpl;
 import com.ipartek.formacion.ipartekify.modelos.Album;
 import com.ipartek.formacion.ipartekify.modelos.Artista;
 import com.ipartek.formacion.ipartekify.modelos.Cancion;
+import com.ipartek.formacion.ipartekify.modelos.Usuario;
 
 @WebServlet("/index")
 public class IndexServlet extends HttpServlet {
@@ -35,6 +36,8 @@ public class IndexServlet extends HttpServlet {
 		String strIdCancion = request.getParameter("cancion");
 		
 		String favorito = request.getParameter("favorito");
+		
+		Usuario usuario = (Usuario)request.getSession().getAttribute("usuario");
 		
 		if(strIdArtista != null && strIdArtista.trim().length() > 0) {
 			long idArtista = Long.parseLong(strIdArtista);
@@ -56,15 +59,13 @@ public class IndexServlet extends HttpServlet {
 			strIdAlbum = cancion.getAlbum().getId().toString();
 			
 			if(favorito != null) {
-				// FIXME Trabajar con el usuario logueado
-				daoUsuario.favoritoCancion(1L, idCancion);
+				daoUsuario.favoritoCancion(usuario.getId(), idCancion);
 			}
 		}
 		
 		if(strIdAlbum != null && strIdAlbum.trim().length() > 0) {
 			long idAlbum = Long.parseLong(strIdAlbum);
-			// FIXME Trabajar con el usuario logueado
-			Album album = daoAlbum.obtenerPorId(1L, idAlbum);
+			Album album = daoAlbum.obtenerPorId(usuario.getId(), idAlbum);
 			
 			request.setAttribute("album", album);
 		}

@@ -9,7 +9,7 @@
 			<ul class="nav flex-column">
 				<c:forEach items="${artistas}" var="a">
 					<li class="nav-item"><a class="nav-link link-light"
-						href="?artista=${a.id}">${a.nombre}</a></li>
+						href="index?artista=${a.id}">${a.nombre}</a></li>
 				</c:forEach>
 			</ul>
 		</nav>
@@ -54,7 +54,7 @@
 							<td><img class="img-thumbnail" width="100" src="${a.foto}" alt=""></td>
 							<td><a
 								class="text-light stretched-link text-decoration-none"
-								href="?album=${a.id}">${a.nombre}</a></td>
+								href="index?album=${a.id}">${a.nombre}</a></td>
 							<td>${a.anno}</td>
 						</tr>
 					</c:forEach>
@@ -94,10 +94,10 @@
 							<td>${c.id}</td>
 							<td><a
 								class="text-light stretched-link text-decoration-none"
-								href="?cancion=${c.id}">${c.nombre}</a></td>
+								href="index?cancion=${c.id}">${c.nombre}</a></td>
 							<td>
 								${c.tiempoFormateado}
-								<a class="text-success elevado" href="?cancion=${c.id}&favorito">
+								<a class="text-success elevado" href="index?cancion=${c.id}&favorito">
 									<i class="bi bi-heart${c.favorito ? '-fill': ''}"></i>
 								</a>
 							</td>

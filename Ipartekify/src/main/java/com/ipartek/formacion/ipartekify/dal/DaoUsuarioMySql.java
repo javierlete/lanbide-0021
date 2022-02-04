@@ -2,7 +2,10 @@ package com.ipartek.formacion.ipartekify.dal;
 
 import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.ipartek.formacion.ipartekify.modelos.Usuario;
 
 public class DaoUsuarioMySql implements DaoUsuario {
 
@@ -17,6 +20,27 @@ public class DaoUsuarioMySql implements DaoUsuario {
 			cs.executeUpdate();
 		} catch (SQLException e) {
 			throw new DalException("No se ha podido crear el favorito", e);
+		}
+	}
+
+	@Override
+	public Usuario buscarPorEmail(String email) {
+		try (Connection con = Globales.obtenerConexion();
+				CallableStatement cs = con.prepareCall("{call usuarios_buscar_email(?)}");
+				) {
+			cs.setString(1, email);
+			
+			ResultSet rs = cs.executeQuery();
+			
+			Usuario usuario = null;
+			
+			if(rs.next()) {
+				usuario = new Usuario(rs.getLong("id"), rs.getString("email"), rs.getString("password"), rs.getString("rol"));
+			}
+			
+			return usuario;
+		} catch (SQLException e) {
+			throw new DalException("No se ha podido leer el usuario", e);
 		}
 	}
 }

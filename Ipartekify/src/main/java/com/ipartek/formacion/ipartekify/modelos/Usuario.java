@@ -6,7 +6,9 @@ import java.util.Set;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Data @AllArgsConstructor @NoArgsConstructor
 public class Usuario {
@@ -14,9 +16,16 @@ public class Usuario {
 	private String email, password;
 	private String rol;
 	
-	private Set<Lista> biblioteca = new LinkedHashSet<>();
-	
-	private Set<Cancion> cancionesFavoritas = new HashSet<>();
-	private Set<Album> albumesFavoritos = new HashSet<>();
-	private Set<Artista> artistasFavoritos = new HashSet<>();
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private final Set<Lista> biblioteca = new LinkedHashSet<>();
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private final Set<Cancion> cancionesFavoritas = new HashSet<>();
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private final Set<Album> albumesFavoritos = new HashSet<>();
+	@EqualsAndHashCode.Exclude
+	@ToString.Exclude
+	private final Set<Artista> artistasFavoritos = new HashSet<>();
 }
