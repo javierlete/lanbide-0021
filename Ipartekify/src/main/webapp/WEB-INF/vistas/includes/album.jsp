@@ -32,10 +32,20 @@
 				<td>${c.id}</td>
 				<td><a class="text-light stretched-link text-decoration-none"
 					href="index?cancion=${c.id}">${c.nombre}</a></td>
-				<td>${c.tiempoFormateado} <a class="text-success elevado"
+				<td>${c.tiempoFormateado}<a
+					class="text-success text-decoration-none elevado"
 					href="index?cancion=${c.id}&favorito"> <i
 						class="bi bi-heart${c.favorito ? '-fill': ''}"></i>
 				</a>
+					<div class="dropdown d-inline">
+						<button class="btn btn-dark dropdown-toggle elevado" type="button"
+							data-bs-toggle="dropdown" aria-expanded="false">...</button>
+						<ul class="dropdown-menu bg-dark">
+							<c:forEach items="${listas}" var="l">
+								<li><a class="dropdown-item link-light" href="index?nueva-cancion=${c.id}&amp;para-lista=${l.id}">${l.nombre}</a></li>
+							</c:forEach>
+						</ul>
+					</div>
 				</td>
 			</tr>
 		</c:forEach>

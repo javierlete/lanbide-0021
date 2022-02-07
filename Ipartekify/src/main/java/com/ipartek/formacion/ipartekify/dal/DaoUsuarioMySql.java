@@ -124,4 +124,17 @@ public class DaoUsuarioMySql implements DaoUsuario {
 			throw new DalException("No se han podido leer las canciones", e);
 		}
 	}
+
+	@Override
+	public void insertarCancionLista(Long idCancion, Long idLista) {
+		try (Connection con = Globales.obtenerConexion();
+				CallableStatement cs = con.prepareCall("{call usuarios_cancion_lista_insertar(?, ?)}");) {
+			cs.setLong(1, idCancion);
+			cs.setLong(2, idLista);
+
+			cs.executeUpdate();
+		} catch (SQLException e) {
+			throw new DalException("No se ha podido insertar la cancion en la lista", e);
+		}
+	}
 }

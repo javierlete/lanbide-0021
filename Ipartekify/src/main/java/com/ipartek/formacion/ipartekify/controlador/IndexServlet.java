@@ -44,6 +44,8 @@ public class IndexServlet extends HttpServlet {
 		String favorito = request.getParameter("favorito");
 		String nuevaLista = request.getParameter("nueva-lista");
 		String lista = request.getParameter("lista");
+		String nuevaCancion = request.getParameter("nueva-cancion");
+		String paraLista = request.getParameter("para-lista");
 		
 		this.usuario = (Usuario)request.getSession().getAttribute("usuario");
 		
@@ -73,6 +75,10 @@ public class IndexServlet extends HttpServlet {
 			crearLista(usuario, nuevaLista);
 		}
 		
+		if(nuevaCancion != null && paraLista != null) {
+			insertarCancionLista(nuevaCancion, paraLista);
+		}
+		
 		Iterable<Artista> artistas = daoArtista.obtenerTodos();
 		Iterable<Lista> listas = daoUsuario.obtenerListas(usuario.getId());
 		
@@ -80,6 +86,13 @@ public class IndexServlet extends HttpServlet {
 		request.setAttribute("listas", listas);
 
 		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+	}
+
+	private void insertarCancionLista(String nuevaCancion, String paraLista) {
+		Long idCancion = Long.parseLong(nuevaCancion);
+		Long idLista = Long.parseLong(paraLista);
+		
+		daoUsuario.insertarCancionLista(idCancion, idLista);
 	}
 
 	private void lista(String idListaString) {
