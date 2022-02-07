@@ -17,6 +17,7 @@ import com.ipartek.formacion.ipartekify.dal.FabricaDaoImpl;
 import com.ipartek.formacion.ipartekify.modelos.Album;
 import com.ipartek.formacion.ipartekify.modelos.Artista;
 import com.ipartek.formacion.ipartekify.modelos.Cancion;
+import com.ipartek.formacion.ipartekify.modelos.Lista;
 import com.ipartek.formacion.ipartekify.modelos.Usuario;
 
 @WebServlet("/index")
@@ -41,6 +42,7 @@ public class IndexServlet extends HttpServlet {
 		
 		String favoritas = request.getParameter("favoritas");
 		String favorito = request.getParameter("favorito");
+		String nuevaLista = request.getParameter("nueva-lista");
 		
 		this.usuario = (Usuario)request.getSession().getAttribute("usuario");
 		
@@ -62,11 +64,19 @@ public class IndexServlet extends HttpServlet {
 			favoritas();
 		}
 		
+		if(nuevaLista != null) {
+			crearLista(usuario, nuevaLista);
+		}
+		
 		Iterable<Artista> artistas = daoArtista.obtenerTodos();
 
 		request.setAttribute("artistas", artistas);
 
 		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+	}
+
+	private void crearLista(Usuario usuario, String nuevaLista) {
+		daoUsuario.insertarLista(usuario.getId(), new Lista(null, nuevaLista, null));
 	}
 
 	private void favoritas() {

@@ -13,14 +13,7 @@
 				</c:forEach>
 			</ul>
 		</nav>
-		<nav id="listas" class="nav flex-grow-1 pt-3">
-			<ul class="nav flex-column">
-				<li class="nav-item"><a class="nav-link link-light" href="index?favoritas">Canciones favoritas</a></li>
-				<li class="nav-item"><a class="nav-link link-light" href="#">Lista1</a></li>
-				<li class="nav-item"><a class="nav-link link-light" href="#">Lista1</a></li>
-				<li class="nav-item"><a class="nav-link link-light" href="#">Lista1</a></li>
-			</ul>
-		</nav>
+		<%@ include file="/WEB-INF/vistas/includes/listas.jsp" %>
 		<div id="caratula" class="flex-shrink-1">
 			<div class="card bg-dark text-white">
 				<img src="${album.foto}" class="card-img" alt="">
