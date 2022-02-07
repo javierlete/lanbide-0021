@@ -5,9 +5,15 @@
 		<ul class="nav flex-column">
 			<li class="nav-item"><a class="nav-link link-light"
 				href="index?favoritas">Canciones favoritas</a></li>
-			<li class="nav-item">
-				<input class="form-control bg-dark text-light" name="nueva-lista" placeholder="Nueva lista" />
-			</li>
+
+			<c:forEach items="${listas}" var="l">
+				<li class="nav-item"><a class="nav-link link-light"
+					href="index?lista=${l.id}">${l.nombre}</a></li>
+			</c:forEach>
+			
+			<li class="nav-item"><input
+				class="form-control bg-dark text-light" name="nueva-lista"
+				placeholder="Nueva lista" /></li>
 		</ul>
 	</form>
 </nav>

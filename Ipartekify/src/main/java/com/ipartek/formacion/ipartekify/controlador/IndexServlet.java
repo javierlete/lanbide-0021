@@ -69,8 +69,10 @@ public class IndexServlet extends HttpServlet {
 		}
 		
 		Iterable<Artista> artistas = daoArtista.obtenerTodos();
-
+		Iterable<Lista> listas = daoUsuario.obtenerListas(usuario.getId());
+		
 		request.setAttribute("artistas", artistas);
+		request.setAttribute("listas", listas);
 
 		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
 	}

@@ -4,6 +4,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.ipartek.formacion.ipartekify.modelos.Lista;
 import com.ipartek.formacion.ipartekify.modelos.Usuario;
@@ -57,6 +58,29 @@ public class DaoUsuarioMySql implements DaoUsuario {
 			cs.executeUpdate();
 		} catch (SQLException e) {
 			throw new DalException("No se ha podido insertar la lista", e);
+		}
+	}
+
+	@Override
+	public Iterable<Lista> obtenerListas(Long id) {
+		try (Connection con = Globales.obtenerConexion();
+				CallableStatement cs = con.prepareCall("{call usuarios_listas(?)}");
+				) {
+			cs.setLong(1, id);
+			
+			ResultSet rs = cs.executeQuery();
+			
+			Lista lista = null;
+			ArrayList<Lista> listas = new ArrayList<>();
+			
+			while(rs.next()) {
+				lista = new Lista(rs.getLong("id"), rs.getString("nombre"), rs.getString("descripcion"));
+				listas.add(lista);
+			}
+			
+			return listas;
+		} catch (SQLException e) {
+			throw new DalException("No se han podido leer las listas", e);
 		}
 	}
 }
