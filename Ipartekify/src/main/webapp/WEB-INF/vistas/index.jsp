@@ -33,78 +33,10 @@
 	</div>
 	<div id="central" class="h-100 col pt-3">
 		<c:if test="${artista != null}">
-			<h1 class="pb-3 border-bottom">${artista.nombre}</h1>
-
-			<p class="pb-3 border-bottom">${artista.informacion}</p>
-
-			<table class="table table-borderless table-hover table-dark">
-				<caption>Álbumes</caption>
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Foto</th>
-						<th>Nombre</th>
-						<th>Año</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${albumes}" var="a">
-						<tr class="position-relative">
-							<td>${a.id}</td>
-							<td><img class="img-thumbnail" width="100" src="${a.foto}" alt=""></td>
-							<td><a
-								class="text-light stretched-link text-decoration-none"
-								href="index?album=${a.id}">${a.nombre}</a></td>
-							<td>${a.anno}</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+			<%@ include file="/WEB-INF/vistas/includes/artista.jsp" %>
 		</c:if>
 		<c:if test="${album != null}">
-			<div class="card mb-3 text-white bg-dark">
-				<div class="row g-0">
-					<div class="col-md-4">
-						<img src="${album.foto}" class="img-fluid rounded-start" alt="">
-					</div>
-					<div class="col-md-8">
-						<div class="card-body">
-							<h5 class="card-title">${album.nombre}</h5>
-							<p class="card-text">${album.anno}</p>
-							<p class="card-text">
-								<small class="text-muted">${album.artista.nombre}</small>
-							</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<table class="table table-borderless table-hover table-dark">
-				<caption>Canciones</caption>
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Nombre</th>
-						<th>Tiempo</th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach items="${album.canciones}" var="c">
-						<tr class="position-relative">
-							<td>${c.id}</td>
-							<td><a
-								class="text-light stretched-link text-decoration-none"
-								href="index?cancion=${c.id}">${c.nombre}</a></td>
-							<td>
-								${c.tiempoFormateado}
-								<a class="text-success elevado" href="index?cancion=${c.id}&favorito">
-									<i class="bi bi-heart${c.favorito ? '-fill': ''}"></i>
-								</a>
-							</td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+			<%@ include file="/WEB-INF/vistas/includes/album.jsp" %>
 		</c:if>
 	</div>
 	<div id="reproductor" class="col-12 fixed-bottom">
