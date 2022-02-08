@@ -1,6 +1,8 @@
 package com.ipartek.formacion.ipartekify.controlador;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,66 +37,77 @@ public class IndexServlet extends HttpServlet {
 	private HttpServletResponse response;
 	private Usuario usuario;
 	
+	private static final Logger LOGGER = Logger.getLogger(IndexServlet.class.getName());
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String strIdArtista = request.getParameter("artista");
-		String strIdAlbum = request.getParameter("album");
-		String strIdCancion = request.getParameter("cancion");
-		
-		String favoritas = request.getParameter("favoritas");
-		String favorito = request.getParameter("favorito");
-		String nuevaLista = request.getParameter("nueva-lista");
-		String lista = request.getParameter("lista");
-		String nuevaCancion = request.getParameter("nueva-cancion");
-		String quitarCancion = request.getParameter("quitar-cancion");
-		String paraLista = request.getParameter("para-lista");
-		
-		this.usuario = (Usuario)request.getSession().getAttribute("usuario");
-		
-		this.request = request;
-		this.response = response;
-		
-		if(strIdArtista != null && strIdArtista.trim().length() > 0) {
-			artista(strIdArtista);
-		}
-		
-		if(strIdCancion != null && strIdCancion.trim().length() > 0) {
-			strIdAlbum = cancion(strIdCancion, favorito);
-		}
-		
-		if(strIdAlbum != null && strIdAlbum.trim().length() > 0) {
-			album(strIdAlbum);
-		}
-		
-		if(favoritas != null) {
-			favoritas();
-		}
-		
-		if(lista != null) {
-			lista(lista);
-		}
-		
-		if(nuevaLista != null) {
-			crearLista(usuario, nuevaLista);
-		}
-		
-		if(nuevaCancion != null && paraLista != null) {
-			insertarCancionLista(nuevaCancion, paraLista);
-			return;
-		}
-		
-		if(quitarCancion != null && paraLista != null) {
-			quitarCancionLista(quitarCancion, paraLista);
-			return;
-		}
-		
-		Iterable<Artista> artistas = daoArtista.obtenerTodos();
-		Iterable<Lista> listas = daoUsuario.obtenerListas(usuario.getId());
-		
-		request.setAttribute("artistas", artistas);
-		request.setAttribute("listas", listas);
+		try {
+			String strIdArtista = request.getParameter("artista");
+			String strIdAlbum = request.getParameter("album");
+			String strIdCancion = request.getParameter("cancion");
+			
+			String favoritas = request.getParameter("favoritas");
+			String favorito = request.getParameter("favorito");
+			String nuevaLista = request.getParameter("nueva-lista");
+			String lista = request.getParameter("lista");
+			String nuevaCancion = request.getParameter("nueva-cancion");
+			String quitarCancion = request.getParameter("quitar-cancion");
+			String paraLista = request.getParameter("para-lista");
+			
+			this.usuario = (Usuario)request.getSession().getAttribute("usuario");
+			
+			this.request = request;
+			this.response = response;
+			
+			if(strIdArtista != null && strIdArtista.trim().length() > 0) {
+				artista(strIdArtista);
+			}
+			
+			if(strIdCancion != null && strIdCancion.trim().length() > 0) {
+				strIdAlbum = cancion(strIdCancion, favorito);
+			}
+			
+			if(strIdAlbum != null && strIdAlbum.trim().length() > 0) {
+				album(strIdAlbum);
+			}
+			
+			if(favoritas != null) {
+				favoritas();
+			}
+			
+			if(lista != null) {
+				lista(lista);
+			}
+			
+			if(nuevaLista != null) {
+				crearLista(usuario, nuevaLista);
+			}
+			
+			if(nuevaCancion != null && paraLista != null) {
+				insertarCancionLista(nuevaCancion, paraLista);
+				return;
+			}
+			
+			if(quitarCancion != null && paraLista != null) {
+				quitarCancionLista(quitarCancion, paraLista);
+				return;
+			}
+			
+			Iterable<Artista> artistas = daoArtista.obtenerTodos();
+			Iterable<Lista> listas = daoUsuario.obtenerListas(usuario.getId());
+			
+			request.setAttribute("artistas", artistas);
+			request.setAttribute("listas", listas);
 
-		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+			request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+		} catch (Exception e) {
+			// LOGGER.throwing(getServletName(), getServletInfo(), e);
+			LOGGER.log(Level.SEVERE, "Ha habido un error en doGet", e);
+			
+			request.setAttribute("error", e.getMessage());
+			
+			request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+		}
 	}
 
 	private void quitarCancionLista(String quitarCancion, String paraLista) throws IOException {

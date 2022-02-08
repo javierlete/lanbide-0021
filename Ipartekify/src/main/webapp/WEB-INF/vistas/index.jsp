@@ -13,7 +13,7 @@
 				</c:forEach>
 			</ul>
 		</nav>
-		<%@ include file="/WEB-INF/vistas/includes/listas.jsp" %>
+		<%@ include file="/WEB-INF/vistas/includes/listas.jsp"%>
 		<div id="caratula" class="flex-shrink-1">
 			<div class="card bg-dark text-white">
 				<img src="${album.foto}" class="card-img" alt="">
@@ -25,16 +25,28 @@
 		</div>
 	</div>
 	<div id="central" class="h-100 col pt-3">
+		<c:if test="${error != null}">
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+				${error}
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+		</c:if>
 		<c:if test="${artista != null}">
-			<%@ include file="/WEB-INF/vistas/includes/artista.jsp" %>
+			<%@ include file="/WEB-INF/vistas/includes/artista.jsp"%>
 		</c:if>
 		<c:if test="${album != null}">
-			<%@ include file="/WEB-INF/vistas/includes/album.jsp" %>
+			<%@ include file="/WEB-INF/vistas/includes/album.jsp"%>
 		</c:if>
 	</div>
 	<div id="reproductor" class="col-12 fixed-bottom">
 		<c:if test="${cancion.mp3 != null}">
-			<iframe class="w-100" src="https://www.youtube-nocookie.com/embed/${cancion.mp3}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+			<iframe class="w-100"
+				src="https://www.youtube-nocookie.com/embed/${cancion.mp3}"
+				title="YouTube video player" frameborder="0"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
 		</c:if>
 	</div>
 </div>
