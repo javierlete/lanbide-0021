@@ -32,7 +32,7 @@ CREATE TABLE `albumes` (
   `artistas_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_albumes_artistas1_idx` (`artistas_id`),
-  CONSTRAINT `fk_albumes_artistas1` FOREIGN KEY (`artistas_id`) REFERENCES `artistas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_albumes_artistas1` FOREIGN KEY (`artistas_id`) REFERENCES `artistas` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -59,8 +59,8 @@ CREATE TABLE `albumes_favoritos` (
   PRIMARY KEY (`usuarios_id`,`albumes_id`),
   KEY `fk_usuarios_has_albumes_albumes1_idx` (`albumes_id`),
   KEY `fk_usuarios_has_albumes_usuarios1_idx` (`usuarios_id`),
-  CONSTRAINT `fk_usuarios_has_albumes_albumes1` FOREIGN KEY (`albumes_id`) REFERENCES `albumes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_usuarios_has_albumes_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_usuarios_has_albumes_albumes1` FOREIGN KEY (`albumes_id`) REFERENCES `albumes` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `fk_usuarios_has_albumes_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -112,8 +112,8 @@ CREATE TABLE `artistas_favoritos` (
   PRIMARY KEY (`usuarios_id`,`artistas_id`),
   KEY `fk_usuarios_has_artistas_artistas1_idx` (`artistas_id`),
   KEY `fk_usuarios_has_artistas_usuarios1_idx` (`usuarios_id`),
-  CONSTRAINT `fk_usuarios_has_artistas_artistas1` FOREIGN KEY (`artistas_id`) REFERENCES `artistas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_usuarios_has_artistas_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_usuarios_has_artistas_artistas1` FOREIGN KEY (`artistas_id`) REFERENCES `artistas` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `fk_usuarios_has_artistas_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -142,7 +142,7 @@ CREATE TABLE `canciones` (
   `albumes_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_canciones_albumes1_idx` (`albumes_id`),
-  CONSTRAINT `fk_canciones_albumes1` FOREIGN KEY (`albumes_id`) REFERENCES `albumes` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_canciones_albumes1` FOREIGN KEY (`albumes_id`) REFERENCES `albumes` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -169,8 +169,8 @@ CREATE TABLE `canciones_favoritas` (
   PRIMARY KEY (`usuarios_id`,`canciones_id`),
   KEY `fk_usuarios_has_canciones_canciones1_idx` (`canciones_id`),
   KEY `fk_usuarios_has_canciones_usuarios1_idx` (`usuarios_id`),
-  CONSTRAINT `fk_usuarios_has_canciones_canciones1` FOREIGN KEY (`canciones_id`) REFERENCES `canciones` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_usuarios_has_canciones_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_usuarios_has_canciones_canciones1` FOREIGN KEY (`canciones_id`) REFERENCES `canciones` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `fk_usuarios_has_canciones_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -198,7 +198,7 @@ CREATE TABLE `listas` (
   `usuarios_id` bigint NOT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_listas_usuarios1_idx` (`usuarios_id`),
-  CONSTRAINT `fk_listas_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_listas_usuarios1` FOREIGN KEY (`usuarios_id`) REFERENCES `usuarios` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -225,8 +225,8 @@ CREATE TABLE `listas_has_canciones` (
   PRIMARY KEY (`listas_id`,`canciones_id`),
   KEY `fk_listas_has_canciones_canciones1_idx` (`canciones_id`),
   KEY `fk_listas_has_canciones_listas1_idx` (`listas_id`),
-  CONSTRAINT `fk_listas_has_canciones_canciones1` FOREIGN KEY (`canciones_id`) REFERENCES `canciones` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `fk_listas_has_canciones_listas1` FOREIGN KEY (`listas_id`) REFERENCES `listas` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+  CONSTRAINT `fk_listas_has_canciones_canciones1` FOREIGN KEY (`canciones_id`) REFERENCES `canciones` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `fk_listas_has_canciones_listas1` FOREIGN KEY (`listas_id`) REFERENCES `listas` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -236,7 +236,7 @@ CREATE TABLE `listas_has_canciones` (
 
 LOCK TABLES `listas_has_canciones` WRITE;
 /*!40000 ALTER TABLE `listas_has_canciones` DISABLE KEYS */;
-INSERT INTO `listas_has_canciones` VALUES (2,1),(3,1),(5,1),(1,2),(3,2),(1,3),(3,3),(5,5);
+INSERT INTO `listas_has_canciones` VALUES (2,1),(3,1),(5,1),(1,2),(1,3),(3,3),(5,5);
 /*!40000 ALTER TABLE `listas_has_canciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -443,6 +443,25 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `usuarios_cancion_lista_borrar` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `usuarios_cancion_lista_borrar`(_id_cancion BIGINT, _id_lista BIGINT)
+BEGIN
+DELETE FROM listas_has_canciones WHERE listas_id = _id_lista AND canciones_id = _id_cancion;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `usuarios_cancion_lista_insertar` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -581,4 +600,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-02-07 10:32:06
+-- Dump completed on 2022-02-08 10:26:21
