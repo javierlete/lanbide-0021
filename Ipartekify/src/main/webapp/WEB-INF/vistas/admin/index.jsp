@@ -20,8 +20,8 @@
 				<td>${a.nombre}</td>
 				<td>${a.informacion}</td>
 				<td>
-					<a class="btn btn-outline-primary" href="#">Editar</a>
-					<a class="btn btn-outline-danger" href="#">Borrar</a>
+					<a class="btn btn-outline-primary" href="admin/index?id=${a.id}">Editar</a>
+					<a class="btn btn-outline-danger" href="admin/index?borrar=${a.id}">Borrar</a>
 				</td>
 			</tr>
 		</c:forEach>
@@ -32,7 +32,7 @@
 			<td></td>
 			<td></td>
 			<td>
-				<a class="btn btn-outline-primary" href="#">Añadir</a>
+				<a class="btn btn-outline-primary" href="admin/index?id=0">Añadir</a>
 			</td>
 		</tr>
 	</tfoot>
