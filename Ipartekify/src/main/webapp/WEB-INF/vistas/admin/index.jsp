@@ -10,6 +10,7 @@
 			<th>Id</th>
 			<th>Nombre</th>
 			<th>Información</th>
+			<th>Opciones</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,9 +19,23 @@
 				<th>${a.id}</th>
 				<td>${a.nombre}</td>
 				<td>${a.informacion}</td>
+				<td>
+					<a class="btn btn-outline-primary" href="#">Editar</a>
+					<a class="btn btn-outline-danger" href="#">Borrar</a>
+				</td>
 			</tr>
 		</c:forEach>
 	</tbody>
+	<tfoot>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>
+				<a class="btn btn-outline-primary" href="#">Añadir</a>
+			</td>
+		</tr>
+	</tfoot>
 </table>
 
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
