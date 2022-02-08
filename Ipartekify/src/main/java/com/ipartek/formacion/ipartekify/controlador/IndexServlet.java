@@ -32,6 +32,7 @@ public class IndexServlet extends HttpServlet {
 	private static final DaoUsuario daoUsuario = fabrica.getUsuario();
 	
 	private HttpServletRequest request;
+	private HttpServletResponse response;
 	private Usuario usuario;
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -45,11 +46,13 @@ public class IndexServlet extends HttpServlet {
 		String nuevaLista = request.getParameter("nueva-lista");
 		String lista = request.getParameter("lista");
 		String nuevaCancion = request.getParameter("nueva-cancion");
+		String quitarCancion = request.getParameter("quitar-cancion");
 		String paraLista = request.getParameter("para-lista");
 		
 		this.usuario = (Usuario)request.getSession().getAttribute("usuario");
 		
 		this.request = request;
+		this.response = response;
 		
 		if(strIdArtista != null && strIdArtista.trim().length() > 0) {
 			artista(strIdArtista);
@@ -77,6 +80,12 @@ public class IndexServlet extends HttpServlet {
 		
 		if(nuevaCancion != null && paraLista != null) {
 			insertarCancionLista(nuevaCancion, paraLista);
+			return;
+		}
+		
+		if(quitarCancion != null && paraLista != null) {
+			quitarCancionLista(quitarCancion, paraLista);
+			return;
 		}
 		
 		Iterable<Artista> artistas = daoArtista.obtenerTodos();
@@ -88,11 +97,22 @@ public class IndexServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
 	}
 
-	private void insertarCancionLista(String nuevaCancion, String paraLista) {
+	private void quitarCancionLista(String quitarCancion, String paraLista) throws IOException {
+		Long idCancion = Long.parseLong(quitarCancion);
+		Long idLista = Long.parseLong(paraLista);
+		
+		daoUsuario.quitarCancionLista(idCancion, idLista);
+		
+		response.sendRedirect(request.getContextPath() + "/index?lista=" + idLista);
+	}
+
+	private void insertarCancionLista(String nuevaCancion, String paraLista) throws IOException {
 		Long idCancion = Long.parseLong(nuevaCancion);
 		Long idLista = Long.parseLong(paraLista);
 		
 		daoUsuario.insertarCancionLista(idCancion, idLista);
+		
+		response.sendRedirect(request.getContextPath() + "/index?cancion=" + idCancion);
 	}
 
 	private void lista(String idListaString) {

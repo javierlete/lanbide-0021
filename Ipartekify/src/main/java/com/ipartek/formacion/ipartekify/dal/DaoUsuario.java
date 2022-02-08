@@ -12,4 +12,5 @@ public interface DaoUsuario extends Dao<Usuario> {
 	Lista obtenerListaPorId(Long idLista);
 	Iterable<Cancion> obtenerCancionesLista(Long idLista);
 	void insertarCancionLista(Long idCancion, Long idLista);
+	void quitarCancionLista(Long idCancion, Long idLista);
 }
