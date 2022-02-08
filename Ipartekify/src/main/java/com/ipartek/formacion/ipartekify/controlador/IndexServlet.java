@@ -99,7 +99,8 @@ public class IndexServlet extends HttpServlet {
 		Long id = Long.parseLong(idListaString);
 		Lista lista = daoUsuario.obtenerListaPorId(id);
 		
-		Album album = new Album(0L, lista.getNombre(), null, null, null);
+		// Indicamos que es una lista utilizando su id en negativo en lugar de positivo
+		Album album = new Album(-id, lista.getNombre(), null, null, null);
 		
 		for(Cancion cancion: daoUsuario.obtenerCancionesLista(id)) {
 			album.getCanciones().add(cancion);
@@ -115,6 +116,7 @@ public class IndexServlet extends HttpServlet {
 	private void favoritas() {
 		Iterable<Cancion> canciones = daoCancion.buscarFavoritas(usuario.getId());
 		
+		// Indicamos con el 0L que lo que hemos mandado son los favoritos
 		Album album = new Album(0L, "Canciones favoritas", null, null, null);
 		
 		for(Cancion cancion: canciones) {

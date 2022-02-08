@@ -2,10 +2,13 @@
 	pageEncoding="UTF-8"%>
 <div class="card mb-3 text-white bg-dark">
 	<div class="row g-0">
-		<div class="col-md-4">
-			<img src="${album.foto}" class="img-fluid rounded-start" alt="">
-		</div>
-		<div class="col-md-8">
+		<%-- Si es un album normal su id será mayor que 0 --%>
+		<c:if test="${album.id > 0}">
+			<div class="col-md-4">
+				<img src="${album.foto}" class="img-fluid rounded-start" alt="">
+			</div>
+		</c:if>
+		<div class="col-md-auto">
 			<div class="card-body">
 				<h5 class="card-title">${album.nombre}</h5>
 				<p class="card-text">${album.anno}</p>
@@ -46,6 +49,13 @@
 							</c:forEach>
 						</ul>
 					</div>
+					
+					<%-- Si el id es menor que cero significa que es una lista --%>	
+					<c:if test="${album.id < 0}">
+						<%-- Al pasar el album id en negativo, lo volvemos positivo --%>
+						<a href="index?quitar-cancion=${c.id}&amp;para-lista=${-album.id}" class="elevado btn btn-sm btn-outline-danger"
+						onclick="javascript:return confirm('¿Estás seguro de que quieres quitar ${c.nombre} de la lista ${album.nombre}?')">Quitar de lista</a>
+					</c:if>
 				</td>
 			</tr>
 		</c:forEach>
