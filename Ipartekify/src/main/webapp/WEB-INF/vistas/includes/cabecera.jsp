@@ -31,7 +31,13 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<span class="ms-auto navbar-text">${sessionScope.usuario.email}</span>
 				<ul class="navbar-nav mb-2 mb-lg-0">
-					<li class="nav-item"><c:choose>
+					<c:if test="${sessionScope.usuario.rol == 'ADMIN'}">
+						<li class="nav-item">
+							<a class="nav-link" href="admin/">Administración</a>
+						</li>
+					</c:if>
+					<li class="nav-item">
+					<c:choose>
 							<c:when test="${sessionScope.usuario != null}">
 								<a class="nav-link" href="logout">Logout</a>
 							</c:when>

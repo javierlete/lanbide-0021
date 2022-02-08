@@ -53,11 +53,16 @@ public class IndexServlet extends HttpServlet {
 			String nuevaCancion = request.getParameter("nueva-cancion");
 			String quitarCancion = request.getParameter("quitar-cancion");
 			String paraLista = request.getParameter("para-lista");
+						
+			this.request = request;
+			this.response = response;
 			
 			this.usuario = (Usuario)request.getSession().getAttribute("usuario");
 			
-			this.request = request;
-			this.response = response;
+			if(this.usuario == null ) {
+				forwardIndex();
+				return;
+			}
 			
 			if(strIdArtista != null && strIdArtista.trim().length() > 0) {
 				artista(strIdArtista);
@@ -99,15 +104,19 @@ public class IndexServlet extends HttpServlet {
 			request.setAttribute("artistas", artistas);
 			request.setAttribute("listas", listas);
 
-			request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+			forwardIndex();
 		} catch (Exception e) {
 			// LOGGER.throwing(getServletName(), getServletInfo(), e);
 			LOGGER.log(Level.SEVERE, "Ha habido un error en doGet", e);
 			
 			request.setAttribute("error", e.getMessage());
 			
-			request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
+			forwardIndex();
 		}
+	}
+
+	private void forwardIndex() throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/vistas/index.jsp").forward(request, response);
 	}
 
 	private void quitarCancionLista(String quitarCancion, String paraLista) throws IOException {
@@ -116,7 +125,11 @@ public class IndexServlet extends HttpServlet {
 		
 		daoUsuario.quitarCancionLista(idCancion, idLista);
 		
-		response.sendRedirect(request.getContextPath() + "/index?lista=" + idLista);
+		redirectIndex("?lista=" + idLista);
+	}
+
+	private void redirectIndex(String ruta) throws IOException {
+		response.sendRedirect(request.getContextPath() + "/index" + ruta);
 	}
 
 	private void insertarCancionLista(String nuevaCancion, String paraLista) throws IOException {
@@ -125,7 +138,7 @@ public class IndexServlet extends HttpServlet {
 		
 		daoUsuario.insertarCancionLista(idCancion, idLista);
 		
-		response.sendRedirect(request.getContextPath() + "/index?cancion=" + idCancion);
+		redirectIndex("?cancion=" + idCancion);
 	}
 
 	private void lista(String idListaString) {
