@@ -21,7 +21,8 @@
 				<td>${a.informacion}</td>
 				<td>
 					<a class="btn btn-outline-primary" href="admin/index?id=${a.id}">Editar</a>
-					<a class="btn btn-outline-danger" href="admin/index?borrar=${a.id}">Borrar</a>
+					<a class="btn btn-outline-danger" 
+					onclick="return confirm('¿Estás seguro de que quieres borrar ${a.nombre}?')" href="admin/index?borrar=${a.id}">Borrar</a>
 				</td>
 			</tr>
 		</c:forEach>

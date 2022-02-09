@@ -11,6 +11,31 @@ import com.ipartek.formacion.ipartekify.modelos.Artista;
 class DaoArtistaMySql implements DaoArtista {
 
 	@Override
+	public Artista insertar(Artista objeto) {
+		// TODO Auto-generated method stub
+		return DaoArtista.super.insertar(objeto);
+	}
+
+	@Override
+	public Artista modificar(Artista objeto) {
+		// TODO Auto-generated method stub
+		return DaoArtista.super.modificar(objeto);
+	}
+
+	@Override
+	public void borrar(long id) {
+		try (Connection con = Globales.obtenerConexion();
+				CallableStatement cs = con.prepareCall("{call artistas_delete(?)}");
+				) {
+			cs.setLong(1, id);
+			
+			cs.executeUpdate();
+		} catch (SQLException e) {
+			throw new DalException("No se ha podido borrar el artista", e);
+		}
+	}
+
+	@Override
 	public Iterable<Artista> obtenerTodos() {
 		try (Connection con = Globales.obtenerConexion();
 				CallableStatement cs = con.prepareCall("{call artistas_select()}");
