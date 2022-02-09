@@ -28,8 +28,15 @@ public class AdminServlet extends HttpServlet {
 		String id = request.getParameter("id");
 		String borrar = request.getParameter("borrar");
 		String artistaSeleccionado = request.getParameter("artista-seleccionado");
+		String borrarAlbum = request.getParameter("borrar-album");
 		
 		Long idArtista = null;
+		
+		if(borrarAlbum != null) {
+			Long idAlbum = Long.parseLong(borrarAlbum);
+			idArtista = daoAlbum.obtenerPorId(idAlbum).getArtista().getId();
+			daoAlbum.borrar(idAlbum);
+		}
 		
 		if(artistaSeleccionado != null) {
 			idArtista = Long.parseLong(artistaSeleccionado);

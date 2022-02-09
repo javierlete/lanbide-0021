@@ -10,6 +10,7 @@ import java.time.Year;
 import java.util.ArrayList;
 
 import com.ipartek.formacion.ipartekify.modelos.Album;
+import com.ipartek.formacion.ipartekify.modelos.Artista;
 import com.ipartek.formacion.ipartekify.modelos.Cancion;
 
 public class DaoAlbumMySql implements DaoAlbum {
@@ -41,6 +42,12 @@ public class DaoAlbumMySql implements DaoAlbum {
 		}
 	}
 
+		@Override
+	public Album obtenerPorId(long id) {
+		// TODO Se puede mejorar con un procedimiento almacenado específico que no pida favoritos
+		return obtenerPorId(0, id);
+	}
+	
 	@Override
 	public Album obtenerPorId(long idUsuario, long id) {
 		try (Connection con = Globales.obtenerConexion();
@@ -55,7 +62,7 @@ public class DaoAlbumMySql implements DaoAlbum {
 			
 			if(rs.next()) {
 				anno = Year.of(rs.getDate("anno").toLocalDate().getYear());
-				album = new Album(rs.getLong("id"), rs.getString("nombre"), anno, rs.getString("foto"), null);				
+				album = new Album(rs.getLong("id"), rs.getString("nombre"), anno, rs.getString("foto"), new Artista(rs.getLong("artistas_id"), null, null));				
 			}
 			
 			try(CallableStatement csCanciones = con.prepareCall("{call canciones_select_album(?,?)}")) {
@@ -78,6 +85,19 @@ public class DaoAlbumMySql implements DaoAlbum {
 			return album;
 		} catch (SQLException e) {
 			throw new DalException("No se ha podido obtener el album", e);
+		}
+	}
+	
+	@Override
+	public void borrar(long id) {
+		try (Connection con = Globales.obtenerConexion();
+				CallableStatement cs = con.prepareCall("{call albumes_borrar(?)}");
+				) {
+			cs.setLong(1, id);
+			
+			cs.executeUpdate();
+		} catch (SQLException e) {
+			throw new DalException("No se han podido obtener los álbumes", e);
 		}
 	}
 }
