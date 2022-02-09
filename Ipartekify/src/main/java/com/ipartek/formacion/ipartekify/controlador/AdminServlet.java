@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.ipartek.formacion.ipartekify.dal.DaoAlbum;
 import com.ipartek.formacion.ipartekify.dal.DaoArtista;
 import com.ipartek.formacion.ipartekify.dal.FabricaDao;
 import com.ipartek.formacion.ipartekify.dal.FabricaDaoImpl;
+import com.ipartek.formacion.ipartekify.modelos.Album;
 import com.ipartek.formacion.ipartekify.modelos.Artista;
 
 @WebServlet("/admin/index")
@@ -19,11 +21,21 @@ public class AdminServlet extends HttpServlet {
 
 	private static final FabricaDao fabrica = new FabricaDaoImpl();
 	private static final DaoArtista daoArtista = fabrica.getArtista();
+	private static final DaoAlbum daoAlbum = fabrica.getAlbum();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String id = request.getParameter("id");
 		String borrar = request.getParameter("borrar");
+		String artistaSeleccionado = request.getParameter("artista-seleccionado");
+		
+		if(artistaSeleccionado != null) {
+			Artista artista = daoArtista.obtenerPorId(Long.parseLong(artistaSeleccionado));
+			request.setAttribute("artista", artista);
+			
+			Iterable<Album> albumes = daoAlbum.obtenerTodos(artista.getId());
+			request.setAttribute("albumes", albumes);
+		}
 
 		if (id != null) {
 			Artista artista = daoArtista.obtenerPorId(Long.parseLong(id));
@@ -45,21 +57,21 @@ public class AdminServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		
+
 		String id = request.getParameter("id");
 		String nombre = request.getParameter("nombre");
 		String informacion = request.getParameter("informacion");
-		
+
 		Long idArtista = id != null && id.trim().length() > 0 ? Long.parseLong(id) : null;
-		
+
 		Artista artista = new Artista(idArtista, nombre, informacion);
-		
-		if(idArtista != null) {
+
+		if (idArtista != null) {
 			daoArtista.modificar(artista);
 		} else {
 			daoArtista.insertar(artista);
 		}
-		
+
 		response.sendRedirect(request.getContextPath() + "/admin/index");
 	}
 
