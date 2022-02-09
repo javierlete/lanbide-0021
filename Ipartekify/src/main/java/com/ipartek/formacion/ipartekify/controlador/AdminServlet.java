@@ -29,27 +29,37 @@ public class AdminServlet extends HttpServlet {
 		String borrar = request.getParameter("borrar");
 		String artistaSeleccionado = request.getParameter("artista-seleccionado");
 		String borrarAlbum = request.getParameter("borrar-album");
-		
+		String album = request.getParameter("album");
+
 		Long idArtista = null;
-		
-		if(borrarAlbum != null) {
+
+		if (album != null) {
+			Long idAlbum = Long.parseLong(album);
+			
+			request.setAttribute("album", daoAlbum.obtenerPorId(idAlbum));
+			
+			request.getRequestDispatcher("/WEB-INF/vistas/admin/album.jsp").forward(request, response);
+			return;
+		}
+
+		if (borrarAlbum != null) {
 			Long idAlbum = Long.parseLong(borrarAlbum);
 			idArtista = daoAlbum.obtenerPorId(idAlbum).getArtista().getId();
 			daoAlbum.borrar(idAlbum);
 		}
-		
-		if(artistaSeleccionado != null) {
+
+		if (artistaSeleccionado != null) {
 			idArtista = Long.parseLong(artistaSeleccionado);
 		}
-		
-		if(id != null) {
+
+		if (id != null) {
 			idArtista = Long.parseLong(id);
 		}
-		
-		if(idArtista != null) {
+
+		if (idArtista != null) {
 			Artista artista = daoArtista.obtenerPorId(idArtista);
 			request.setAttribute("artista", artista);
-			
+
 			Iterable<Album> albumes = daoAlbum.obtenerTodos(artista.getId());
 			request.setAttribute("albumes", albumes);
 		}
