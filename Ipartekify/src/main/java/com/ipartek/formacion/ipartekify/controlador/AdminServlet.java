@@ -44,7 +44,23 @@ public class AdminServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
+		
+		String id = request.getParameter("id");
+		String nombre = request.getParameter("nombre");
+		String informacion = request.getParameter("informacion");
+		
+		Long idArtista = id != null && id.trim().length() > 0 ? Long.parseLong(id) : null;
+		
+		Artista artista = new Artista(idArtista, nombre, informacion);
+		
+		if(idArtista != null) {
+			daoArtista.modificar(artista);
+		} else {
+			daoArtista.insertar(artista);
+		}
+		
+		response.sendRedirect(request.getContextPath() + "/admin/index");
 	}
 
 }
