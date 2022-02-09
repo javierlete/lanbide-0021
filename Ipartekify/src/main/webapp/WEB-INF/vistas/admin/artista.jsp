@@ -28,4 +28,6 @@
 	</div>
 </form>
 
+<%@ include file="/WEB-INF/vistas/admin/includes/albumes.jsp" %>
+
 <%@ include file="/WEB-INF/vistas/includes/pie.jsp"%>
