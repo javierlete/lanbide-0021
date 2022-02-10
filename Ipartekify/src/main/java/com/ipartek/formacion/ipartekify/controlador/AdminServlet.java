@@ -43,11 +43,18 @@ public class AdminServlet extends HttpServlet {
 
 		if (album != null) {
 			Long idAlbum = Long.parseLong(album);
-
+			idArtista = artistaSeleccionado != null ? Long.parseLong(artistaSeleccionado) : null;
+			
 			log.info(artistaSeleccionado);
 			
-			request.setAttribute("artistaSeleccionado", artistaSeleccionado);
-			request.setAttribute("album", daoAlbum.obtenerPorId(idAlbum));
+			Album albumModelo = daoAlbum.obtenerPorId(idAlbum);
+			
+			if(albumModelo == null) {
+				albumModelo = new Album(null, null, null, null, new Artista(idArtista, null, null));
+			}
+			
+			request.setAttribute("album", albumModelo);
+			request.setAttribute("artistas", daoArtista.obtenerTodos());
 
 			request.getRequestDispatcher("/WEB-INF/vistas/admin/album.jsp").forward(request, response);
 			return;

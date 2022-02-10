@@ -12,7 +12,11 @@
 	<div class="row mb-3">
 		<label for="artista" class="col-sm-2 col-form-label">Id artista</label>
 		<div class="col-sm-10">
-			<input type="number" class="form-control" id="album-artista" name="album-artista" value="${artistaSeleccionado != null ? artistaSeleccionado : album.artista.id}" readonly>
+			<select class="form-select" id="album-artista" name="album-artista">
+				<c:forEach items="${artistas}" var="a">
+					<option value="${a.id}" ${a.id == album.artista.id ? 'selected': ''}>${a.nombre}</option>
+				</c:forEach>
+			</select>
 		</div>
 	</div>
 	<div class="row mb-3">
