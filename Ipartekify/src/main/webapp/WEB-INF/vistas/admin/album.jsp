@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/WEB-INF/vistas/includes/cabecera.jsp"%>
 
-<form action="admin/index" method="post" class="container mt-5">
+<form action="admin/index" method="post" enctype="multipart/form-data" class="container mt-5">
 	<div class="row mb-3">
 		<label for="id" class="col-sm-2 col-form-label">Id</label>
 		<div class="col-sm-10">
