@@ -37,7 +37,7 @@
 			<td></td>
 			<td></td>
 			<td><a class="btn btn-outline-primary"
-				href="admin/index?album=0">Añadir</a></td>
+				href="admin/index?album=0&artista-seleccionado=${artista.id}">Añadir</a></td>
 		</tr>
 	</tfoot>
 </table>

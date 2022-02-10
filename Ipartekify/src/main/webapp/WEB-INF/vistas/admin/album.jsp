@@ -6,31 +6,31 @@
 	<div class="row mb-3">
 		<label for="id" class="col-sm-2 col-form-label">Id</label>
 		<div class="col-sm-10">
-			<input type="number" class="form-control" id="id" name="id" value="${album.id}" readonly>
+			<input type="number" class="form-control" id="album-id" name="album-id" value="${album.id}" readonly>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="artista" class="col-sm-2 col-form-label">Id artista</label>
 		<div class="col-sm-10">
-			<input type="number" class="form-control" id="artista" name="artista" value="${album.artista.id}" readonly>
+			<input type="number" class="form-control" id="album-artista" name="album-artista" value="${artistaSeleccionado != null ? artistaSeleccionado : album.artista.id}" readonly>
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
 		<div class="col-sm-10">
-			<input type="text" class="form-control" id="nombre" name="nombre" value="${album.nombre}">
+			<input type="text" class="form-control" id="album-nombre" name="album-nombre" value="${album.nombre}">
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="anno" class="col-sm-2 col-form-label">Año</label>
 		<div class="col-sm-10">
-			<input type="number" min="1800" max="2100" class="form-control" id="anno" name="anno" value="${album.anno}">
+			<input type="number" min="1800" max="2100" class="form-control" id="album-anno" name="album-anno" value="${album.anno}">
 		</div>
 	</div>
 	<div class="row mb-3">
 		<label for="foto" class="col-sm-2 col-form-label">Foto</label>
 		<div class="col-sm-10">
-			<input type="file" class="form-control" id="foto" name="foto" value="${album.foto}">
+			<input type="file" class="form-control" id="album-foto" name="album-foto" value="${album.foto}">
 		</div>
 	</div>
 	<div class="row mb-3">

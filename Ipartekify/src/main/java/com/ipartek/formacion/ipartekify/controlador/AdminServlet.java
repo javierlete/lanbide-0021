@@ -1,6 +1,7 @@
 package com.ipartek.formacion.ipartekify.controlador;
 
 import java.io.IOException;
+import java.time.Year;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,10 +16,17 @@ import com.ipartek.formacion.ipartekify.dal.FabricaDaoImpl;
 import com.ipartek.formacion.ipartekify.modelos.Album;
 import com.ipartek.formacion.ipartekify.modelos.Artista;
 
+import lombok.extern.java.Log;
+
+@Log
 @WebServlet("/admin/index")
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	// private static Logger LOGGER = Logger.getLogger(AdminServlet.class.getName());
+	
+	private HttpServletRequest request;
+	
 	private static final FabricaDao fabrica = new FabricaDaoImpl();
 	private static final DaoArtista daoArtista = fabrica.getArtista();
 	private static final DaoAlbum daoAlbum = fabrica.getAlbum();
@@ -35,9 +43,12 @@ public class AdminServlet extends HttpServlet {
 
 		if (album != null) {
 			Long idAlbum = Long.parseLong(album);
+
+			log.info(artistaSeleccionado);
 			
+			request.setAttribute("artistaSeleccionado", artistaSeleccionado);
 			request.setAttribute("album", daoAlbum.obtenerPorId(idAlbum));
-			
+
 			request.getRequestDispatcher("/WEB-INF/vistas/admin/album.jsp").forward(request, response);
 			return;
 		}
@@ -80,13 +91,51 @@ public class AdminServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		this.request = request;
+		
 		request.setCharacterEncoding("UTF-8");
 
 		String id = request.getParameter("id");
+		String idAlbum = request.getParameter("album-id");
+
+		if (id != null) {
+			postArtista(id);
+		}
+		
+		if (idAlbum != null) {
+			postAlbum(idAlbum);
+		}
+
+		response.sendRedirect(request.getContextPath() + "/admin/index");
+	}
+
+	private void postAlbum(String id) {
+		String artista = request.getParameter("album-artista");
+		String nombre = request.getParameter("album-nombre");
+		String anno = request.getParameter("album-anno");
+		String foto = request.getParameter("album-foto");
+		
+		Long idAlbum = idALong(id);
+		Long idArtista = idALong(artista);
+		
+		Album album = new Album(idAlbum, nombre, Year.parse(anno), foto, new Artista(idArtista, null, null));
+		
+		if(idAlbum != null) {
+			daoAlbum.modificar(album);
+		} else {
+			daoAlbum.insertar(album);
+		}
+	}
+
+	private Long idALong(String id) {
+		return id != null && id.trim().length() > 0 ? Long.parseLong(id) : null;
+	}
+
+	private void postArtista(String id) {
 		String nombre = request.getParameter("nombre");
 		String informacion = request.getParameter("informacion");
 
-		Long idArtista = id != null && id.trim().length() > 0 ? Long.parseLong(id) : null;
+		Long idArtista = idALong(id);
 
 		Artista artista = new Artista(idArtista, nombre, informacion);
 
@@ -95,8 +144,6 @@ public class AdminServlet extends HttpServlet {
 		} else {
 			daoArtista.insertar(artista);
 		}
-
-		response.sendRedirect(request.getContextPath() + "/admin/index");
 	}
 
 }

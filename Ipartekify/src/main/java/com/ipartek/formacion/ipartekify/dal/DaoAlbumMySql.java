@@ -89,6 +89,49 @@ public class DaoAlbumMySql implements DaoAlbum {
 	}
 	
 	@Override
+	public Album insertar(Album album) {
+		try (Connection con = Globales.obtenerConexion();
+				CallableStatement cs = con.prepareCall("{call albumes_insertar(?,?,?,?)}");
+				) {
+			cs.setString(1, album.getNombre());
+			cs.setInt(2, album.getAnno().getValue());
+			cs.setString(3, album.getFoto());
+			cs.setLong(4, album.getArtista().getId());
+			
+			cs.executeUpdate();
+			
+			ResultSet rs = cs.getResultSet();
+			
+			rs.next();
+			
+			album.setId(rs.getLong(1));
+			
+			return album;
+		} catch (SQLException e) {
+			throw new DalException("No se ha podido insertar el álbum", e);
+		}
+	}
+
+	@Override
+	public Album modificar(Album album) {
+		try (Connection con = Globales.obtenerConexion();
+				CallableStatement cs = con.prepareCall("{call albumes_modificar(?,?,?,?,?)}");
+				) {
+			cs.setLong(1, album.getId());
+			cs.setString(2, album.getNombre());
+			cs.setInt(3, album.getAnno().getValue());
+			cs.setString(4, album.getFoto());
+			cs.setLong(5, album.getArtista().getId());
+			
+			cs.executeUpdate();
+			
+			return album;
+		} catch (SQLException e) {
+			throw new DalException("No se ha podido modificar el álbum", e);
+		}
+	}
+
+	@Override
 	public void borrar(long id) {
 		try (Connection con = Globales.obtenerConexion();
 				CallableStatement cs = con.prepareCall("{call albumes_borrar(?)}");
@@ -97,7 +140,7 @@ public class DaoAlbumMySql implements DaoAlbum {
 			
 			cs.executeUpdate();
 		} catch (SQLException e) {
-			throw new DalException("No se han podido obtener los álbumes", e);
+			throw new DalException("No se ha podido borrar el álbum", e);
 		}
 	}
 }
