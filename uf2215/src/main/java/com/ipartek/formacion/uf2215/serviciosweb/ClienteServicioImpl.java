@@ -2,12 +2,12 @@ package com.ipartek.formacion.uf2215.serviciosweb;
 
 import java.util.ArrayList;
 
+import javax.jws.WebMethod;
+import javax.jws.WebService;
+
 import com.ipartek.formacion.uf2215.entidades.Cliente;
 import com.ipartek.formacion.uf2215.repositorios.ClienteRepositorio;
 import com.ipartek.formacion.uf2215.repositorios.ClienteRepositorioMemoria;
-
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebService;
 
 @WebService(endpointInterface = "com.ipartek.formacion.uf2215.serviciosweb.ClienteServicio")
 public class ClienteServicioImpl implements ClienteServicio {

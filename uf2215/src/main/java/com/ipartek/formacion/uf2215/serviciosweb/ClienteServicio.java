@@ -2,10 +2,10 @@ package com.ipartek.formacion.uf2215.serviciosweb;
 
 import java.util.ArrayList;
 
-import com.ipartek.formacion.uf2215.entidades.Cliente;
+import javax.jws.WebMethod;
+import javax.jws.WebService;
 
-import jakarta.jws.WebMethod;
-import jakarta.jws.WebService;
+import com.ipartek.formacion.uf2215.entidades.Cliente;
 
 @WebService
 public interface ClienteServicio {

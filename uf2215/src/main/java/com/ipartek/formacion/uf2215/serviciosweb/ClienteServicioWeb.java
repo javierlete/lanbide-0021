@@ -1,6 +1,6 @@
 package com.ipartek.formacion.uf2215.serviciosweb;
 
-import jakarta.xml.ws.Endpoint;
+import javax.xml.ws.Endpoint;
 
 public class ClienteServicioWeb {
 
