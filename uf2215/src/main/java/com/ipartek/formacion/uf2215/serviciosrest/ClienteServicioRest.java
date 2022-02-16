@@ -32,7 +32,13 @@ public class ClienteServicioRest extends HttpServlet {
 		if(id == null) {
 			out.println(gson.toJson(repo.getObjetos()));
 		} else {
-			out.println(gson.toJson(repo.getObjeto(id)));
+			Cliente cliente = repo.getObjeto(id);
+			
+			if(cliente == null) {
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			} else {
+				out.println(gson.toJson(cliente));
+			}
 		}
 	}
 	
@@ -44,6 +50,8 @@ public class ClienteServicioRest extends HttpServlet {
 		
 		cliente = repo.postObjeto(cliente);
 		
+		response.setStatus(HttpServletResponse.SC_CREATED);
+		
 		response.getWriter().println(gson.toJson(cliente));
 	}
 	
@@ -51,7 +59,13 @@ public class ClienteServicioRest extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		
+		Long id = obtenerId(request);
 		Cliente cliente = gson.fromJson(request.getReader(), Cliente.class);
+		
+		if(id != cliente.getId()) {
+			response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
+			return;
+		}
 		
 		repo.putObjeto(cliente);
 		
@@ -61,6 +75,7 @@ public class ClienteServicioRest extends HttpServlet {
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		repo.deleteObjeto(obtenerId(request));
 		
+		response.setStatus(HttpServletResponse.SC_NO_CONTENT);
 		response.getWriter().println("{}");
 	}
 
