@@ -29,11 +29,14 @@
 		</tbody>
 	</table>
 
-	<form id="formulario-clientes">
+	<form id="formulario-clientes" novalidate>
 		<div class="row mb-3">
 			<label for="nombre" class="col-sm-2 form-label">Nombre</label>
 			<div class="col-sm">
-				<input class="form-control" type="text" id="nombre" name="nombre" />
+				<input class="form-control" type="text" id="nombre" name="nombre" required minlength="3" pattern="\p{Lu}[\p{L}]*" />
+				<div class="invalid-feedback">
+					El nombre es obligatorio, debe tener como mínimo tres letras y además comenzar por mayúscula 
+				</div>
 			</div>
 		</div>
 		<div class="row mb-3">
@@ -51,5 +54,6 @@
 		</div>
 	</form>
 
+	<script src="js/validacion-bootstrap.js"></script>
 </body>
 </html>

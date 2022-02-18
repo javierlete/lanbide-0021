@@ -22,6 +22,12 @@ window.onload = function() {
 async function envioFormulario(e) {
 	e.preventDefault();
 
+	formulario.classList.add('was-validated')
+
+	if (!formulario.checkValidity()) {
+		return;
+	}
+
 	const cliente = Object.fromEntries(new FormData(formulario));
 
 	cliente.id = +formulario.dataset.id;
@@ -135,6 +141,8 @@ function limpiar() {
 	nombre.value = '';
 	apellido.value = '';
 	delete formulario.dataset.id;
+	
+	formulario.classList.remove('was-validated');
 }
 
 function mostrarAlerta(nivel, texto) {
