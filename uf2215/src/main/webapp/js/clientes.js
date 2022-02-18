@@ -7,9 +7,9 @@ let apellido;
 window.onload = function() {
 
 	console.log('onload', 'ANTES DE PEDIR CLIENTES');
-	
+
 	pedirClientes();
-	
+
 	console.log('onload', 'DESPUÉS DE PEDIR CLIENTES');
 
 	formulario = document.getElementById("formulario-clientes");
@@ -45,7 +45,15 @@ async function pedirClientes() {
 
 	tbody.innerHTML = '';
 
-	const respuesta = await fetch(url);
+	const respuesta = await fetch(url).catch(respuesta => respuesta);
+
+	if (respuesta.ok) {
+		mostrarAlerta('success', 'Clientes recibidos');
+	} else {
+		mostrarAlerta('danger', 'No se han podido obtener los clientes');
+		return;
+	}
+
 	const clientes = await respuesta.json();
 
 	console.log('pedirClientes', clientes);
@@ -68,15 +76,22 @@ async function pedirClientes() {
 
 async function insertar(cliente) {
 	console.log('insertar', cliente);
-	
+
 	const respuesta = await fetch(url, {
 		method: 'POST',
 		body: JSON.stringify(cliente),
 		headers: {
 			'Content-Type': 'application/json'
 		}
-	});
-	
+	}).catch(respuesta => respuesta);
+
+	if (respuesta.ok) {
+		mostrarAlerta('success', 'Cliente insertado');
+	} else {
+		mostrarAlerta('danger', 'No se ha podido insertar el cliente');
+		return;
+	}
+
 	console.log('insertar', respuesta);
 }
 
@@ -102,7 +117,7 @@ async function modificar(cliente) {
 			'Content-Type': 'application/json'
 		}
 	});
-	
+
 	console.log('modificar', respuesta);
 }
 
@@ -120,4 +135,18 @@ function limpiar() {
 	nombre.value = '';
 	apellido.value = '';
 	delete formulario.dataset.id;
+}
+
+function mostrarAlerta(nivel, texto) {
+	const contenido = `
+		${texto}
+		<button type="button" class="btn-close" data-bs-dismiss="alert"
+			aria-label="Close"></button>`;
+
+	const alerta = document.createElement('div');
+	alerta.className = `alert alert-${nivel} alert-dismissible fade show`;
+	alerta.role = 'alert';
+	alerta.innerHTML = contenido;
+
+	document.body.insertBefore(alerta, document.body.firstChild); 
 }
