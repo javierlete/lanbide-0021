@@ -2,14 +2,21 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
 <title>Clientes</title>
+
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/clientes.js"></script>
 </head>
-<body>
+<body class="container">
 
-	<table id="tabla-clientes">
+	<table id="tabla-clientes"
+		class="table table-hover table-striped table-bordered">
 		<caption>Clientes</caption>
-		<thead>
+		<thead class="table-dark">
 			<tr>
 				<th>Id</th>
 				<th>Nombre</th>
@@ -23,15 +30,24 @@
 	</table>
 
 	<form id="formulario-clientes">
-		<div>
-			<label for="nombre">Nombre</label> <input type="text" id="nombre" name="nombre" />
+		<div class="row mb-3">
+			<label for="nombre" class="col-sm-2 form-label">Nombre</label>
+			<div class="col-sm">
+				<input class="form-control" type="text" id="nombre" name="nombre" />
+			</div>
 		</div>
-		<div>
-			<label for="apellido">Apellido</label> <input type="text" id="apellido" name="apellido" />
+		<div class="row mb-3">
+			<label for="apellido" class="col-sm-2 form-label">Apellido</label>
+			<div class="col-sm">
+				<input class="form-control" type="text" id="apellido"
+					name="apellido" />
+			</div>
 		</div>
-		<div>
-			<button>Aceptar</button>
-			<a href="javascript:limpiar()">Limpiar</a>
+		<div class="row mb-3">
+			<div class="offset-sm-2 col-sm">
+				<button class="btn btn-primary">Aceptar</button>
+				<a class="btn btn-danger" href="javascript:limpiar()">Limpiar</a>
+			</div>
 		</div>
 	</form>
 

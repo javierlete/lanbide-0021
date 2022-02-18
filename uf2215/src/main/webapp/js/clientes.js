@@ -59,8 +59,8 @@ async function pedirClientes() {
 			<td>${cliente.nombre}</td>
 			<td>${cliente.apellido}</td>
 			<td>
-				<a href="javascript:editar(${cliente.id})">Editar</a>
-				<a href="javascript:borrar(${cliente.id})">Borrar</a>
+				<a class="btn btn-primary btn-sm" href="javascript:editar(${cliente.id})">Editar</a>
+				<a class="btn btn-danger btn-sm" href="javascript:borrar(${cliente.id})">Borrar</a>
 			</td>`;
 		tbody.appendChild(fila);
 	}
