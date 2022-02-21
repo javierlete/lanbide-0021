@@ -14,13 +14,13 @@ import javax.ws.rs.core.Response.Status;
 
 import com.ipartek.formacion.uf2215.entidades.Cliente;
 import com.ipartek.formacion.uf2215.repositorios.ClienteRepositorio;
-import com.ipartek.formacion.uf2215.repositorios.ClienteRepositorioMemoria;
+import com.ipartek.formacion.uf2215.repositorios.ClienteRepositorioHibernate;
 
 @Path("/clientes")
 @Produces(MediaType.APPLICATION_JSON) 
 @Consumes(MediaType.APPLICATION_JSON) 
 public class ClienteServicioRestJaxRs {
-	private static final ClienteRepositorio repo = new ClienteRepositorioMemoria();
+	private static final ClienteRepositorio repo = new ClienteRepositorioHibernate();
 	
 	@GET
 	public Response getClientes() {     

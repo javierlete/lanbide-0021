@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="com.ipartek.formacion.uf2215.entidades">
+
+    <class name="Cliente" table="clientes">
+        <id name="id">
+            <generator class="increment"/>
+        </id>
+        <property name="nombre"/>
+        <property name="apellido"/>
+    </class>
+
+</hibernate-mapping>
