@@ -1,23 +1,26 @@
 package com.ipartek.formacion.spring;
 
-import org.springframework.beans.BeansException;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 // DI: Dependency Injection
 // IoC: Inversion of Control
 
-public class App 
-{
-    public static void main( String[] args )
-    {
-    	try (ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("aplicacion.xml")) {
-			Salida salida = context.getBean("salida", Salida.class);
-			Entrada entrada = context.getBean("entrada", Entrada.class);
-			
-			salida.mostrar(entrada.recibir());
-		} catch (BeansException e) {
-			e.printStackTrace();
-		}
-    }
+@SpringBootApplication
+public class App implements CommandLineRunner {
+	@Autowired
+	private Salida salida;
+	@Autowired
+	private Entrada entrada;
+
+	public static void main(String[] args) {
+		SpringApplication.run(App.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		salida.mostrar(entrada.recibir());
+	}
 }
