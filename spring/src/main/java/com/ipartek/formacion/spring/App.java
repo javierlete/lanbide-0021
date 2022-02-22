@@ -1,20 +1,23 @@
 package com.ipartek.formacion.spring;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+import org.springframework.beans.BeansException;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 // DI: Dependency Injection
 // IoC: Inversion of Control
 
 public class App 
 {
-    public static void main( String[] args ) throws InstantiationException, IllegalAccessException, ClassNotFoundException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, IOException
+    public static void main( String[] args )
     {
-    	Fabrica fabrica = new Fabrica();
-    	
-    	Salida salida = fabrica.getSalida();
-    	Entrada entrada = fabrica.getEntrada();
-        
-    	salida.mostrar(entrada.recibir());
+    	try (ConfigurableApplicationContext context = new ClassPathXmlApplicationContext("aplicacion.xml")) {
+			Salida salida = context.getBean("salida", Salida.class);
+			Entrada entrada = context.getBean("entrada", Entrada.class);
+			
+			salida.mostrar(entrada.recibir());
+		} catch (BeansException e) {
+			e.printStackTrace();
+		}
     }
 }
