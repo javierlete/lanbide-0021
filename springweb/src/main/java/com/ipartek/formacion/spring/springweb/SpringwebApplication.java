@@ -1,7 +1,6 @@
 package com.ipartek.formacion.spring.springweb;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,7 +9,7 @@ import com.ipartek.formacion.spring.springweb.repositorios.UsuarioDao;
 import com.ipartek.formacion.spring.springweb.repositorios.UsuarioRepository;
 
 @SpringBootApplication
-public class SpringwebApplication implements CommandLineRunner {
+public class SpringwebApplication {
 
 	@Autowired
 	private UsuarioDao dao;
@@ -22,8 +21,7 @@ public class SpringwebApplication implements CommandLineRunner {
 		SpringApplication.run(SpringwebApplication.class, args);
 	}
 
-	@Override
-	public void run(String... args) throws Exception {
+	public void runJpa(String... args) throws Exception {
 		listado();
 		
 		System.out.println(repo.findById(2L).get());
