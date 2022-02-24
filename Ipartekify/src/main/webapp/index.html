@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="h-100">
+<head>
+<meta charset="UTF-8">
+<base href="/ipartekify/" />
+<title>Ipartekify</title>
+
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/bootstrap-icons.css">
+<link rel="stylesheet" href="css/dataTables.bootstrap5.min.css">
+<link rel="stylesheet" href="css/ipartekify.css">
+
+<link rel="shortcut icon" href="favicon.ico" type="image/png" />
+
+</head>
+<body class="h-100 bg-dark text-light pt-5">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="#">Ipartekify</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<span class="ms-auto navbar-text">${sessionScope.usuario.email}</span>
+				<ul class="navbar-nav mb-2 mb-lg-0">
+					<li class="nav-item"><a class="nav-link" href="admin/">Administración</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
+					<li class="nav-item"><a class="nav-link" href="login">Login</a></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<main class="container-fluid h-100">
+		<div class="row h-100 bg-dark text-light">
+			<div id="lateral-izquierdo"
+				class="h-100 col-2 d-flex flex-column align-items-stretch pt-3 ${cancion != null ? 'espacio-reproductor': ''}">
+				<nav id="menu" class="flex-shrink-1 pb-3 border-bottom">
+					<ul class="nav flex-column">
+
+						<li class="nav-item"><a class="nav-link link-light"
+							href="index?artista=${a.id}">${a.nombre}</a></li>
+
+					</ul>
+				</nav>
+				<nav id="listas" class="nav flex-grow-1 pt-3">
+					<form action="index">
+						<ul class="nav flex-column">
+							<li class="nav-item"><a class="nav-link link-light"
+								href="index?favoritas">Canciones favoritas</a></li>
+
+							<li class="nav-item"><a class="nav-link link-light"
+								href="index?lista=${l.id}">${l.nombre}</a></li>
+
+							<li class="nav-item"><input
+								class="form-control bg-dark text-light" name="nueva-lista"
+								placeholder="Nueva lista" /></li>
+						</ul>
+					</form>
+				</nav>
+
+				<div id="caratula" class="flex-shrink-1">
+					<div class="card bg-dark text-white">
+						<img src="${album.foto}" class="card-img" alt="">
+						<div class="card-img-overlay">
+							<h5 class="card-title">${cancion.nombre}</h5>
+							<p class="card-text">${cancion.tiempo}</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="central" class="h-100 col pt-3">
+
+				<div class="alert alert-danger alert-dismissible fade show"
+					role="alert">
+					${error}
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+
+				<div class="alert alert-danger alert-dismissible fade show"
+					role="alert">
+					${exception.message}
+					<button type="button" class="btn-close" data-bs-dismiss="alert"
+						aria-label="Close"></button>
+				</div>
+
+				<h1 class="pb-3 border-bottom">${artista.nombre}</h1>
+
+				<p class="pb-3 border-bottom">${artista.informacion}</p>
+
+				<table class="table table-borderless table-hover table-dark">
+					<caption>Álbumes</caption>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Foto</th>
+							<th>Nombre</th>
+							<th>Año</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr class="position-relative">
+							<td>${a.id}</td>
+							<td><img class="img-thumbnail" width="100" src="${a.foto}"
+								alt=""></td>
+							<td><a
+								class="text-light stretched-link text-decoration-none"
+								href="index?album=${a.id}">${a.nombre}</a></td>
+							<td>${a.anno}</td>
+						</tr>
+
+					</tbody>
+				</table>
+				<div class="card mb-3 text-white bg-dark">
+					<div class="row g-0">
+
+						<div class="col-md-4">
+							<img src="${album.foto}" class="img-fluid rounded-start" alt="">
+						</div>
+
+						<div class="col-md-auto">
+							<div class="card-body">
+								<h5 class="card-title">${album.nombre}</h5>
+								<p class="card-text">${album.anno}</p>
+								<p class="card-text">
+									<small class="text-muted">${album.artista.nombre}</small>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<table class="table table-borderless table-hover table-dark">
+					<caption>Canciones</caption>
+					<thead>
+						<tr>
+							<th>Id</th>
+							<th>Nombre</th>
+							<th>Tiempo</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr class="position-relative">
+							<td>${c.id}</td>
+							<td><a
+								class="text-light stretched-link text-decoration-none"
+								href="index?cancion=${c.id}">${c.nombre}</a></td>
+							<td>${c.tiempoFormateado}<a
+								class="text-success text-decoration-none elevado"
+								href="index?cancion=${c.id}&favorito"> <i
+									class="bi bi-heart${c.favorito ? '-fill': ''}"></i>
+							</a>
+								<div class="dropdown d-inline">
+									<button class="btn btn-dark dropdown-toggle elevado"
+										type="button" data-bs-toggle="dropdown" aria-expanded="false">...</button>
+									<ul class="dropdown-menu bg-dark">
+
+										<li><a class="dropdown-item link-light"
+											href="index?nueva-cancion=${c.id}&amp;para-lista=${l.id}">${l.nombre}</a></li>
+
+									</ul>
+								</div> <a
+								href="index?quitar-cancion=${c.id}&amp;para-lista=${-album.id}"
+								class="elevado btn btn-sm btn-outline-danger"
+								onclick="javascript:return confirm('¿Estás seguro de que quieres quitar ${c.nombre} de la lista ${album.nombre}?')">Quitar
+									de lista</a>
+
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+
+			</div>
+			<div id="reproductor" class="col-12 fixed-bottom">
+
+				<iframe class="w-100"
+					src="https://www.youtube-nocookie.com/embed/${cancion.mp3}"
+					title="YouTube video player"></iframe>
+
+			</div>
+		</div>
+	</main>
+
+	<script src="js/bootstrap.bundle.min.js"></script>
+
+	<script src="js/jquery-3.6.0.min.js"></script>
+	<script src="js/jquery.dataTables.min.js"></script>
+	<script src="js/dataTables.bootstrap5.min.js"></script>
+
+	<script>
+		$(function() {
+			$('table.admin').DataTable({
+				language : {
+					url : 'json/dataTables_es_ES.json'
+				}
+			});
+		});
+	</script>
+
+</body>
+</html>
