@@ -4,6 +4,8 @@ import java.time.Year;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +21,7 @@ public class Album {
 	
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
+	@JsonManagedReference
 	private final Set<Cancion> canciones = new LinkedHashSet<>();
 	private Artista artista;
 }

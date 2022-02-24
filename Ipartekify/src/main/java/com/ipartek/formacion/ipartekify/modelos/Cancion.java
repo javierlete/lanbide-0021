@@ -2,6 +2,8 @@ package com.ipartek.formacion.ipartekify.modelos;
 
 import java.time.Duration;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,6 +16,7 @@ public class Cancion {
 	private String mp3;
 	private Boolean favorito;
 	
+	@JsonBackReference
 	private Album album;
 	
 	public long getMinutos() {
