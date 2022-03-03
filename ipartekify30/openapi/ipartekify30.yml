@@ -1,0 +1,12 @@
+openapi: '3.0.2'
+info:
+  title: Ipartekify
+  version: '3.0'
+servers:
+  - url: http://localhost:8080/api/v3
+paths:
+  /artistas:
+    get:
+      responses:
+        '200':
+          description: OK
