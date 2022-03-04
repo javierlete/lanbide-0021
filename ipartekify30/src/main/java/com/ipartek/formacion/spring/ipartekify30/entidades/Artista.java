@@ -1,5 +1,6 @@
 package com.ipartek.formacion.spring.ipartekify30.entidades;
 
+import java.io.Serializable;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -24,7 +25,10 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Artista {
+public class Artista implements Serializable {
+
+	private static final long serialVersionUID = -265141721111576810L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

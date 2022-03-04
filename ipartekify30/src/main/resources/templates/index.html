@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+
+<base href="/" />
+<title>Ipartekify</title>
+</head>
+<body>
+	<h1>Ipartekify</h1>
+	<ul>
+		<li th:each="a: ${artistas}">
+			<a th:href="'artistas/' + ${a.id} + '/albumes'" th:text="${a.nombre}"></a>
+		</li>
+	</ul>
+	
+	<ul>
+		<li th:each="a: ${albumes}">
+			<a th:href="'albumes/' + ${a.id} + '/canciones'" th:text="${a.nombre}"></a>		
+		</li>
+	</ul>
+</body>
+</html>
