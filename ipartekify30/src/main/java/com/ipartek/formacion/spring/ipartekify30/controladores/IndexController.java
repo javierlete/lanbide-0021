@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ipartek.formacion.spring.ipartekify30.entidades.Album;
+import com.ipartek.formacion.spring.ipartekify30.entidades.Cancion;
 import com.ipartek.formacion.spring.ipartekify30.servicios.IpartekifyService;
 
 @Controller
@@ -21,9 +23,23 @@ public class IndexController {
 		return "index";
 	}
 	
-	@GetMapping("artistas/{id}/albumes")
-	public String albumes(@PathVariable long id, Model modelo) {
-		modelo.addAttribute("albumes", servicio.obtenerAlbumesPorIdArtista(id));
+	@GetMapping("artistas/{id}")
+	public String artista(@PathVariable Long id, Model modelo) {
+		modelo.addAttribute("artista", servicio.obtenerArtista(id));
 		return index(modelo);
+	}
+	
+	@GetMapping("albumes/{id}")
+	public String album(@PathVariable long id, Model modelo) {
+		Album album = servicio.obtenerAlbum(id);
+		modelo.addAttribute("album", album);
+		return artista(album.getArtista().getId(), modelo);
+	}
+	
+	@GetMapping("canciones/{id}")
+	public String cancion(@PathVariable long id, Model modelo) {
+		Cancion cancion = servicio.obtenerCancion(id);
+		modelo.addAttribute("cancion", cancion);
+		return album(cancion.getAlbum().getId(), modelo);
 	}
 }

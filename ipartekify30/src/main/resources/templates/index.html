@@ -9,15 +9,34 @@
 <body>
 	<h1>Ipartekify</h1>
 	<ul>
-		<li th:each="a: ${artistas}">
-			<a th:href="'artistas/' + ${a.id} + '/albumes'" th:text="${a.nombre}"></a>
-		</li>
+		<li th:each="a: ${artistas}"><a th:href="'artistas/' + ${a.id}"
+			th:text="${a.nombre}"></a></li>
 	</ul>
-	
-	<ul>
-		<li th:each="a: ${albumes}">
-			<a th:href="'albumes/' + ${a.id} + '/canciones'" th:text="${a.nombre}"></a>		
-		</li>
-	</ul>
+
+	<div id="artista" th:if="${artista != null}">
+		<h2 th:text="${artista.nombre}"></h2>
+		<p th:text="${artista.informacion}"></p>
+
+		<ul>
+			<li th:each="a: ${artista.albumes}"><a
+				th:href="'albumes/' + ${a.id}" th:text="${a.nombre}"></a></li>
+		</ul>
+
+		<div id="album" th:if="${album != null}">
+			<h3 th:text="${album.nombre}"></h3>
+			<img th:src="${album.foto}" th:alt="${album.foto}" />
+
+			<ul>
+				<li th:each="c: ${album.canciones}"><a
+					th:href="'canciones/' + ${c.id}" th:text="${c.nombre}"></a></li>
+			</ul>
+			
+			<div id="cancion" th:if="${cancion != null}">
+				<h4 th:text="${cancion.nombre}"></h4>
+				<iframe width="560" height="315" th:src="'https://www.youtube.com/embed/' + ${cancion.mp3}" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				
+			</div>
+		</div>
+	</div>
 </body>
 </html>

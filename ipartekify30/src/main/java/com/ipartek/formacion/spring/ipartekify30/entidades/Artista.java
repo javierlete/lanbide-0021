@@ -43,6 +43,7 @@ public class Artista implements Serializable {
 	@OneToMany(mappedBy = "artista")
 	private final Set<Album> albumes = new LinkedHashSet<>();
 
+	// TODO Probablemente ya no es necesario
 	public void setNombre(String nombre) {
 		if (nombre == null || nombre.trim().length() == 0) {
 			throw new EntidadesException("No se admiten nombres vacíos");
