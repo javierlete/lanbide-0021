@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Artista</title>
+</head>
+<body>
+	<div th:fragment="artista" id="artista" th:if="${artista != null}">
+		<h1 th:text="${artista.nombre}" class="pb-3 border-bottom">${artista.nombre}</h1>
+
+		<p th:text="${artista.informacion}" class="pb-3 border-bottom">${artista.informacion}</p>
+
+		<table class="table table-borderless table-hover table-dark">
+			<caption>Álbumes</caption>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Foto</th>
+					<th>Nombre</th>
+					<th>Año</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="a: ${artista.albumes}" class="position-relative">
+					<td th:text="${a.id}"></td>
+					<td><img th:src="${a.foto}" class="img-thumbnail" width="100"
+						alt=""></td>
+					<td><a class="text-light stretched-link text-decoration-none"
+						th:href="'albumes/' + ${a.id}" th:text="${a.nombre}"></a></td>
+					<td th:text="${a.anno}"></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

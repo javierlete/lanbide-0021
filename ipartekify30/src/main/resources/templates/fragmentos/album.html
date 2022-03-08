@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Album</title>
+</head>
+<body>
+	<div th:fragment="album" id="album" th:if="${album != null}">
+		<div class="card mb-3 text-white bg-dark">
+			<div class="row g-0">
+
+				<div class="col-md-4">
+					<img th:src="${album.foto}" th:alt="${album.foto}"
+						class="img-fluid rounded-start" />
+				</div>
+
+				<div class="col-md-auto">
+					<div class="card-body">
+						<h5 th:text="${album.nombre}" class="card-title">${album.nombre}</h5>
+						<p th:text="${album.anno}" class="card-text"></p>
+						<p class="card-text">
+							<small th:text="${album.artista.nombre}" class="text-muted"></small>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<table class="table table-borderless table-hover table-dark">
+			<caption>Canciones</caption>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Nombre</th>
+					<th>Tiempo</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each="c: ${album.canciones}" class="position-relative">
+					<td th:text="${c.id}"></td>
+					<td><a class="text-light stretched-link text-decoration-none"
+						th:href="'canciones/' + ${c.id}" th:text="${c.nombre}"></a></td>
+					<td th:text="${c.tiempo}"><a
+						class="text-success text-decoration-none elevado"
+						href="index?cancion=${c.id}&favorito"> <i
+							class="bi bi-heart${c.favorito ? '-fill': ''}"></i>
+					</a>
+						<div class="dropdown d-inline">
+							<button class="btn btn-dark dropdown-toggle elevado"
+								type="button" data-bs-toggle="dropdown" aria-expanded="false">...</button>
+							<ul class="dropdown-menu bg-dark">
+
+								<li><a class="dropdown-item link-light"
+									href="index?nueva-cancion=${c.id}&amp;para-lista=${l.id}">${l.nombre}</a></li>
+
+							</ul>
+						</div> <a
+						href="index?quitar-cancion=${c.id}&amp;para-lista=${-album.id}"
+						class="elevado btn btn-sm btn-outline-danger"
+						onclick="javascript:return confirm('¿Estás seguro de que quieres quitar ${c.nombre} de la lista ${album.nombre}?')">Quitar
+							de lista</a></td>
+				</tr>
+
+			</tbody>
+		</table>
+
+	</div>
+</body>
+</html>

@@ -1,196 +1,64 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" class="h-100">
+<html lang="es"
+	th:replace="~{fragmentos/principal :: principal(~{::title}, ~{::article})}"
+	xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-
-<base href="/" />
 <title>Ipartekify</title>
-
-<link rel="stylesheet" href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/bootstrap-icons.css">
-<link rel="stylesheet" href="css/ipartekify.css">
-
-<link rel="shortcut icon" href="favicon.ico" type="image/png" />
-
-
 </head>
-<body class="h-100 bg-dark text-light pt-5">
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" aria-label="Menú principal">
-		<div class="container-fluid">
-			<a class="navbar-brand" href="#">Ipartekify</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<span class="navbar-toggler-icon"></span>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<span class="ms-auto navbar-text">${sessionScope.usuario.email}</span>
-				<ul class="navbar-nav mb-2 mb-lg-0">
-					<li class="nav-item"><a class="nav-link" href="admin/">Administración</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="logout">Logout</a></li>
-					<li class="nav-item"><a class="nav-link" href="login">Login</a></li>
+<body>
+	<article>
+		<div id="lateral-izquierdo"
+			class="h-100 col-2 d-flex flex-column align-items-stretch pt-3 ${cancion != null ? 'espacio-reproductor': ''}">
+			<nav id="menu" class="flex-shrink-1 pb-3 border-bottom"
+				aria-label="Artistas">
+				<ul id="artistas" class="nav flex-column">
+					<li th:each="a: ${artistas}"><a class="nav-link link-light"
+						th:href="'artistas/' + ${a.id}" th:text="${a.nombre}"></a></li>
 				</ul>
-			</div>
-		</div>
-	</nav>
-	<main class="container-fluid h-100">
-		<div class="row h-100 bg-dark text-light">
-			<div id="lateral-izquierdo"
-				class="h-100 col-2 d-flex flex-column align-items-stretch pt-3 ${cancion != null ? 'espacio-reproductor': ''}">
-				<nav id="menu" class="flex-shrink-1 pb-3 border-bottom" aria-label="Artistas">
-					<ul id="artistas" class="nav flex-column">
-						<li th:each="a: ${artistas}"><a class="nav-link link-light"
-							th:href="'artistas/' + ${a.id}" th:text="${a.nombre}"></a></li>
-					</ul>
-				</nav>
-				<nav id="listas" class="nav flex-grow-1 pt-3" aria-label="Listas">
-					<form action="index">
-						<ul class="nav flex-column">
-							<li class="nav-item"><a class="nav-link link-light"
-								href="index?favoritas">Canciones favoritas</a></li>
+			</nav>
 
-							<li class="nav-item"><a class="nav-link link-light"
-								href="index?lista=${l.id}">${l.nombre}</a></li>
+			<div th:replace="~{fragmentos/listas :: listas}"></div>
 
-							<li class="nav-item"><input
-								class="form-control bg-dark text-light" name="nueva-lista"
-								placeholder="Nueva lista" /></li>
-						</ul>
-					</form>
-				</nav>
-
-				<div th:if="${album != null}" id="caratula" class="flex-shrink-1">
-					<div class="card bg-dark text-white">
-						<img th:src="${album.foto}" class="card-img" alt="">
-						<div th:if="${cancion != null}" class="card-img-overlay">
-							<h5 th:text="${cancion.nombre}" class="card-title"></h5>
-							<p th:text="${cancion.tiempo}" class="card-text"></p>
-						</div>
+			<div th:if="${album != null}" id="caratula" class="flex-shrink-1">
+				<div class="card bg-dark text-white">
+					<img th:src="${album.foto}" class="card-img" alt="">
+					<div th:if="${cancion != null}" class="card-img-overlay">
+						<h5 th:text="${cancion.nombre}" class="card-title"></h5>
+						<p th:text="${cancion.tiempo}" class="card-text"></p>
 					</div>
 				</div>
 			</div>
-			<div id="central" class="h-100 col pt-3">
-
-				<div class="alert alert-danger alert-dismissible fade show"
-					role="alert">
-					${error}
-					<button type="button" class="btn-close" data-bs-dismiss="alert"
-						aria-label="Close"></button>
-				</div>
-
-				<div class="alert alert-danger alert-dismissible fade show"
-					role="alert">
-					${exception.message}
-					<button type="button" class="btn-close" data-bs-dismiss="alert"
-						aria-label="Close"></button>
-				</div>
-
-				<div id="artista" th:if="${artista != null}">
-					<h1 th:text="${artista.nombre}" class="pb-3 border-bottom">${artista.nombre}</h1>
-
-					<p th:text="${artista.informacion}" class="pb-3 border-bottom">${artista.informacion}</p>
-
-					<table class="table table-borderless table-hover table-dark">
-						<caption>Álbumes</caption>
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>Foto</th>
-								<th>Nombre</th>
-								<th>Año</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:each="a: ${artista.albumes}" class="position-relative">
-								<td th:text="${a.id}"></td>
-								<td><img th:src="${a.foto}" class="img-thumbnail"
-									width="100" alt=""></td>
-								<td><a
-									class="text-light stretched-link text-decoration-none"
-									th:href="'albumes/' + ${a.id}" th:text="${a.nombre}"></a></td>
-								<td th:text="${a.anno}"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div id="album" th:if="${album != null}">
-					<div class="card mb-3 text-white bg-dark">
-						<div class="row g-0">
-
-							<div class="col-md-4">
-								<img th:src="${album.foto}" th:alt="${album.foto}"
-									class="img-fluid rounded-start" />
-							</div>
-
-							<div class="col-md-auto">
-								<div class="card-body">
-									<h5 th:text="${album.nombre}" class="card-title">${album.nombre}</h5>
-									<p th:text="${album.anno}" class="card-text"></p>
-									<p class="card-text">
-										<small th:text="${album.artista.nombre}" class="text-muted"></small>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<table class="table table-borderless table-hover table-dark">
-						<caption>Canciones</caption>
-						<thead>
-							<tr>
-								<th>Id</th>
-								<th>Nombre</th>
-								<th>Tiempo</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							<tr th:each="c: ${album.canciones}" class="position-relative">
-								<td th:text="${c.id}"></td>
-								<td><a
-									class="text-light stretched-link text-decoration-none"
-									th:href="'canciones/' + ${c.id}" th:text="${c.nombre}"></a></td>
-								<td th:text="${c.tiempo}"><a
-									class="text-success text-decoration-none elevado"
-									href="index?cancion=${c.id}&favorito"> <i
-										class="bi bi-heart${c.favorito ? '-fill': ''}"></i>
-								</a>
-									<div class="dropdown d-inline">
-										<button class="btn btn-dark dropdown-toggle elevado"
-											type="button" data-bs-toggle="dropdown" aria-expanded="false">...</button>
-										<ul class="dropdown-menu bg-dark">
-
-											<li><a class="dropdown-item link-light"
-												href="index?nueva-cancion=${c.id}&amp;para-lista=${l.id}">${l.nombre}</a></li>
-
-										</ul>
-									</div> <a
-									href="index?quitar-cancion=${c.id}&amp;para-lista=${-album.id}"
-									class="elevado btn btn-sm btn-outline-danger"
-									onclick="javascript:return confirm('¿Estás seguro de que quieres quitar ${c.nombre} de la lista ${album.nombre}?')">Quitar
-										de lista</a></td>
-							</tr>
-
-						</tbody>
-					</table>
-
-				</div>
-			</div>
-			<div id="reproductor" th:if="${cancion != null}"
-				class="col-12 fixed-bottom">
-
-				<iframe class="w-100"
-					th:src="'https://www.youtube.com/embed/' + ${cancion.mp3}"
-					title="YouTube video player"
-					allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-					allowfullscreen></iframe>
-			</div>
 		</div>
-	</main>
+		<div id="central" class="h-100 col pt-3">
 
-	<script src="js/bootstrap.bundle.min.js"></script>
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+				${error}
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
 
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+				${exception.message}
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+
+			<div th:replace="~{fragmentos/artista :: artista}"></div>
+
+			<div th:replace="~{fragmentos/album :: album}"></div>
+		</div>
+
+		<div id="reproductor" th:if="${cancion != null}"
+			class="col-12 fixed-bottom">
+
+			<iframe class="w-100"
+				th:src="'https://www.youtube.com/embed/' + ${cancion.mp3}"
+				title="YouTube video player"
+				allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+				allowfullscreen></iframe>
+		</div>
+	</article>
 </body>
 </html>
