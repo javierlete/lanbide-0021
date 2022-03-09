@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ipartek.formacion.spring.ipartekify30.entidades.Artista;
 import com.ipartek.formacion.spring.ipartekify30.servicios.IpartekifyService;
 
 import lombok.extern.java.Log;
@@ -16,7 +18,7 @@ import lombok.extern.java.Log;
 @RequestMapping("/admin")
 public class AdminController {
 	private static final String ADMIN_VISTA = "admin";
-	private static final String ARTISTA_FORM = ADMIN_VISTA + "/artista/";
+	private static final String ARTISTA_FORM = ADMIN_VISTA + "_artista";
 	
 	@Autowired
 	private IpartekifyService servicio;
@@ -30,6 +32,9 @@ public class AdminController {
 	@GetMapping("artistas/borrar/{id}")
 	public String artistaBorrar(@PathVariable long id, Model modelo) {
 		log.info("artistaBorrar " + id);
+		
+		servicio.artistaBorrar(id);
+		
 		return index(modelo);
 	}
 	
@@ -41,14 +46,28 @@ public class AdminController {
 	}
 	
 	@GetMapping("artistas/editar/{id}")
-	public String artistaEditar(@PathVariable long id) {
+	public String artistaEditar(@PathVariable long id, Model modelo) {
 		log.info("artistaEditar " + id);
-		return ARTISTA_FORM + id;
+		modelo.addAttribute("artista", servicio.obtenerArtista(id));
+		return ARTISTA_FORM;
 	}
 	
 	@GetMapping("artistas/agregar")
 	public String artistaAgregar() {
 		log.info("artistaAgregar");
 		return ARTISTA_FORM;
+	}
+	
+	@PostMapping("artistas/guardar")
+	public String artistaGuardar(Artista artista) {
+		log.info(artista.toString());
+		
+		if(artista.getId() != null) {
+			servicio.artistaAgregar(artista);
+		} else {
+			servicio.artistaModificar(artista);
+		}
+		
+		return "redirect:/" + ADMIN_VISTA;
 	}
 }

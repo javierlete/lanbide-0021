@@ -14,4 +14,10 @@ public interface IpartekifyService {
 
 	Cancion obtenerCancion(long id);
 
+	void artistaAgregar(Artista artista);
+
+	void artistaModificar(Artista artista);
+
+	void artistaBorrar(long id);
+
 }

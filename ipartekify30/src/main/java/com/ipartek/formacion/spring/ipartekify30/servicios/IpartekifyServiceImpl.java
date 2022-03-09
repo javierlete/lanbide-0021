@@ -71,4 +71,19 @@ class IpartekifyServiceImpl implements IpartekifyService {
 			return null;
 		}
 	}
+
+	@Override
+	public void artistaAgregar(Artista artista) {
+		repoArtistas.save(artista);
+	}
+
+	@Override
+	public void artistaModificar(Artista artista) {
+		repoArtistas.save(artista);
+	}
+
+	@Override
+	public void artistaBorrar(long id) {
+		repoArtistas.deleteById(id);
+	}
 }
