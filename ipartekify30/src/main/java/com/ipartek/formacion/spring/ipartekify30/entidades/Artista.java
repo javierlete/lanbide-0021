@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -33,6 +34,7 @@ public class Artista implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@NotNull
+	@NotBlank
 	@Size(max=45)
 	private String nombre;
 	@Lob
@@ -42,13 +44,4 @@ public class Artista implements Serializable {
 	@ToString.Exclude
 	@OneToMany(mappedBy = "artista")
 	private final Set<Album> albumes = new LinkedHashSet<>();
-
-	// TODO Probablemente ya no es necesario
-	public void setNombre(String nombre) {
-		if (nombre == null || nombre.trim().length() == 0) {
-			throw new EntidadesException("No se admiten nombres vacíos");
-		}
-
-		this.nombre = nombre.trim();
-	}
 }

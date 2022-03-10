@@ -7,28 +7,28 @@
 </head>
 <body>
 	<article>
-		<form action="admin/artistas/guardar" method="post" class="container">
+		<form th:action="@{/admin/artistas/guardar}" th:object="${artistaDTO}" method="post" class="container">
 			<fieldset>
 				<legend>Artista</legend>
 				<div class="row mb-3">
 					<label for="id" class="col-sm-2 col-form-label">Id</label>
 					<div class="col-sm-10">
-						<input type="number" class="form-control" id="id" name="id"
-							th:value="${artista?.id}" readonly>
+						<input type="number" class="form-control" th:field="*{id}" readonly>
 					</div>
 				</div>
 				<div class="row mb-3">
 					<label for="nombre" class="col-sm-2 col-form-label">Nombre</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" id="nombre" name="nombre"
-							th:value="${artista?.nombre}">
+						<input type="text" class="form-control" th:field="*{nombre}">
+						<div th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}" class="text-danger">
+							 Errores de nombre
+						</div>
 					</div>
 				</div>
 				<div class="row mb-3">
 					<label for="informacion" class="col-sm-2 col-form-label">Información</label>
 					<div class="col-sm-10">
-						<textarea rows="10" class="form-control" id="informacion"
-							name="informacion">[[${artista?.informacion}]]</textarea>
+						<textarea rows="10" class="form-control" th:field="*{informacion}"></textarea>
 					</div>
 				</div>
 				<div class="row mb-3">

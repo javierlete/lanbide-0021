@@ -1,9 +1,12 @@
 package com.ipartek.formacion.spring.ipartekify30.controladores;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,23 +55,37 @@ public class AdminController {
 	@GetMapping("artistas/editar/{id}")
 	public String artistaEditar(@PathVariable long id, Model modelo) {
 		log.info("artistaEditar " + id);
-		modelo.addAttribute("artista", servicio.obtenerArtista(id));
+		Artista artista = servicio.obtenerArtista(id);
+		
+		ArtistaDTO artistaDTO;
+		
+		if(artista == null) {
+			artistaDTO = new ArtistaDTO();
+		} else {
+			artistaDTO = modelMapper.map(artista, ArtistaDTO.class);
+		}
+		
+		modelo.addAttribute("artistaDTO", artistaDTO);
 		return ARTISTA_FORM;
 	}
 	
 	@GetMapping("artistas/agregar")
-	public String artistaAgregar() {
-		log.info("artistaAgregar");
+	public String artistaAgregar(ArtistaDTO artistaDTO) {
+		log.info("artistaAgregar");		
 		return ARTISTA_FORM;
 	}
 	
 	@PostMapping("artistas/guardar")
-	public String artistaGuardar(ArtistaDTO artistaDTO) {
+	public String artistaGuardar(@Valid ArtistaDTO artistaDTO, BindingResult bindingResult) {
 		log.info(artistaDTO.toString());
+		
+		if(bindingResult.hasErrors()) {
+			return ARTISTA_FORM;
+		}
 		
 		Artista artista = modelMapper.map(artistaDTO, Artista.class);
 		
-		if(artistaDTO.getId() != null) {
+		if(artista.getId() != null) {
 			servicio.artistaAgregar(artista);
 		} else {
 			servicio.artistaModificar(artista);
