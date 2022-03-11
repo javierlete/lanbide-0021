@@ -37,7 +37,8 @@ public class Usuario {
 	@Column(unique=true)
 	private String email;
 	@NotNull
-	@Size(max=45)
+	@Size(max=60)
+	@Column(length=60) // columnDefinition="CHAR(60)")
 	private String password;
 	@NotNull
 	@Size(max=45)

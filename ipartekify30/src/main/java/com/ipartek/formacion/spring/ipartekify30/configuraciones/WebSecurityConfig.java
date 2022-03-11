@@ -1,39 +1,37 @@
 package com.ipartek.formacion.spring.ipartekify30.configuraciones;
 
-import org.springframework.context.annotation.Bean;
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	private DataSource dataSource;
+	
 	// AUTENTICACIÓN
 	// https://bcrypt-generator.com/   (10 rounds)
-	@Bean
-	@Override
-	public UserDetailsService userDetailsService() {
-		UserDetails admin =
-			 User
-				.withUsername("javier")
-				.password("{bcrypt}$2a$10$Rgv2w4KKA.KOk9PQYTya5OVeCdJVnUJCHQkLj6c/rxubWQVQzrs4W") // lete
-				.roles("ADMIN")
-				.build();
-		UserDetails user =
-			 User
-				.withUsername("pepe")
-				.password("{bcrypt}$2a$10$fw6cwB01Iff/dl1EHS9f1e2xI76mid5vE4C/M2ILIe6zeZO/fTiZ.") // perez
-				.roles("USER")
-				.build();
-
-		return new InMemoryUserDetailsManager(admin, user);
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) 
+	  throws Exception {
+	    auth.jdbcAuthentication()
+	      .dataSource(dataSource)
+	      .usersByUsernameQuery("select email,password,1 "
+	        + "from usuarios "
+	        + "where email = ?")
+	      .authoritiesByUsernameQuery("select email,CONCAT('ROLE_', rol) "
+	        + "from usuarios "
+	        + "where email = ?")
+	      .passwordEncoder(new BCryptPasswordEncoder());
 	}
-
+	
 	// AUTORIZACIÓN
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
