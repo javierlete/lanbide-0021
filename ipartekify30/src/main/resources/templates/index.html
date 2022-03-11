@@ -31,20 +31,6 @@
 		</div>
 		<div id="central" class="h-100 col pt-3">
 
-			<div class="alert alert-danger alert-dismissible fade show"
-				role="alert">
-				${error}
-				<button type="button" class="btn-close" data-bs-dismiss="alert"
-					aria-label="Close"></button>
-			</div>
-
-			<div class="alert alert-danger alert-dismissible fade show"
-				role="alert">
-				${exception.message}
-				<button type="button" class="btn-close" data-bs-dismiss="alert"
-					aria-label="Close"></button>
-			</div>
-
 			<div th:replace="~{fragmentos/artista :: artista}"></div>
 
 			<div th:replace="~{fragmentos/album :: album}"></div>

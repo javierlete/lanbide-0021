@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es" th:fragment="principal (titulo, contenido)"
-	xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" class="h-100">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+	class="h-100">
 <head>
 <meta charset="UTF-8">
 
@@ -32,14 +34,23 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<span class="ms-auto navbar-text">[[${#httpServletRequest.remoteUser}]]</span>
 				<ul class="navbar-nav mb-2 mb-lg-0">
-					<li class="nav-item" sec:authorize="hasRole('ADMIN')"><a class="nav-link" href="admin/">Administración</a>
-					</li>
-					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" href="logout">Logout</a></li>
-					<li class="nav-item" sec:authorize="!isAuthenticated()"><a class="nav-link" href="login">Login</a></li>
+					<li class="nav-item" sec:authorize="hasRole('ADMIN')"><a
+						class="nav-link" href="admin/">Administración</a></li>
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a
+						class="nav-link" href="logout">Logout</a></li>
+					<li class="nav-item" sec:authorize="!isAuthenticated()"><a
+						class="nav-link" href="login">Login</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
+	<div th:if="${alerta != null}" th:class="'mt-3 alert alert-dismissible fade show alert-' + ${alerta.tipo}"
+		role="alert">
+		[[${alerta.texto}]]
+		<button type="button" class="btn-close" data-bs-dismiss="alert"
+			aria-label="Close"></button>
+	</div>
+
 	<main class="container-fluid h-100 pt-3">
 		<div class="row h-100 bg-dark text-light" th:include="${contenido}">
 			CONTENIDO</div>
