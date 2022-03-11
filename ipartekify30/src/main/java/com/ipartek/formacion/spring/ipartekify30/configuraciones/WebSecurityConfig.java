@@ -14,20 +14,20 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	// AUTENTICACIÓN
-	@SuppressWarnings("deprecation")
+	// https://bcrypt-generator.com/   (10 rounds)
 	@Bean
 	@Override
 	public UserDetailsService userDetailsService() {
 		UserDetails admin =
-			 User.withDefaultPasswordEncoder()
-				.username("javier")
-				.password("lete")
+			 User
+				.withUsername("javier")
+				.password("{bcrypt}$2a$10$Rgv2w4KKA.KOk9PQYTya5OVeCdJVnUJCHQkLj6c/rxubWQVQzrs4W") // lete
 				.roles("ADMIN")
 				.build();
 		UserDetails user =
-			 User.withDefaultPasswordEncoder()
-				.username("pepe")
-				.password("perez")
+			 User
+				.withUsername("pepe")
+				.password("{bcrypt}$2a$10$fw6cwB01Iff/dl1EHS9f1e2xI76mid5vE4C/M2ILIe6zeZO/fTiZ.") // perez
 				.roles("USER")
 				.build();
 
