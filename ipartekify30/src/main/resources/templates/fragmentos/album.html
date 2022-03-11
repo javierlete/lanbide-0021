@@ -40,10 +40,10 @@
 					<td th:text="${c.id}"></td>
 					<td><a class="text-light stretched-link text-decoration-none"
 						th:href="'canciones/' + ${c.id}" th:text="${c.nombre}"></a></td>
-					<td th:text="${c.tiempo}"><a
-						class="text-success text-decoration-none elevado"
+					<td th:text="${c.tiempo}"></td>
+					<td><a class="text-success text-decoration-none elevado"
 						href="index?cancion=${c.id}&favorito"> <i
-							class="bi bi-heart${c.favorito ? '-fill': ''}"></i>
+							th:class="'bi bi-heart' + ${c.favorito ? '-fill': ''}"></i> <!-- usuario.cancionesFavoritas.contains(c) -->
 					</a>
 						<div class="dropdown d-inline">
 							<button class="btn btn-dark dropdown-toggle elevado"

@@ -38,7 +38,8 @@ public class Cancion implements Serializable {
 	private String tiempo;
 	@Size(max=45)
 	private String mp3;
-	private transient Boolean favorito;
+	private transient Boolean favorito = true;
+	// TODO Quitar el true de favorito
 
 	@NotNull
 	@JsonBackReference
