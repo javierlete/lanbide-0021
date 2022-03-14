@@ -3,6 +3,7 @@ package com.ipartek.formacion.spring.ipartekify30.servicios;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Album;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Artista;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Cancion;
+import com.ipartek.formacion.spring.ipartekify30.entidades.Usuario;
 
 public interface IpartekifyService {
 
@@ -20,4 +21,5 @@ public interface IpartekifyService {
 
 	void artistaBorrar(long id);
 
+	Usuario obtenerUsuarioPorEmail(String email);
 }

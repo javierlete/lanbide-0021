@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Album;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Artista;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Cancion;
+import com.ipartek.formacion.spring.ipartekify30.entidades.Usuario;
 import com.ipartek.formacion.spring.ipartekify30.repositorios.AlbumesRepository;
 import com.ipartek.formacion.spring.ipartekify30.repositorios.ArtistasRepository;
 import com.ipartek.formacion.spring.ipartekify30.repositorios.CancionesRepository;
+import com.ipartek.formacion.spring.ipartekify30.repositorios.UsuariosRepository;
 
 import lombok.extern.java.Log;
 
@@ -23,6 +25,8 @@ class IpartekifyServiceImpl implements IpartekifyService {
 	private AlbumesRepository repoAlbumes;
 	@Autowired
 	private CancionesRepository repoCanciones;
+	@Autowired
+	private UsuariosRepository repoUsuarios;
 
 	@Override
 	public Iterable<Artista> obtenerArtistas() {
@@ -85,5 +89,10 @@ class IpartekifyServiceImpl implements IpartekifyService {
 	@Override
 	public void artistaBorrar(long id) {
 		repoArtistas.deleteById(id);
+	}
+
+	@Override
+	public Usuario obtenerUsuarioPorEmail(String email) {
+		return repoUsuarios.findByEmail(email);
 	}
 }

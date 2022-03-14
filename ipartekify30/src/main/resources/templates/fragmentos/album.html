@@ -43,7 +43,7 @@
 					<td th:text="${c.tiempo}"></td>
 					<td><a class="text-success text-decoration-none elevado"
 						href="index?cancion=${c.id}&favorito"> <i
-							th:class="'bi bi-heart' + ${c.favorito ? '-fill': ''}"></i> <!-- usuario.cancionesFavoritas.contains(c) -->
+							th:class="'bi bi-heart' + ${usuario.cancionesFavoritas.contains(c) ? '-fill': ''}"></i> <!-- usuario.cancionesFavoritas.contains(c) -->
 					</a>
 						<div class="dropdown d-inline">
 							<button class="btn btn-dark dropdown-toggle elevado"

@@ -1,11 +1,13 @@
 package com.ipartek.formacion.spring.ipartekify30.entidades;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -27,7 +29,10 @@ import lombok.ToString;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Usuario {
+public class Usuario implements Serializable {
+	
+	private static final long serialVersionUID = -6574218957508142561L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -50,7 +55,7 @@ public class Usuario {
 	private final Set<Lista> biblioteca = new LinkedHashSet<>();
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER)
 	private final Set<Cancion> cancionesFavoritas = new HashSet<>();
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude

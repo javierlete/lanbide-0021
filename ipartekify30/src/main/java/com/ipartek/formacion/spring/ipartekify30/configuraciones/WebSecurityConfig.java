@@ -10,11 +10,17 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.ipartek.formacion.spring.ipartekify30.entidades.Usuario;
+import com.ipartek.formacion.spring.ipartekify30.servicios.IpartekifyService;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource dataSource;
+	
+	@Autowired
+	private IpartekifyService servicio;
 	
 	// AUTENTICACIÓN
 	// https://bcrypt-generator.com/   (10 rounds)
@@ -43,6 +49,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 			.formLogin()
 				.loginPage("/login")
+				.successHandler((request, response, authentication) -> {
+					Usuario usuario = servicio.obtenerUsuarioPorEmail(authentication.getName());
+					
+					request.getSession().setAttribute("usuario", usuario);
+					
+					response.sendRedirect("/");
+				})
 				.permitAll()
 				.and()
 			.logout()

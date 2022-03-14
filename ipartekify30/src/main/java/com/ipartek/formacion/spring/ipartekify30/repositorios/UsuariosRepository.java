@@ -7,5 +7,5 @@ import com.ipartek.formacion.spring.ipartekify30.entidades.Usuario;
 
 @RepositoryRestResource(collectionResourceRel = "usuarios", path = "usuarios")
 public interface UsuariosRepository extends PagingAndSortingRepository<Usuario, Long> {
-
+	Usuario findByEmail(String email);
 }
