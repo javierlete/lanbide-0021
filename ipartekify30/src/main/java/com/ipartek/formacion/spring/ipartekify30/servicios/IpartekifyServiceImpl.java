@@ -95,4 +95,9 @@ class IpartekifyServiceImpl implements IpartekifyService {
 	public Usuario obtenerUsuarioPorEmail(String email) {
 		return repoUsuarios.findByEmail(email);
 	}
+
+	@Override
+	public void guardarUsuario(Usuario usuario) {
+		repoUsuarios.save(usuario);
+	}
 }

@@ -22,4 +22,6 @@ public interface IpartekifyService {
 	void artistaBorrar(long id);
 
 	Usuario obtenerUsuarioPorEmail(String email);
+	
+	void guardarUsuario(Usuario usuario);
 }

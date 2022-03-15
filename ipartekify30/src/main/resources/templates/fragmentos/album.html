@@ -42,7 +42,7 @@
 						th:href="'canciones/' + ${c.id}" th:text="${c.nombre}"></a></td>
 					<td th:text="${c.tiempo}"></td>
 					<td><a class="text-success text-decoration-none elevado"
-						href="index?cancion=${c.id}&favorito"> <i
+						th:href="'canciones/' + ${c.id} + '/favorito'"> <i
 							th:class="'bi bi-heart' + ${usuario.cancionesFavoritas.contains(c) ? '-fill': ''}"></i> <!-- usuario.cancionesFavoritas.contains(c) -->
 					</a>
 						<div class="dropdown d-inline">
