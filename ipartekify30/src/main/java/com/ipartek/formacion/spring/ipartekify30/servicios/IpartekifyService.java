@@ -3,6 +3,7 @@ package com.ipartek.formacion.spring.ipartekify30.servicios;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Album;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Artista;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Cancion;
+import com.ipartek.formacion.spring.ipartekify30.entidades.Lista;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Usuario;
 
 public interface IpartekifyService {
@@ -24,4 +25,8 @@ public interface IpartekifyService {
 	Usuario obtenerUsuarioPorEmail(String email);
 	
 	void guardarUsuario(Usuario usuario);
+	
+	void nuevaLista(Lista lista, Usuario usuario);
+	
+	void nuevaLista(String nombre, Usuario usuario);
 }

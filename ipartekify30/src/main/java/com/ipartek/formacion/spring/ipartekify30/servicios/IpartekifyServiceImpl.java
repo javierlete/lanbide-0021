@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Album;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Artista;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Cancion;
+import com.ipartek.formacion.spring.ipartekify30.entidades.Lista;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Usuario;
 import com.ipartek.formacion.spring.ipartekify30.repositorios.AlbumesRepository;
 import com.ipartek.formacion.spring.ipartekify30.repositorios.ArtistasRepository;
 import com.ipartek.formacion.spring.ipartekify30.repositorios.CancionesRepository;
+import com.ipartek.formacion.spring.ipartekify30.repositorios.ListasRepository;
 import com.ipartek.formacion.spring.ipartekify30.repositorios.UsuariosRepository;
 
 import lombok.extern.java.Log;
@@ -27,6 +29,8 @@ class IpartekifyServiceImpl implements IpartekifyService {
 	private CancionesRepository repoCanciones;
 	@Autowired
 	private UsuariosRepository repoUsuarios;
+	@Autowired
+	private ListasRepository repoListas;
 
 	@Override
 	public Iterable<Artista> obtenerArtistas() {
@@ -99,5 +103,24 @@ class IpartekifyServiceImpl implements IpartekifyService {
 	@Override
 	public void guardarUsuario(Usuario usuario) {
 		repoUsuarios.save(usuario);
+	}
+
+	@Override
+	public void nuevaLista(Lista lista, Usuario usuario) {
+		lista.setUsuario(usuario);
+
+		repoListas.save(lista);
+
+		usuario.getBiblioteca().add(lista);
+		
+		guardarUsuario(usuario);
+	}
+
+	@Override
+	public void nuevaLista(String nombre, Usuario usuario) {
+		Lista lista = new Lista();
+		lista.setNombre(nombre);
+		
+		nuevaLista(lista, usuario);
 	}
 }

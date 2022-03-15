@@ -51,7 +51,7 @@ public class Usuario implements Serializable {
 
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
-	@OneToMany(mappedBy = "usuario")
+	@OneToMany(mappedBy = "usuario", fetch = FetchType.EAGER)
 	private final Set<Lista> biblioteca = new LinkedHashSet<>();
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude

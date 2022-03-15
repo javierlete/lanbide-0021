@@ -77,4 +77,11 @@ public class IndexController {
 		modelo.addAttribute("album", album);
 		return index(modelo);
 	}
+	
+	@RequestMapping("agregarLista")
+	public String agregarLista(@RequestParam(name = "nueva-lista") String nuevaLista, Model modelo, Usuario usuario) {
+		servicio.nuevaLista(nuevaLista, usuario);
+		
+		return index(modelo);
+	}
 }

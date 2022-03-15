@@ -6,13 +6,13 @@
 <body>
 	<nav th:fragment="listas" id="listas" class="nav flex-grow-1 pt-3"
 		aria-label="Listas">
-		<form action="index">
+		<form action="agregarLista">
 			<ul class="nav flex-column">
 				<li class="nav-item"><a class="nav-link link-light"
 					href="favoritas">Canciones favoritas</a></li>
 
-				<li class="nav-item"><a class="nav-link link-light"
-					href="index?lista=${l.id}">${l.nombre}</a></li>
+				<li th:each="l: ${usuario.biblioteca}" class="nav-item"><a class="nav-link link-light"
+					href="index?lista=${l.id}">[[${l.nombre}]]</a></li>
 
 				<li class="nav-item"><input
 					class="form-control bg-dark text-light" name="nueva-lista"
