@@ -60,6 +60,14 @@ public class IndexController {
 		
 		modelo.addAttribute("cancion", cancion);
 		
-		return  album(cancion.getAlbum().getId(), modelo, usuario);
+		return album(cancion.getAlbum().getId(), modelo, usuario);
+	}
+	
+	@GetMapping("favoritas")
+	public String favoritas(Model modelo, Usuario usuario) {
+		Album album = new Album(null, "Canciones favoritas", null, null, null, null);
+		album.setCanciones(usuario.getCancionesFavoritas());
+		modelo.addAttribute("album", album);
+		return "index"; 
 	}
 }

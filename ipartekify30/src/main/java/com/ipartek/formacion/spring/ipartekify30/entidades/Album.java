@@ -43,7 +43,7 @@ public class Album implements Serializable {
 	@EqualsAndHashCode.Exclude
 	@ToString.Exclude
 	@OneToMany(mappedBy = "album")
-	private final Set<Cancion> canciones = new LinkedHashSet<>();
+	private Set<Cancion> canciones = new LinkedHashSet<>();
 	
 	@NotNull
 	@ManyToOne

@@ -18,7 +18,7 @@
 						<h5 th:text="${album.nombre}" class="card-title">${album.nombre}</h5>
 						<p th:text="${album.anno}" class="card-text"></p>
 						<p class="card-text">
-							<small th:text="${album.artista.nombre}" class="text-muted"></small>
+							<small th:text="${album.artista?.nombre}" class="text-muted"></small>
 						</p>
 					</div>
 				</div>
