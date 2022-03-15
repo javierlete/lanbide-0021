@@ -54,10 +54,10 @@
 									th:href="'listas/' + ${l.id} + '/agregar/' + ${c.id}">[[${l.nombre}]]</a></li>
 
 							</ul>
-						</div> <a
-						href="index?quitar-cancion=${c.id}&amp;para-lista=${-album.id}"
+						</div> <a th:if="${album.id < 0}"
+						th:href="'listas/' + ${-album.id} + '/quitar/' + ${c.id}"
 						class="elevado btn btn-sm btn-outline-danger"
-						onclick="javascript:return confirm('¿Estás seguro de que quieres quitar ${c.nombre} de la lista ${album.nombre}?')">Quitar
+						th:onclick="'javascript:return confirm(\'¿Estás seguro de que quieres quitar la canción de la lista ?\')'">Quitar
 							de lista</a></td>
 				</tr>
 

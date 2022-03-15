@@ -135,7 +135,18 @@ class IpartekifyServiceImpl implements IpartekifyService {
 	}
 
 	@Override
+	public void quitarCancionLista(long idLista, long idCancion) {
+		Lista lista = repoListas.findById(idLista).get();
+		Cancion cancion = repoCanciones.findById(idCancion).get();
+		
+		lista.getCanciones().remove(cancion);
+		
+		repoListas.save(lista);
+	}
+	
+	@Override
 	public Lista obtenerLista(long idLista) {
 		return repoListas.findById(idLista).get();
 	}
+
 }

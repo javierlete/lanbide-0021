@@ -33,4 +33,6 @@ public interface IpartekifyService {
 	void agregarCancionLista(long idLista, long idCancion);
 
 	Lista obtenerLista(long idLista);
+
+	void quitarCancionLista(long idLista, long idCancion);
 }

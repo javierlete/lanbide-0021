@@ -95,6 +95,13 @@ public class IndexController {
 		return album(cancion.getAlbum().getId(), modelo, usuario);
 	}
 	
+	@GetMapping("listas/{idLista}/quitar/{idCancion}")
+	public String quitarCancionLista(@PathVariable long idLista, @PathVariable long idCancion, Model modelo, Usuario usuario) {
+		servicio.quitarCancionLista(idLista, idCancion);
+		
+		return lista(idLista, modelo);
+	}
+	
 	@GetMapping("listas/{idLista}")
 	public String lista(@PathVariable long idLista, Model modelo) {
 		Lista lista = servicio.obtenerLista(idLista);
