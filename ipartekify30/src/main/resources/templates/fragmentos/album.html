@@ -39,7 +39,7 @@
 				<tr th:each="c: ${album.canciones}" class="position-relative">
 					<td th:text="${c.id}"></td>
 					<td><a class="text-light stretched-link text-decoration-none"
-						th:href="'canciones/' + ${c.id}" th:text="${c.nombre}"></a></td>
+						th:href="'canciones/' + ${c.id} + ${album.id == 0 ? '?favoritas' : ''}" th:text="${c.nombre}"></a></td>
 					<td th:text="${c.tiempo}"></td>
 					<td><a class="text-success text-decoration-none elevado"
 						th:href="'canciones/' + ${c.id} + '/favorito'"> <i
