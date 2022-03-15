@@ -50,8 +50,8 @@
 								type="button" data-bs-toggle="dropdown" aria-expanded="false">...</button>
 							<ul class="dropdown-menu bg-dark">
 
-								<li><a class="dropdown-item link-light"
-									href="index?nueva-cancion=${c.id}&amp;para-lista=${l.id}">${l.nombre}</a></li>
+								<li th:each="l: ${usuario.biblioteca}"><a class="dropdown-item link-light"
+									th:href="'listas/' + ${l.id} + '/agregar/' + ${c.id}">[[${l.nombre}]]</a></li>
 
 							</ul>
 						</div> <a

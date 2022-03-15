@@ -12,7 +12,7 @@
 					href="favoritas">Canciones favoritas</a></li>
 
 				<li th:each="l: ${usuario.biblioteca}" class="nav-item"><a class="nav-link link-light"
-					href="index?lista=${l.id}">[[${l.nombre}]]</a></li>
+					th:href="'listas/' + ${l.id}">[[${l.nombre}]]</a></li>
 
 				<li class="nav-item"><input
 					class="form-control bg-dark text-light" name="nueva-lista"

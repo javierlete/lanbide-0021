@@ -29,4 +29,8 @@ public interface IpartekifyService {
 	void nuevaLista(Lista lista, Usuario usuario);
 	
 	void nuevaLista(String nombre, Usuario usuario);
+
+	void agregarCancionLista(long idLista, long idCancion);
+
+	Lista obtenerLista(long idLista);
 }

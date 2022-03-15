@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.ipartek.formacion.spring.ipartekify30.entidades.Album;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Cancion;
+import com.ipartek.formacion.spring.ipartekify30.entidades.Lista;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Usuario;
 import com.ipartek.formacion.spring.ipartekify30.servicios.IpartekifyService;
 
@@ -82,6 +83,24 @@ public class IndexController {
 	public String agregarLista(@RequestParam(name = "nueva-lista") String nuevaLista, Model modelo, Usuario usuario) {
 		servicio.nuevaLista(nuevaLista, usuario);
 		
+		return index(modelo);
+	}
+	
+	@GetMapping("listas/{idLista}/agregar/{idCancion}")
+	public String agregarCancionLista(@PathVariable long idLista, @PathVariable long idCancion, Model modelo, Usuario usuario) {
+		servicio.agregarCancionLista(idLista, idCancion);
+		
+		Cancion cancion = servicio.obtenerCancion(idCancion);
+		
+		return album(cancion.getAlbum().getId(), modelo, usuario);
+	}
+	
+	@GetMapping("listas/{idLista}")
+	public String lista(@PathVariable long idLista, Model modelo) {
+		Lista lista = servicio.obtenerLista(idLista);
+		Album album = new Album(-lista.getId(), lista.getNombre(), null, null, null, null);
+		album.setCanciones(lista.getCanciones());
+		modelo.addAttribute("album", album);
 		return index(modelo);
 	}
 }
