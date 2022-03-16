@@ -8,7 +8,7 @@
 <body>
 	<article>
 		<div id="lateral-izquierdo"
-			class="h-100 col-2 d-flex flex-column align-items-stretch pt-3 ${cancion != null ? 'espacio-reproductor': ''}">
+			th:class="'overflow-auto h-100 col-2 d-flex flex-column align-items-stretch pt-3 ' + ${cancion != null ? 'espacio-reproductor': ''}">
 			<nav id="menu" class="flex-shrink-1 pb-3 border-bottom"
 				aria-label="Artistas">
 				<ul id="artistas" class="nav flex-column">
@@ -29,7 +29,7 @@
 				</div>
 			</div>
 		</div>
-		<div id="central" class="h-100 col pt-3">
+		<div id="central" th:class="'h-100 col pt-3 overflow-auto ' + ${cancion != null ? 'espacio-reproductor': ''}">
 
 			<div th:replace="~{fragmentos/artista :: artista}"></div>
 
