@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Artistas</title>
+</head>
+<body>
+	<div th:fragment="tabla_artistas">
+		<table
+			class="admin table table-hovered table-dark table-bordered table-striped">
+			<caption>Artistas</caption>
+			<thead>
+				<tr>
+					<th scope="col">Id</th>
+					<th scope="col">Nombre</th>
+					<th scope="col">Información</th>
+					<th scope="col">Opciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- ${artista?.id} -->
+				<!-- ${artista != null ? artista.id : null} -->
+				<tr th:each="a: ${artistas}"
+					th:class="${a.id == artista?.id ? 'table-secondary' : ''}">
+					<th scope="row">[[${a.id}]]</th>
+					<td>[[${a.nombre}]]</td>
+					<td>[[${a.informacion}]]</td>
+					<td><a class="btn btn-outline-primary"
+						th:href="${'admin/artistas/editar/' + a.id}">Editar</a> <a
+						class="btn btn-outline-danger"
+						th:onclick="return confirm('¿Estás seguro de que quieres borrar [[${a.nombre}]]?')"
+						th:href="${'admin/artistas/borrar/' + a.id}">Borrar</a> <a
+						class="btn btn-outline-primary"
+						th:href="${'admin/artistas/seleccionar/' + a.id}">Seleccionar</a></td>
+				</tr>
+			</tbody>
+			<tfoot>
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td><a class="btn btn-outline-primary"
+						href="admin/artistas/agregar">Añadir</a></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+</body>
+</html>

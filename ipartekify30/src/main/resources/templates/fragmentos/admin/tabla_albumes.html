@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Artista</title>
+</head>
+<body>
+	<div th:fragment="tabla_albumes" th:if="${artista != null}">
+		<h1 class="pb-3 border-bottom">[[${artista.nombre}]]</h1>
+
+			<p class="pb-3 border-bottom">[[${artista.informacion}]]</p>
+
+			<table
+				class="admin table table-hovered table-dark table-bordered table-striped">
+				<caption>Álbumes</caption>
+				<thead>
+					<tr>
+						<th>Id</th>
+						<th>Foto</th>
+						<th>Nombre</th>
+						<th>Año</th>
+						<th>Opciones</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					<tr th:each="a: ${artista.albumes}" class="position-relative">
+						<td>[[${a.id}]]</td>
+						<td><img class="img-thumbnail" width="100" th:src="${a.foto}"
+							alt=""></td>
+						<td>[[${a.nombre}]]</td>
+						<td>[[${a.anno}]]</td>
+						<td><a class="btn btn-outline-primary"
+							th:href="${'admin/albumes/editar/' + a.id}">Editar</a> <a
+							class="btn btn-outline-danger"
+							th:onclick="return confirm('¿Estás seguro de que quieres borrar [[${a.nombre}]]?')"
+							th:href="${'admin/albumes/borrar/' + a.id}">Borrar</a> <a
+							class="btn btn-outline-primary"
+							th:href="${'admin/albumes/seleccionar/' + a.id}">Seleccionar</a></td>
+					</tr>
+				</tbody>
+				<tfoot>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td><a class="btn btn-outline-primary"
+							th:href="${'admin/artistas/' + artista.id + '/albumes/agregar'}">Añadir</a></td>
+					</tr>
+				</tfoot>
+			</table>
+	</div>
+</body>
+</html>

@@ -7,92 +7,9 @@
 </head>
 <body>
 	<article>
-		<table
-			class="admin table table-hovered table-dark table-bordered table-striped">
-			<caption>Artistas</caption>
-			<thead>
-				<tr>
-					<th scope="col">Id</th>
-					<th scope="col">Nombre</th>
-					<th scope="col">Información</th>
-					<th scope="col">Opciones</th>
-				</tr>
-			</thead>
-			<tbody>
-				<!-- ${artista?.id} -->
-				<!-- ${artista != null ? artista.id : null} -->
-				<tr th:each="a: ${artistas}"
-					th:class="${a.id == artista?.id ? 'table-secondary' : ''}">
-					<th scope="row">[[${a.id}]]</th>
-					<td>[[${a.nombre}]]</td>
-					<td>[[${a.informacion}]]</td>
-					<td><a class="btn btn-outline-primary"
-						th:href="${'admin/artistas/editar/' + a.id}">Editar</a> <a
-						class="btn btn-outline-danger"
-						th:onclick="return confirm('¿Estás seguro de que quieres borrar [[${a.nombre}]]?')"
-						th:href="${'admin/artistas/borrar/' + a.id}">Borrar</a> <a
-						class="btn btn-outline-primary"
-						th:href="${'admin/artistas/seleccionar/' + a.id}">Seleccionar</a></td>
-				</tr>
-			</tbody>
-			<tfoot>
-				<tr>
-					<td></td>
-					<td></td>
-					<td></td>
-					<td><a class="btn btn-outline-primary"
-						href="admin/artistas/agregar">Añadir</a></td>
-				</tr>
-			</tfoot>
-		</table>
+		<div th:replace="~{fragmentos/admin/tabla_artistas :: tabla_artistas}"></div>
 
-
-		<div th:if="${artista != null}">
-			<h1 class="pb-3 border-bottom">[[${artista.nombre}]]</h1>
-
-			<p class="pb-3 border-bottom">[[${artista.informacion}]]</p>
-
-			<table
-				class="admin table table-hovered table-dark table-bordered table-striped">
-				<caption>Álbumes</caption>
-				<thead>
-					<tr>
-						<th>Id</th>
-						<th>Foto</th>
-						<th>Nombre</th>
-						<th>Año</th>
-						<th>Opciones</th>
-					</tr>
-				</thead>
-				<tbody>
-
-					<tr th:each="a: ${artista.albumes}" class="position-relative">
-						<td>[[${a.id}]]</td>
-						<td><img class="img-thumbnail" width="100" th:src="${a.foto}"
-							alt=""></td>
-						<td>[[${a.nombre}]]</td>
-						<td>[[${a.anno}]]</td>
-						<td><a class="btn btn-outline-primary"
-							th:href="${'admin/albumes/editar/' + a.id}">Editar</a> <a
-							class="btn btn-outline-danger"
-							th:onclick="return confirm('¿Estás seguro de que quieres borrar [[${a.nombre}]]?')"
-							th:href="${'admin/albumes/borrar/' + a.id}">Borrar</a> <a
-							class="btn btn-outline-primary"
-							th:href="${'admin/albumes/seleccionar/' + a.id}">Seleccionar</a></td>
-					</tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td><a class="btn btn-outline-primary"
-							th:href="${'admin/artistas/' + artista.id + '/albumes/agregar'}">Añadir</a></td>
-					</tr>
-				</tfoot>
-			</table>
-		</div>
+		<div th:replace="~{fragmentos/admin/tabla_albumes :: tabla_albumes}"></div>
 	</article>
 </body>
 </html>

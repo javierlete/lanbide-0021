@@ -68,6 +68,7 @@ public class AdminController {
 			artistaDTO = modelMapper.map(artista, ArtistaDTO.class);
 		}
 		
+		modelo.addAttribute("artista", artista);
 		modelo.addAttribute("artistaDTO", artistaDTO);
 		modelo.addAttribute(ALERTA, new Alerta("Modifica los datos del artista", "info"));
 		
