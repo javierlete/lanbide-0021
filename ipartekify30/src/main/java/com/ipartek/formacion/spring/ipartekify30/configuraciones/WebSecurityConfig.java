@@ -1,5 +1,6 @@
 package com.ipartek.formacion.spring.ipartekify30.configuraciones;
 
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.ipartek.formacion.spring.ipartekify30.entidades.Usuario;
@@ -21,6 +23,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	private IpartekifyService servicio;
+	
+	private HttpSession session;
+	
+	public Usuario getUsuario() {
+		return session == null ? null  : (Usuario) session.getAttribute("usuario");
+	}
 	
 	// AUTENTICACIÓN
 	// https://bcrypt-generator.com/   (10 rounds)
@@ -42,6 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
+			.sessionManagement()
+	    	.sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
+		
+		http
 			.authorizeRequests()
 				.antMatchers("/css/**", "/js/**", "/favicon.ico").permitAll()
 				.antMatchers("/admin/**").hasRole("ADMIN")
@@ -52,7 +64,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.successHandler((request, response, authentication) -> {
 					Usuario usuario = servicio.obtenerUsuarioPorEmail(authentication.getName());
 					
-					request.getSession().setAttribute("usuario", usuario);
+					session = request.getSession();
+					
+					session.setAttribute("usuario", usuario);
 					
 					response.sendRedirect("/");
 				})

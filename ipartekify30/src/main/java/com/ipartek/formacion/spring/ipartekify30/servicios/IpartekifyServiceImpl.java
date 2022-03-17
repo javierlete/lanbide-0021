@@ -21,6 +21,9 @@ import lombok.extern.java.Log;
 @Log
 @Service
 class IpartekifyServiceImpl implements IpartekifyService {
+	private static final String NO_EXISTE = " no existe";
+	private static final String NO_SE_HA_ENCONTRADO_LA_LISTA = "No se ha encontrado la lista ";
+	
 	@Autowired
 	private ArtistasRepository repoArtistas;
 	@Autowired
@@ -47,11 +50,11 @@ class IpartekifyServiceImpl implements IpartekifyService {
 		if (artista.isPresent()) {
 			return artista.get();
 		} else {
-			log.warning("El artista " + id + " no existe");
+			log.warning("El artista " + id + NO_EXISTE);
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Album obtenerAlbum(long id) {
 		log.info("Se ha pedido el album " + id);
@@ -61,11 +64,11 @@ class IpartekifyServiceImpl implements IpartekifyService {
 		if (album.isPresent()) {
 			return album.get();
 		} else {
-			log.warning("El album " + id + " no existe");
+			log.warning("El album " + id + NO_EXISTE);
 			return null;
 		}
 	}
-	
+
 	@Override
 	public Cancion obtenerCancion(long id) {
 		log.info("Se ha pedido la canción " + id);
@@ -75,7 +78,7 @@ class IpartekifyServiceImpl implements IpartekifyService {
 		if (cancion.isPresent()) {
 			return cancion.get();
 		} else {
-			log.warning("La canción " + id + " no existe");
+			log.warning("La canción " + id + NO_EXISTE);
 			return null;
 		}
 	}
@@ -112,7 +115,7 @@ class IpartekifyServiceImpl implements IpartekifyService {
 		repoListas.save(lista);
 
 		usuario.getBiblioteca().add(lista);
-		
+
 		guardarUsuario(usuario);
 	}
 
@@ -120,33 +123,61 @@ class IpartekifyServiceImpl implements IpartekifyService {
 	public void nuevaLista(String nombre, Usuario usuario) {
 		Lista lista = new Lista();
 		lista.setNombre(nombre);
-		
+
 		nuevaLista(lista, usuario);
 	}
 
 	@Override
 	public void agregarCancionLista(long idLista, long idCancion) {
-		Lista lista = repoListas.findById(idLista).get();
-		Cancion cancion = repoCanciones.findById(idCancion).get();
-		
+		Optional<Lista> oLista = repoListas.findById(idLista);
+		Optional<Cancion> oCancion = repoCanciones.findById(idCancion);
+
+		if (oLista.isEmpty()) {
+			throw new IpartekifyServiceException(NO_SE_HA_ENCONTRADO_LA_LISTA + idLista);
+		}
+
+		if (oCancion.isEmpty()) {
+			throw new IpartekifyServiceException("No se ha encontrado la canción " + idCancion);
+		}
+
+		Lista lista = oLista.get();
+		Cancion cancion = oCancion.get();
+
 		lista.getCanciones().add(cancion);
-		
+
 		repoListas.save(lista);
 	}
 
 	@Override
 	public void quitarCancionLista(long idLista, long idCancion) {
-		Lista lista = repoListas.findById(idLista).get();
-		Cancion cancion = repoCanciones.findById(idCancion).get();
-		
+		Optional<Lista> oLista = repoListas.findById(idLista);
+		Optional<Cancion> oCancion = repoCanciones.findById(idCancion);
+
+		if (oLista.isEmpty()) {
+			throw new IpartekifyServiceException(NO_SE_HA_ENCONTRADO_LA_LISTA + idLista);
+		}
+
+		if (oCancion.isEmpty()) {
+			throw new IpartekifyServiceException("No se ha encontrado la canción " + idCancion);
+		}
+
+		Lista lista = oLista.get();
+		Cancion cancion = oCancion.get();
+
 		lista.getCanciones().remove(cancion);
-		
 		repoListas.save(lista);
 	}
-	
+
 	@Override
 	public Lista obtenerLista(long idLista) {
-		return repoListas.findById(idLista).get();
+		Optional<Lista> oLista = repoListas.findById(idLista);
+		
+		if(oLista.isEmpty()) {
+			throw new IpartekifyServiceException(NO_SE_HA_ENCONTRADO_LA_LISTA + idLista);
+			// Podría devolver null en lugar de lanzar una excepción
+		}
+		
+		return oLista.get();
 	}
 
 }

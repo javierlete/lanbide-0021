@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Album;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Artista;
 import com.ipartek.formacion.spring.ipartekify30.entidades.Cancion;
-import com.ipartek.formacion.spring.ipartekify30.entidades.Usuario;
 
 @SpringBootTest
 class IndexControllerTest {
@@ -28,6 +27,13 @@ class IndexControllerTest {
 		Object objArtistas = modelo.getAttribute("artistas");
 		assertNotNull(objArtistas, "Debe existir un objeto artistas");
 		assertInstanceOf(Iterable.class, objArtistas);
+		
+		@SuppressWarnings("unchecked")
+		Iterable<Artista> artistas = (Iterable<Artista>) objArtistas;
+		
+		Artista artista = artistas.iterator().next();
+		
+		assertEquals(new Artista(1L, "Fundación Tony Manero", "Disco Funk"), artista);
 	}
 	
 	@Test
@@ -65,10 +71,9 @@ class IndexControllerTest {
 	void cancion() {
 		long idCancion = 2L;
 		Model modelo = new ExtendedModelMap();
-		Usuario usuario = new Usuario(1L, "javier@lete.net", "contraseñaencriptada", "ADMIN", null);
 		String favoritas = null;
 		
-		String vista = indexController.cancion(idCancion, modelo, usuario, favoritas);
+		String vista = indexController.cancion(idCancion, modelo, favoritas);
 		assertEquals("index", vista);
 		
 		Object objArtista = modelo.getAttribute("artista");
