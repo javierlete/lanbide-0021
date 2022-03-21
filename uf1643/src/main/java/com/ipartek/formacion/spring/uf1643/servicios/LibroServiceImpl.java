@@ -40,4 +40,13 @@ public class LibroServiceImpl implements LibroService {
 		return repo.findByTituloContainingOrIsbnContaining(termino, termino);
 	}
 
+	@Override
+	public void guardar(Libro libro) {
+		try {
+			repo.save(libro);
+		} catch(Exception e) {
+			throw new ServiciosException("No se ha podido guardar el libro", e);
+		}
+	}
+
 }

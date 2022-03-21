@@ -8,4 +8,5 @@ public interface LibroService {
 	Iterable<Libro> filtroPorNombre(String nombre);
 	Libro filtroPorIsbn(String isbn);
 	Iterable<Libro> filtroCombinado(String termino);
+	void guardar(Libro libro);
 }

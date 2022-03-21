@@ -57,15 +57,53 @@
 		</tbody>
 	</table>
 
-	<dl th:if="${libro != null}">
+	<form action="/guardar" method="post" th:object="${libroForm}">
+		<div th:each="err : ${#fields.errors('*')}"
+			class="alert alert-danger alert-dismissible fade show" role="alert">
+			[[${err}]]
+			<button type="button" class="btn-close" data-bs-dismiss="alert"
+				aria-label="Close"></button>
+		</div>
+		<input type="hidden" th:field="*{id}" />
+		<div class="row mb-3">
+			<label for="titulo" class="col-sm-2 col-form-label">Título</label>
+			<div class="col-sm-10">
+				<input class="form-control" th:field="*{titulo}">
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="isbn" class="col-sm-2 col-form-label">ISBN</label>
+			<div class="col-sm-10">
+				<input
+					th:class="'form-control ' + ${#fields.hasErrors('isbn') ? 'is-invalid' : 'is-valid'}"
+					th:field="*{isbn}">
+				<div th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"
+					class="invalid-feedback"></div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
+			<div class="col-sm-10">
+				<textarea class="form-control" th:field="*{descripcion}"></textarea>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="offset-sm-2 col-sm-10">
+				<button type="submit" class="btn btn-primary">Guardar</button>
+			</div>
+		</div>
+
+	</form>
+
+	<dl th:if="${libroForm != null}">
 		<dt>Id</dt>
-		<dd>[[${libro.id}]]</dd>
+		<dd>[[${libroForm.id}]]</dd>
 		<dt>Título</dt>
-		<dd>[[${libro.titulo}]]</dd>
+		<dd>[[${libroForm.titulo}]]</dd>
 		<dt>ISBN</dt>
-		<dd>[[${libro.isbn}]]</dd>
+		<dd>[[${libroForm.isbn}]]</dd>
 		<dt>Descripción</dt>
-		<dd>[[${libro.descripcion}]]</dd>
+		<dd>[[${libroForm.descripcion}]]</dd>
 	</dl>
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->
